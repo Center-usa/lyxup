@@ -887,7 +887,7 @@ function initMap(type){
 
         if(d.results && d.results.length > 0){
 
-            let input = document.getElementById(currentMapType);
+            let input = document.getElementById(type);
 
             if(input){
                 input.value = d.results[0].formatted_address;
@@ -896,16 +896,16 @@ function initMap(type){
 
                 calculatePrice();
 
-                closeMap(currentMapType); // ✅ كدة هتقفل
+                closeMap(type); // ✅ كدة هتقفل
             }
 
         } else {
-            closeMap(currentMapType); // برضو تقفل
+            closeMap(type); // برضو تقفل
         }
     })
     .catch(err=>{
         console.log(err);
-        closeMap(currentMapType); // حتى لو error
+        closeMap(type); // حتى لو error
     });
 });
 }
