@@ -6,7 +6,6 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
-const fetch = require("node-fetch");
 const app = express();
 app.use(express.static(__dirname));
 app.set("trust proxy", 1);
@@ -68,8 +67,10 @@ app.use(rateLimit({
 
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-app.post("/webhook", bodyParser.raw({ type: "application/json" }), async (req, res) => {
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);let stripe;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+}app.post("/webhook", bodyParser.raw({ type: "application/json" }), async (req, res) => {
 
   const sig = req.headers["stripe-signature"];
   let event;
@@ -417,7 +418,7 @@ app.post("/calculate-price", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+const BASE_URL=https://lyxup-iuai.vercel.app
 
 // 💳 Stripe (🔥 تم إصلاحه بالكامل)
 app.post("/create-checkout-session", async (req, res) => {
