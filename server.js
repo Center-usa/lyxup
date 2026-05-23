@@ -877,7 +877,7 @@ app.get("/vip-service", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
 });
-module.exports = app;
 app.use((req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
+module.exports = app;
