@@ -879,3 +879,6 @@ app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
 });
 module.exports = app;
+app.use((req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
