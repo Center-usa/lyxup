@@ -226,7 +226,7 @@ app.use(express.json());
 const CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const SECRET = process.env.PAYPAL_SECRET;
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
+console.log("KEY:", process.env.GOOGLE_MAPS_API_KEY);
 const PRICE_MULTIPLIERS = { sedan: 1, suv: 1.15, h1: 1.25, hiace: 1.4, coaster: 1.6 };
 
 async function geocodeAddress(address) {
