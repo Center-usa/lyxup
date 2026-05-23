@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.set("trust proxy", 1);
 app.use(
   helmet({
