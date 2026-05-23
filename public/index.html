@@ -839,7 +839,7 @@ function syncReturnDate(val){
 
 let maps = {};
 let markers = {};
-
+let currentMapType = null;
 function openMap(type){
 	currentMapType = type; // 🔥 أهم سطر
     document.getElementById("mapPanel-"+type).classList.add("open");
