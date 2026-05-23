@@ -861,19 +861,19 @@ app.get("/geocode", async (req, res) => {
 
 
 app.get("/airport-transfer-cairo", (req, res) => {
-  res.sendFile(__dirname + "/airport.html");
+  res.sendFile(__dirname + "/public/airport.html");
 });
 app.get("/north-coast-transfer", (req, res) => {
-  res.sendFile(__dirname + "/north-coast-transfer.html");
+  res.sendFile(__dirname + "/public/north-coast-transfer.html");
 });
 app.get("/corporate-transport", (req, res) => {
-  res.sendFile(__dirname + "/corporate.html");
+  res.sendFile(__dirname + "/public/corporate.html");
 });
 app.get("/private-trips", (req, res) => {
-  res.sendFile(__dirname + "/trips.html");
+  res.sendFile(__dirname + "/public/trips.html");
 });
 app.get("/vip-service", (req, res) => {
-  res.sendFile(__dirname + "/vip.html");
+  res.sendFile(__dirname + "/public/vip.html");
 });
 app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
