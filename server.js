@@ -703,7 +703,7 @@ app.get("/instapay-info", (req, res) => {
 
 // 🔥 Health
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/public/index.html");
 });
 app.get("/success", (req, res) => {
   res.send(`
