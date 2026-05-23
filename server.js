@@ -700,10 +700,8 @@ app.get("/instapay-info", (req, res) => {
     });
 });
 
-// 🔥 Health
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
-});
+
+
 app.get("/success", (req, res) => {
   res.send(`
   <!DOCTYPE html>
@@ -879,7 +877,7 @@ app.get("/sitemap.xml", (req, res) => {
 });
 
 // fallback
-app.use((req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
