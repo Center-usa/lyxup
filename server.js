@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
-app.use(express.static("public"));
+
 app.set("trust proxy", 1);
 app.use(
   helmet({
@@ -223,7 +223,6 @@ Amount: €${amount}`
 
 
 app.use(express.json());
-app.use(express.static("public"));
 const CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const SECRET = process.env.PAYPAL_SECRET;
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
