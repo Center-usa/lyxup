@@ -868,7 +868,8 @@ function initMap(type){
     maps[type] = map;
 
     map.addListener("click", e => {
-
+	console.log("MAP CLICKED");
+	console.log("TYPE:", type);
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
 
