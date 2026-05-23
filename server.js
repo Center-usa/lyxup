@@ -877,7 +877,15 @@ app.get("/vip-service", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
 });
+
+// fallback
 app.use((req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
+
+// مهم
+app.listen(3000, () => {
+  console.log("Server running");
+});
+
 module.exports = app;
