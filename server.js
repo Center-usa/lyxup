@@ -859,11 +859,7 @@ app.get("/geocode", async (req, res) => {
     res.json(data);
 });
 
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
-});
 app.get("/airport-transfer-cairo", (req, res) => {
   res.sendFile(__dirname + "/airport.html");
 });
@@ -882,3 +878,4 @@ app.get("/vip-service", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
 });
+module.exports = app;
