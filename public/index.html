@@ -1,1 +1,1372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>LYXUP Limousine</title>
 
+<style>
+html, body {
+    touch-action: manipulation;
+    overflow-x: hidden;
+}
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #000;
+    color: #fff;
+    padding-bottom: 100px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #111;
+}
+
+.logo {
+    color: #ff3b3b;
+    font-weight: bold;
+}
+
+.hero {
+    padding: 20px 15px;
+}
+
+.hero h1 {
+    text-align: center;
+}
+
+.input, select {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: #111;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+/* 🔥 DATE BOX */
+.date-box {
+    position: relative;
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    background: #111;
+    color: #aaa;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #222;
+}
+
+.date-box.active {
+    color: #fff;
+}
+
+/* 🔥 الحل الحقيقي */
+.hidden-date {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* 🔥 الكمبيوتر بس */
+@media (hover: hover) and (pointer: fine) {
+    .hidden-date {
+        position: static;
+        opacity: 1;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        background: #111;
+        color: #fff;
+        font-size: 16px;
+        direction: ltr;
+        text-align: left;
+    }
+
+    .date-box {
+        display: none;
+    }
+}
+
+/* باقي التصميم */
+.map-field-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.map-field-wrapper .input {
+    padding-left: 55px;
+    padding-right: 15px;
+}
+
+.map-toggle {
+    position: absolute;
+    left: 8px;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.map-panel {
+    display: none;
+    margin-top: 10px;
+}
+
+.map-panel.open {
+    display: block;
+}
+
+.map-box {
+    width: 100%;
+    height: 260px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.map-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.map-actions .btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 15px;
+}
+
+.secondary {
+    background: #333;
+}
+
+.trip-type {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.trip-type button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: #222;
+    color: #fff;
+}
+
+.trip-type .active {
+    background: #ff3b3b;
+}
+
+.btn {
+    width: 100%;
+    padding: 18px;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.primary { background: #ff3b3b; color: #fff; }
+
+.price-box {
+    background: #111;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
+    text-align: center;
+    min-height: 50px;
+}
+
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.card {
+    display: block;
+    text-decoration: none;
+    color: white;
+	-webkit-tap-highlight-color: transparent;
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+
+    border: 1px solid #222;
+
+    transition: all 0.3s ease;
+}
+.card:active {
+    transform: scale(0.98);
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* الجزء اليمين */
+.right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.car-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.desc {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+/* السهم */
+.arrow {
+    font-size: 18px;
+    color: #666;
+    transition: 0.3s;
+}
+
+/* Hover */
+.card:hover {
+    transform: translateY(-3px);
+    background: #1a1a1a;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.card:hover .arrow {
+    transform: translateX(-6px);
+    color: #fff;
+}
+
+/* 🔥 موبايل */
+@media (max-width: 480px) {
+
+    .card {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .desc {
+        font-size: 11px;
+    }
+
+    .car-img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .arrow {
+        font-size: 16px;
+    }
+}
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #000;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-top: 1px solid #111;
+}
+/* 🔥 input الكمبيوتر */
+.desktop-date {
+    display: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    direction: ltr;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* 🔥 يظهر بس في الكمبيوتر */
+@media (hover: hover) and (pointer: fine) {
+
+    .desktop-date {
+        display: block;
+    }
+
+    .date-box {
+        display: none;
+    }
+}
+/* 🔥 تبيض أيقونة التاريخ - كمبيوتر فقط */
+@media (hover: hover) and (pointer: fine) {
+
+    .desktop-date::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
+
+}
+.desktop-date-wrapper {
+    position: relative;
+}
+
+/* النص الوهمي */
+@media (hover: hover) and (pointer: fine) {
+
+    .desktop-date-wrapper.departure::after {
+        content: "تاريخ الذهاب";
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        pointer-events: none;
+    }
+
+    .desktop-date-wrapper.return::after {
+        content: "تاريخ العودة";
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        pointer-events: none;
+    }
+
+}
+
+/* لما المستخدم يختار تاريخ */
+.desktop-date-wrapper.has-value::after {
+    display: none;
+}
+.luggage-section {
+    margin-bottom: 10px;
+}
+
+.luggage-title {
+    margin-bottom: 8px;
+    color: #aaa;
+}
+
+.luggage-options {
+    display: flex;
+    gap: 8px;
+}
+
+.luggage-btn {
+    flex: 1;
+    background: #111;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #222;
+    font-size: 14px;
+}
+
+.luggage-btn.active {
+    background: #ff3b3b;
+}
+.currency-box {
+    margin-top: 12px;
+    padding: 12px;
+    background: #111;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.currency-box label {
+    display: block;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 6px;
+}
+
+#currency {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>☰</div>
+    <div class="logo">LYXUP</div>
+</div>
+
+<div class="hero">
+
+<h1>تجربة سفر مريحة وفاخرة</h1>
+
+<input id="name" class="input" placeholder="الاسم">
+<input id="phone" class="input" placeholder="رقم الهاتف">
+
+<div class="trip-type">
+    <button id="oneWayBtn" class="active" onclick="setTripType('oneway')">ذهاب فقط</button>
+    <button id="roundBtn" onclick="setTripType('round')">ذهاب وعودة</button>
+</div>
+
+<!-- 🔥 تاريخ الذهاب (موبايل) -->
+<div class="date-box">
+    <span id="dateText">📅 تاريخ الذهاب</span>
+    <input type="date" id="date" class="hidden-date" onchange="setDate()">
+</div>
+
+<!-- 🔥 تاريخ الذهاب (كمبيوتر) -->
+<div class="desktop-date-wrapper departure">
+    <input type="date" id="date-desktop" class="desktop-date" onchange="syncDate(this.value)">
+</div>
+
+<!-- 🔥 تاريخ العودة -->
+<div id="returnDateBox" style="display:none;">
+
+    <!-- 📱 موبايل -->
+    <div class="date-box">
+        <span id="returnDateText">📅 تاريخ العودة</span>
+        <input type="date" id="returnDate" class="hidden-date" onchange="setReturnDate()">
+    </div>
+
+    <!-- 💻 كمبيوتر -->
+    <div class="desktop-date-wrapper return">
+        <input type="date" id="returnDate-desktop" class="desktop-date" onchange="syncReturnDate(this.value)">
+    </div>
+
+</div>
+<div class="map-field-wrapper">
+    <input id="from" class="input" placeholder="من">
+    <button class="map-toggle" onclick="openMap('from')">📍</button>
+
+    <div id="mapPanel-from" class="map-panel">
+        <div id="map-from" class="map-box"></div>
+        <div class="map-actions">
+            <button class="btn secondary" onclick="useMyLocation('from')">📡 موقعي</button>
+            <button class="btn primary" onclick="closeMap('from')">تم</button>
+        </div>
+    </div>
+</div>
+
+<div class="map-field-wrapper">
+    <input id="to" class="input" placeholder="إلى">
+    <button class="map-toggle" onclick="openMap('to')">📍</button>
+
+    <div id="mapPanel-to" class="map-panel">
+        <div id="map-to" class="map-box"></div>
+        <div class="map-actions">
+            <button class="btn secondary" onclick="useMyLocation('to')">📡 موقعي</button>
+            <button class="btn primary" onclick="closeMap('to')">تم</button>
+        </div>
+    </div>
+</div>
+<div class="luggage-section">
+
+    <div class="luggage-title">🧳 هل لديك شنط؟</div>
+
+    <div class="luggage-options">
+
+        <div class="luggage-btn active" onclick="selectBags(0, this)">بدون</div>
+		<div class="luggage-btn" onclick="selectBags(2, this)">🧳 1-2</div>
+		<div class="luggage-btn" onclick="selectBags(5, this)">🧳 3-5</div>
+		<div class="luggage-btn" onclick="selectBags(8, this)">🧳 أكثر</div>
+
+    </div>
+
+</div>
+
+<select id="carType">
+    <option value="sedan">👤4 🚗 Sedan </option>
+    <option value="suv">👤6 🚙 SUV </option>
+    <option value="h1">👤7 🚐 H1 </option>
+    <option value="hiace">👤12 🚐 Hiace </option>
+    <option value="coaster">👤20+ 🚌 Coaster </option>
+</select>
+
+<button class="btn primary" onclick="calculatePrice()">احسب السعر 💰</button>
+
+<div id="price" class="price-box">السعر: --</div>
+<div class="currency-box">
+    <label>💱 اختر العملة</label>
+    <select id="currency">
+        <option value="EGP">🇪🇬 جنيه مصري</option>
+        <option value="EUR">🇪🇺 يورو</option>
+        <option value="USD">🇺🇸 دولار</option>
+    </select>
+</div>
+<button id="confirmBtn" class="btn primary" style="display:none;" onclick="sendWhatsApp()">
+💬إرسال تفاصيل الحجز عبر واتساب💬
+</button>
+<div id="paymentTypeBox" style="display:none; margin-top:10px;">
+
+    <label style="display:block; margin-bottom:8px; background:#111; padding:12px; border-radius:10px;">
+    <input type="radio" name="payType" value="deposit" onchange="onSelectPaymentType()">
+    💳 دفعة لتأكيد الحجز
+    <div style="font-size:12px; color:#aaa;">
+        يتم احتسابها ضمن إجمالي الرحلة
+    </div>
+	</label>
+
+	<label style="display:block; background:#111; padding:12px; border-radius:10px;">
+    <input type="radio" name="payType" value="full" onchange="onSelectPaymentType()">
+    💰 دفع كامل الرحلة
+	</label>
+
+</div>
+<!-- 💳 زر الدفع -->
+<button id="depositBtn" class="btn primary" onclick="togglePaymentOptions()" style="background:#00c853; display:none;">
+تأكيد الحجز 💳
+</button>
+
+
+
+<!-- 💰 طرق الدفع -->
+<div id="paymentOptions" style="display:none; margin-top:10px;">
+
+    <div class="btn" style="background:#111;" onclick="payStripe()">
+        💳 الدفع بالبطاقة (Visa / Mastercard)
+    </div>
+
+    <div class="btn" style="background:#111;" onclick="payPaypal()">
+        🅿️ الدفع عبر PayPal
+    </div>
+	<div id="paypal-button-container" style="margin-top:10px;"></div>
+
+    <div class="btn" style="background:#111;" onclick="payInstapay()">
+        📱 الدفع عبر Instapay
+    </div>
+
+</div>
+
+</div>
+
+<div class="services">
+    <a href="/airport-transfer-cairo" class="card" title="حجز توصيل من وإلى مطار القاهرة بسيارة خاصة" aria-label="احجز خدمة توصيل مطار القاهرة">
+  <div class="card-content">
+
+    <div class="right">
+      <img src="/images/airport.png" class="car-img" alt="توصيل مطار القاهرة">
+      
+      <div class="text">
+        <div class="title">توصيل مطار القاهرة</div>
+        <div class="desc">من وإلى المطار بأسعار مميزة</div>
+      </div>
+    </div>
+
+    <div class="arrow">→</div>
+
+  </div>
+</a>
+    <a href="/north-coast-transfer" class="card" 
+title="حجز توصيل إلى الساحل الشمالي بسيارة خاصة" 
+aria-label="احجز رحلة إلى الساحل الشمالي">
+
+  <div class="card-content">
+
+    <div class="right">
+      <img src="/images/coast.png" class="car-img" alt="توصيل الساحل الشمالي">
+      
+      <div class="text">
+        <div class="title">توصيل الساحل الشمالي</div>
+        <div class="desc">رحلات مريحة وسريعة بأفضل الأسعار</div>
+      </div>
+    </div>
+
+    <div class="arrow">→</div>
+
+  </div>
+</a>
+    <a href="/corporate-transport" class="card" 
+title="حجز خدمات نقل للشركات والتنقلات الرسمية بسيارات فاخرة" 
+aria-label="احجز خدمة نقل الشركات">
+
+  <div class="card-content">
+
+    <div class="right">
+      <img src="/images/corporate.png" class="car-img" alt="خدمة نقل الشركات">
+      
+      <div class="text">
+        <div class="title">نقل الشركات</div>
+        <div class="desc">تنقلات رسمية وخدمة احترافية لرجال الأعمال</div>
+      </div>
+    </div>
+
+    <div class="arrow">→</div>
+
+  </div>
+</a>
+    <a href="/private-trips" class="card" 
+title="حجز رحلات خاصة داخل وخارج المدينة بسيارة خاصة" 
+aria-label="احجز رحلة خاصة">
+
+  <div class="card-content">
+
+    <div class="right">
+      <img src="/images/trips.png" class="car-img" alt="رحلات خاصة">
+      
+      <div class="text">
+        <div class="title">رحلات خاصة</div>
+        <div class="desc">تنقلات مرنة داخل وخارج المدينة براحة تامة</div>
+      </div>
+    </div>
+
+    <div class="arrow">→</div>
+
+  </div>
+</a>
+<a href="/vip-service" class="card" 
+title="حجز خدمة VIP بسيارات فاخرة وسائقين محترفين" 
+aria-label="احجز خدمة VIP">
+
+  <div class="card-content">
+
+    <div class="right">
+      <img src="/images/vip.png" class="car-img" alt="خدمة VIP">
+      
+      <div class="text">
+        <div class="title">خدمة VIP</div>
+        <div class="desc">سيارات فاخرة وتجربة تنقل راقية</div>
+      </div>
+    </div>
+
+    <div class="arrow">→</div>
+
+  </div>
+</a>
+</div>
+
+<div class="bottom-bar">
+    <div>🏠 الرئيسية</div>
+    <div>احجز 🚗</div>
+    <div onclick="sendWhatsApp()">واتساب 💬</div>
+    <div onclick="window.location='tel:01202712711'"> اتصال 📞</div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWg70A6qsRR6yNjXUl26oTgglpp_KI7rA"></script>
+
+<script>
+const API_URL =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1" ||
+  window.location.hostname.startsWith("192.168")
+    ? "http://localhost:3000"
+    : window.location.origin;
+
+	let bags = 0;
+// اختيار الشنط
+function selectBags(val, el){
+    bags = val;
+
+    document.querySelectorAll(".luggage-btn").forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    el.classList.add("active");
+
+    let carType = document.getElementById("carType").value;
+
+	if(!carType){
+    carType = "sedan";
+	}
+
+    if(bags >= 3 && carType === "sedan"){
+        alert("يفضل اختيار SUV أو H1 بسبب عدد الشنط");
+    }
+}
+
+function syncDate(val){
+    const wrapper = document.querySelector(".desktop-date-wrapper.departure");
+
+    if(val){
+        document.getElementById("dateText").innerText = "📅 " + val;
+
+        // يخفي placeholder
+        wrapper.classList.add("has-value");
+
+        // يمنع اختيار رجوع قبل الذهاب
+        document.getElementById("returnDate-desktop").min = val;
+        document.getElementById("returnDate").min = val;
+
+        // 🔥 الجزء المهم
+        let returnInput = document.getElementById("returnDate-desktop");
+        let returnMobile = document.getElementById("returnDate");
+
+        if(returnInput.value && new Date(returnInput.value) < new Date(val)){
+            returnInput.value = "";
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
+        }
+
+        if(returnMobile.value && returnMobile.value < val){
+            returnMobile.value = "";
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
+        }
+
+    } else {
+        // 🔥 دي مهمة جداً
+        wrapper.classList.remove("has-value");
+    }
+}
+
+
+function setDate(){
+    let val = document.getElementById("date").value;
+
+    if(val){
+        document.getElementById("dateText").innerText = "📅 " + val;
+        document.querySelector(".date-box").classList.add("active");
+
+        // 🔥 نفس فكرة الكمبيوتر
+        document.getElementById("returnDate").min = val;
+        document.getElementById("returnDate-desktop").min = val;
+
+        // 🔥 الجزء المهم (اللي كان ناقصك)
+        let returnInput = document.getElementById("returnDate-desktop");
+        let returnMobile = document.getElementById("returnDate");
+
+        if(returnInput.value && new Date(returnInput.value) < new Date(val)){
+            returnInput.value = "";
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
+        }
+
+        if(returnMobile.value && returnMobile.value < val){
+            returnMobile.value = "";
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
+        }
+    }
+}
+
+let tripType = "oneway";
+
+function setTripType(type){
+    tripType = type;
+
+    document.getElementById("oneWayBtn").classList.remove("active");
+    document.getElementById("roundBtn").classList.remove("active");
+
+    if(type === "oneway"){
+        document.getElementById("oneWayBtn").classList.add("active");
+        document.getElementById("returnDateBox").style.display = "none";
+
+        // 🔥 امسح القيم
+        document.getElementById("returnDate").value = "";
+        document.getElementById("returnDate-desktop").value = "";
+
+        // 🔥 امسح الـ min constraint
+        document.getElementById("returnDate").removeAttribute("min");
+        document.getElementById("returnDate-desktop").removeAttribute("min");
+
+        // 🔥 رجّع النص
+        document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+
+        // 🔥 شيل placeholder
+        document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
+
+    } else {
+        document.getElementById("roundBtn").classList.add("active");
+        document.getElementById("returnDateBox").style.display = "block";
+    }
+}
+function setReturnDate(){
+    let val = document.getElementById("returnDate").value;
+
+    if(val){
+        document.getElementById("returnDateText").innerText = "📅 " + val;
+    }
+}
+
+function syncReturnDate(val){
+    const wrapper = document.querySelector(".desktop-date-wrapper.return");
+	if(!wrapper) return;
+
+    if(val){
+        document.getElementById("returnDateText").innerText = "📅 " + val;
+        wrapper.classList.add("has-value");
+    } else {
+        wrapper.classList.remove("has-value");
+    }
+}
+
+let maps = {};
+let markers = {};
+
+function openMap(type){
+	currentMapType = type; // 🔥 أهم سطر
+    document.getElementById("mapPanel-"+type).classList.add("open");
+
+    setTimeout(()=>{
+        initMap(type);
+
+        if(maps[type]){
+            google.maps.event.trigger(maps[type], "resize");
+        }
+    }, 300);
+}
+
+function closeMap(type){
+    document.getElementById("mapPanel-"+type).classList.remove("open");
+}
+
+function initMap(type){
+    if(maps[type]) return;
+
+    let map = new google.maps.Map(document.getElementById("map-"+type), {
+        center: { lat: 30.0444, lng: 31.2357 },
+        zoom: 6
+    });
+
+    maps[type] = map;
+
+    map.addListener("click", e => {
+
+    const lat = e.latLng.lat();
+    const lng = e.latLng.lng();
+
+    if(markers[type]) markers[type].setMap(null);
+
+    markers[type] = new google.maps.Marker({
+        position: e.latLng,
+        map: map
+    });
+
+    fetch(`${API_URL}/geocode?lat=${lat}&lng=${lng}`)
+    .then(r => r.json())
+    .then(d => {
+
+        console.log("GEOCODE RESULT:", d);
+
+        if(d.results && d.results.length > 0){
+
+            let input = document.getElementById(currentMapType);
+
+            if(input){
+                input.value = d.results[0].formatted_address;
+
+                input.dispatchEvent(new Event("input"));
+
+                calculatePrice();
+
+                closeMap(currentMapType); // ✅ كدة هتقفل
+            }
+
+        } else {
+            closeMap(currentMapType); // برضو تقفل
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        closeMap(currentMapType); // حتى لو error
+    });
+});
+}
+
+function useMyLocation(type){
+    navigator.geolocation.getCurrentPosition(pos=>{
+        let lat = pos.coords.latitude;
+        let lng = pos.coords.longitude;
+
+     fetch(`${API_URL}/geocode?lat=${lat}&lng=${lng}`)
+	.then(r => r.json()) // 🔥 دي كانت ناقصة
+	.then(d => {
+
+    if(d.results && d.results.length > 0){
+
+        let input = document.getElementById(type);
+
+        if(input){
+            input.value = d.results[0].formatted_address;
+
+            input.dispatchEvent(new Event("input"));
+
+            calculatePrice();
+        }
+
+    } else {
+        console.log("NO RESULTS");
+    }
+
+});
+		});
+}
+
+function setTrip(place){
+    document.getElementById("to").value = place;
+}
+
+function sendWhatsApp(){
+
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+    let price = document.getElementById("price").innerText;
+    let car = document.getElementById("carType").value;
+
+    // 🔥 validation مهم
+    if(!name || !phone || !from || !to){
+        alert("من فضلك اكمل البيانات");
+        return;
+    }
+	// 🔥 نحدد هل ده كمبيوتر ولا موبايل
+let isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+let date = "";
+let returnDate = "";
+
+if(isDesktop){
+    // 💻 كمبيوتر
+    date = document.getElementById("date-desktop").value;
+    returnDate = document.getElementById("returnDate-desktop").value;
+}else{
+    // 📱 موبايل
+    date = document.getElementById("date").value;
+    returnDate = document.getElementById("returnDate").value;
+}
+if(tripType === "round" && date && returnDate){
+    if(new Date(returnDate) < new Date(date)){
+        alert("تاريخ العودة لازم يكون بعد تاريخ الذهاب");
+        return;
+    }
+}
+
+let tripDateText = "";
+
+if(tripType === "oneway"){
+    if(date){
+        tripDateText = `📅 *تاريخ الذهاب:* ${date}`;
+    }
+}else{
+    if(date && returnDate){
+        tripDateText = `📅 *تاريخ الذهاب:* ${date}\n📅 *تاريخ العودة:* ${returnDate}`;
+    }
+}
+
+
+    let msg = `🚗 *حجز LYXUP*
+
+👤 *الاسم:* ${name}
+📞 *الموبايل:* ${phone}
+
+📍 *من:* ${from}
+📍 *إلى:* ${to}
+
+\n${tripDateText}\n
+
+🚘 *السيارة:* ${car}
+🧳 *الشنط:* ${bags}
+
+💰 *${price}*:
+
+✨ *تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز.*`;
+
+    window.open(`https://api.whatsapp.com/send?phone=201202712711&text=${encodeURIComponent(msg)}`);
+}
+
+async function calculatePrice(){
+
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+    let carType = document.getElementById("carType").value;
+    let currency = document.getElementById("currency").value;
+	console.log({from, to, carType, tripType, currency});
+
+    if(bags >= 3 && carType === "sedan"){
+        document.getElementById("price").innerText = "❌ عدد الشنط يتطلب سيارة أكبر";
+        return;
+    }
+
+    if(!from || !to){
+        document.getElementById("price").innerText = "اكتب العنوان";
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_URL}/calculate-price`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+			from,
+			to,
+			carType, // ✅ لازم نفس الاسم
+			tripType,
+			currency
+			})
+        });
+
+        const data = await res.json();
+
+        if(data.error){
+            throw new Error(data.error);
+        }
+
+        document.getElementById("price").innerText = data.text;
+
+        window.realPrice = data.rawPrice;
+
+        document.getElementById("confirmBtn").style.display = "block";
+        document.getElementById("paymentTypeBox").style.display = "block";
+
+    } catch(e){
+        document.getElementById("price").innerText = "❌ حصل خطأ";
+    }
+}
+
+function unlockUI() {
+  // رجع الاختيارات
+  document.querySelectorAll('input[name="payType"]').forEach(el => {
+    el.disabled = false;
+  });
+
+  // رجع زر PayPal
+  const paypalBtn = document.querySelector('[onclick="payPaypal()"]');
+  if (paypalBtn) paypalBtn.disabled = false;
+
+  // 🔥 المهم ده
+  const btn = document.getElementById("depositBtn");
+  if (btn) {
+    btn.disabled = false;
+    btn.innerText = "ادفع الآن"; // أو النص الأصلي
+  }
+
+  // تنظيف PayPal
+  document.getElementById("paypal-button-container").innerHTML = "";
+}
+async function payStripe(){
+
+    let selected = document.querySelector('input[name="payType"]:checked')?.value;
+    let currency = document.getElementById("currency").value;
+
+    if(!selected){
+        alert("من فضلك اختر نوع الدفع");
+        return;
+    }
+
+    // 🔥 اعمل confirm بدري
+    let ok = confirm(
+    "⚠️ سياسة الدفع والإلغاء:\n\n" +
+
+    "💳 يتم دفع 25% فقط لتأكيد الحجز، ويتم خصمها من إجمالي الرحلة.\n\n" +
+
+    "✔ يمكنك إلغاء الحجز واسترداد المبلغ بالكامل إذا تم الإلغاء قبل موعد الرحلة بـ 24 ساعة على الأقل.\n\n" +
+
+    "❌ في حالة الإلغاء خلال أقل من 24 ساعة من موعد الرحلة، لن يتم استرداد مبلغ التأكيد.\n\n" +
+
+    "🔒 الدفعة تستخدم لتأمين السيارة والسائق لك في الموعد المحدد.\n\n" +
+
+    "هل تريد المتابعة؟"
+	);
+
+    if(!ok){
+        return;
+    }
+
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+    let carType = document.getElementById("carType").value;
+
+    try {
+
+        const res = await fetch(`${API_URL}/create-checkout-session`, {
+			method: "POST",
+			headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: "",
+        from,
+        to,
+        carType,
+        price: window.realPrice,
+        bags,
+        notes: "",
+        tripDate: document.getElementById("date").value || document.getElementById("date-desktop").value,
+        returnDate: document.getElementById("returnDate").value || document.getElementById("returnDate-desktop").value,
+        tripType,
+        currency,
+        type: selected
+    })
+});
+
+        const data = await res.json();
+
+        if(data.url){
+            window.location.href = data.url; // 🔥 استخدم href
+        } else {
+            alert("فشل إنشاء جلسة الدفع");
+        }
+
+    } catch(err){
+        console.log(err);
+        alert("خطأ في الاتصال بالسيرفر");
+    }
+}
+function payPaypal(){
+
+    let selected = document.querySelector('input[name="payType"]:checked')?.value;
+
+    if(!selected){
+        alert("اختر نوع الدفع");
+        return;
+    }
+
+    if(!window.realPrice){
+        alert("احسب السعر الأول");
+        return;
+    }
+
+    // 🔥 اقفل الاختيارات
+    document.querySelectorAll('input[name="payType"]').forEach(el => {
+        el.disabled = true;
+    });
+
+    // 🔥 اقفل زر PayPal نفسه
+    const paypalBtn = document.querySelector('[onclick="payPaypal()"]');
+    if(paypalBtn) paypalBtn.disabled = true;
+
+    // 🔥 امسح أي زر قديم
+    document.getElementById("paypal-button-container").innerHTML = "";
+
+    paypal.Buttons({
+
+        createOrder: async function(){
+
+            const res = await fetch(`${API_URL}/create-paypal-order`, {
+			method: "POST",
+			headers: {
+			"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+			from: document.getElementById("from").value,
+			to: document.getElementById("to").value,
+			carType: document.getElementById("carType").value,
+			tripType: tripType,
+			currency: document.getElementById("currency").value,
+			type: selected
+		})
+	});
+
+            const data = await res.json();
+
+            if(!data.id){
+                console.log(data);
+                alert("❌ فشل إنشاء الدفع");
+
+                // 🔓 رجّع كل حاجة
+                unlockUI();
+                return;
+            }
+
+            return data.id;
+        },
+
+        onApprove: async function(data){
+
+            const res = await fetch(`${API_URL}/capture-paypal-order`, {
+			method: "POST",
+			headers: {
+			"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+			orderID: data.orderID,
+			name: document.getElementById("name").value,
+			phone: document.getElementById("phone").value,
+			email: "",
+			from: document.getElementById("from").value,
+			to: document.getElementById("to").value,
+			carType: document.getElementById("carType").value,
+			price: window.realPrice,
+			bags,
+			notes: "",
+			tripDate: document.getElementById("date").value || document.getElementById("date-desktop").value,
+			returnDate: document.getElementById("returnDate").value || document.getElementById("returnDate-desktop").value,
+			tripType
+    })
+});
+
+            const result = await res.json();
+
+            if(result.status === "COMPLETED"){
+			window.location.href = `${API_URL}/success`;
+		} else {
+                alert("❌ الدفع فشل");
+                unlockUI();
+            }
+        },
+
+        onCancel: function(data){
+            console.log("❌ تم إلغاء الدفع", data);
+
+            alert("تم إلغاء العملية");
+
+            // 🔓 رجّع كل حاجة
+            unlockUI();
+        },
+
+        onError: function(err){
+            console.log(err);
+            alert("❌ حصل خطأ في PayPal");
+
+            // 🔓 رجّع كل حاجة
+            unlockUI();
+        }
+
+    }).render('#paypal-button-container');
+}
+
+
+// 🔓 فك القفل (ترجع كل حاجة زي ما كانت)
+
+async function payInstapay(){
+
+    let selected = document.querySelector('input[name="payType"]:checked')?.value;
+
+    const res = await fetch(`${API_URL}/instapay-info`);
+    const data = await res.json();
+
+    let message = "";
+
+    if(selected === "full"){
+    message = 
+    "💰 تحويل كامل مبلغ الرحلة على الرقم:\n\n" +
+    data.number + "\n\n" +
+    "⚠️ بعد التحويل:\n" +
+    "اضغط على زر (إرسال تفاصيل الحجز عبر واتساب)\n" +
+    "وأرسل صورة التحويل لتأكيد الحجز";
+} else {
+    message = 
+    "💳 تحويل دفعة تأكيد الحجز على الرقم:\n\n" +
+    data.number + "\n\n" +
+    "⚠️ بعد التحويل:\n" +
+    "اضغط على زر (إرسال تفاصيل الحجز عبر واتساب)\n" +
+    "وأرسل صورة التحويل لتأكيد الحجز";
+}
+
+    alert(message);
+	// استنى نص ثانية وبعدين افتح واتساب
+	setTimeout(() => {
+    sendWhatsApp();
+	}, 500);
+}
+fetch(`${API_URL}/get-user-country`)
+.then(res => res.json())
+.then(data => {
+
+    let currencySelect = document.getElementById("currency");
+
+    if(data.country === "EG"){
+        currencySelect.value = "EGP";
+    }
+    else if(data.country === "US"){
+        currencySelect.value = "USD";
+    }
+    else{
+        currencySelect.value = "EUR";
+    }
+
+    currencySelect.addEventListener("change", function(){
+        calculatePrice();
+    });
+
+})
+.catch(() => {
+    document.getElementById("currency").value = "EUR";
+});
+let lastTouchEnd = 0;
+
+document.addEventListener('touchend', function (event) {
+    let now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+	function onSelectPaymentType(){
+    document.getElementById("depositBtn").style.display = "block";
+    document.getElementById("paypal-button-container").innerHTML = "";
+	}
+function togglePaymentOptions(){
+
+    console.log("فتح خيارات الدفع");
+
+    let selected = document.querySelector('input[name="payType"]:checked');
+
+    if(!selected){
+        alert("من فضلك اختر نوع الدفع");
+        return;
+    }
+
+    // اظهار طرق الدفع
+    document.getElementById("paymentOptions").style.display = "block";
+
+    // تعطيل الزر
+    const btn = document.getElementById("depositBtn");
+
+		if (btn) {
+		btn.disabled = true;
+		btn.innerText = "جاري التحميل...";
+
+		setTimeout(() => {
+        btn.innerText = "تأكيد الحجز 💳";
+        btn.disabled = false;
+		}, 2000);
+		}
+}
+
+</script>
+<script src="https://www.paypal.com/sdk/js?client-id=AWk0t8PTCrwSXmNaQoGPpRK5_uiAk9FKcSnnHxfNMP8rwQ51QSejG1guL0glLZodxZpj7LCE2buqc0vg&currency=EUR"></script>
+</body>
+</html>
