@@ -67,7 +67,6 @@ app.use(rateLimit({
 
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);let stripe;
 if (process.env.STRIPE_SECRET_KEY) {
   stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 }app.post("/webhook", bodyParser.raw({ type: "application/json" }), async (req, res) => {
@@ -418,7 +417,7 @@ app.post("/calculate-price", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-const BASE_URL=https://lyxup-iuai.vercel.app
+const BASE_URL = "https://lyxup-iuai.vercel.app";
 
 // 💳 Stripe (🔥 تم إصلاحه بالكامل)
 app.post("/create-checkout-session", async (req, res) => {
