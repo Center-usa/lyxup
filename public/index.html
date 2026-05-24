@@ -6,6 +6,9 @@
 <title>LYXUP</title>
 
 <style>
+html[dir="ltr"] .input {
+    text-align: left;
+}
 html, body {
     touch-action: manipulation;
     overflow-x: hidden;
@@ -531,7 +534,9 @@ body {
     <option value="coaster">👤20+ 🚌 Coaster </option>
 </select>
 
-<button class="btn primary" onclick="calculatePrice()">احسب السعر 💰</button>
+<button id="priceBtn" class="btn primary" onclick="calculatePrice()">
+  احسب السعر 💰
+</button>
 
 <div id="price" class="price-box">السعر: --</div>
 <div class="currency-box">
