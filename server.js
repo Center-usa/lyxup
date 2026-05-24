@@ -839,9 +839,11 @@ app.get("/success", (req, res) => {
 app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 app.get('/get-user-country', async (req, res) => {
   try {
-    const response = await fetch("https://ipwho.is/");
-    const data = await response.json();
-
+    const ip = (req.headers['x-forwarded-for'] || "")
+ 	 .split(",")[0]
+  	.trim() || req.socket.remoteAddress;
+	const response = await fetch(`https://ipwho.is/${ip}`);
+	const data = await response.json();
     const country = data.success ? data.country_code : "EG";
 
     console.log("🌍 COUNTRY:", country);
