@@ -360,25 +360,38 @@ body {
 /* النص الوهمي */
 @media (hover: hover) and (pointer: fine) {
 
-    .desktop-date-wrapper.departure::after {
-    content: attr(data-placeholder);
-    position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #aaa;
-    pointer-events: none;
-}
+    .desktop-date-wrapper {
+        position: relative;
+    }
 
-.desktop-date-wrapper.return::after {
-    content: attr(data-placeholder);
-    position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #aaa;
-    pointer-events: none;
-}
+    .desktop-date-wrapper.departure::after,
+    .desktop-date-wrapper.return::after {
+        content: attr(data-placeholder);
+        position: absolute;
+        right: 80px; /* 👈 مسافة من الأيقونة */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        pointer-events: none;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    /* 🔥 ضبط شكل input */
+    .desktop-date {
+        position: relative;
+        z-index: 2;
+        background: transparent;
+        color: transparent; /* 👈 يخفي mm/dd/yyyy */
+        caret-color: white; /* 👈 يخلي المؤشر ظاهر */
+    }
+
+    /* 🔥 أيقونة التاريخ */
+    .desktop-date::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+        opacity: 1;
+    }
 
 }
 
