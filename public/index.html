@@ -715,6 +715,10 @@ aria-label="احجز خدمة VIP">
     luggage: "🧳 هل لديك شنط؟",
     confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬",
 
+    // 🔥 التاريخ
+    dateDeparture: "📅 تاريخ الذهاب",
+    dateReturn: "📅 تاريخ العودة",
+
     // 🔥 alerts
     fillData: "من فضلك اكمل البيانات",
     error: "❌ حصل خطأ",
@@ -748,6 +752,10 @@ aria-label="احجز خدمة VIP">
     round: "Round trip",
     luggage: "🧳 Do you have luggage?",
     confirm: "💬Send booking via WhatsApp💬",
+
+    // 🔥 التاريخ
+    dateDeparture: "📅 Departure date",
+    dateReturn: "📅 Return date",
 
     // 🔥 alerts
     fillData: "Please fill all fields",
@@ -783,6 +791,10 @@ aria-label="احجز خدمة VIP">
     luggage: "🧳 ¿Tienes equipaje?",
     confirm: "💬Enviar reserva por WhatsApp💬",
 
+    // 🔥 التاريخ
+    dateDeparture: "📅 Fecha de salida",
+    dateReturn: "📅 Fecha de regreso",
+
     // 🔥 alerts
     fillData: "Por favor completa los datos",
     error: "❌ Ocurrió un error",
@@ -805,7 +817,6 @@ aria-label="احجز خدمة VIP">
     }
   }
 };
-
 let browserLang = navigator.language;
 
 let lang =
@@ -844,14 +855,16 @@ function selectBags(val, el){
 	function applyTranslations() {
   const t = translations[lang];
 
+  // العنوان
   document.getElementById("title").innerText = t.title;
 
+  // الحقول
   document.getElementById("name").placeholder = t.name;
   document.getElementById("phone").placeholder = t.phone;
   document.getElementById("from").placeholder = t.from;
   document.getElementById("to").placeholder = t.to;
 
-  // 👇 الجديد (الأزرار)
+  // 🔥 أزرار الرحلة
   const oneWayBtn = document.getElementById("oneWayBtn");
   if(oneWayBtn){
     oneWayBtn.innerText = t.oneWay;
@@ -862,23 +875,36 @@ function selectBags(val, el){
     roundBtn.innerText = t.round;
   }
 
+  // 🔥 الشنط
   const luggageTitle = document.getElementById("luggageTitle");
   if(luggageTitle){
     luggageTitle.innerText = t.luggage;
   }
 
-  // زر السعر
+  // 🔥 التاريخ (المهم)
+  const dateText = document.getElementById("dateText");
+  if(dateText){
+    dateText.innerText = t.dateDeparture;
+  }
+
+  const returnDateText = document.getElementById("returnDateText");
+  if(returnDateText){
+    returnDateText.innerText = t.dateReturn;
+  }
+
+  // 🔥 زر السعر
   const priceBtn = document.getElementById("priceBtn");
   if(priceBtn){
     priceBtn.innerText = t.price;
   }
 
-  // زر واتساب
+  // 🔥 زر واتساب
   const confirmBtn = document.getElementById("confirmBtn");
   if(confirmBtn){
     confirmBtn.innerText = t.confirm;
   }
 
+  // 🔥 اتجاه الصفحة
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 }
 
@@ -901,13 +927,13 @@ function syncDate(val){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
