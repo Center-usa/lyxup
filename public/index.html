@@ -1311,15 +1311,46 @@ currencySelect.addEventListener("change", function(){
 });
 
 // ✅ fetch يحدد الدولة
+let currencySelect = document.getElementById("currency");
+
+// 1️⃣ نحاول من السيرفر
 fetch(`${API_URL}/get-user-country`)
 .then(res => res.json())
 .then(data => {
-    let currencySelect = document.getElementById("currency");
 
+    console.log("SERVER COUNTRY:", data.country);
+
+    // لو السيرفر قال مصر (غالبًا غلط)
     if(data.country === "EG"){
+        throw new Error("Server fallback triggered");
+    }
+
+    setCurrency(data.country);
+
+})
+.catch(() => {
+
+    // 2️⃣ fallback من الفرونت (الأدق)
+    fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+        console.log("FRONT COUNTRY:", data.country);
+        setCurrency(data.country);
+    })
+    .catch(() => {
+        currencySelect.value = "EUR";
+        calculatePrice();
+    });
+
+});
+
+
+// 🔥 function واحدة للتحكم
+function setCurrency(country){
+    if(country === "EG"){
         currencySelect.value = "EGP";
     }
-    else if(data.country === "US"){
+    else if(country === "US"){
         currencySelect.value = "USD";
     }
     else{
@@ -1327,9 +1358,11 @@ fetch(`${API_URL}/get-user-country`)
     }
 
     calculatePrice();
-})
-.catch(() => {
-    document.getElementById("currency").value = "EUR";
+}
+
+
+// 🔥 event بره (مهم)
+currencySelect.addEventListener("change", function(){
     calculatePrice();
 });
 let lastTouchEnd = 0;
