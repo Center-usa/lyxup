@@ -961,13 +961,13 @@ function setDate(){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
     }
