@@ -513,7 +513,7 @@ body {
 </div>
 <div class="luggage-section">
 
-    <div class="luggage-title">🧳 هل لديك شنط؟</div>
+    <div id="luggageTitle" class="luggage-title"></div>
 
     <div class="luggage-options">
 
@@ -710,6 +710,10 @@ aria-label="احجز خدمة VIP">
     from: "من",
     to: "إلى",
     price: "احسب السعر 💰",
+    oneWay: "ذهاب فقط",
+    round: "ذهاب وعودة",
+    luggage: "🧳 هل لديك شنط؟",
+    confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬"
   },
   en: {
     title: "Book in seconds",
@@ -718,6 +722,10 @@ aria-label="احجز خدمة VIP">
     from: "From",
     to: "To",
     price: "Calculate price 💰",
+    oneWay: "One way",
+    round: "Round trip",
+    luggage: "🧳 Do you have luggage?",
+    confirm: "💬Send booking via WhatsApp💬"
   },
   es: {
     title: "Reserva en segundos",
@@ -726,6 +734,10 @@ aria-label="احجز خدمة VIP">
     from: "Desde",
     to: "Hasta",
     price: "Calcular precio 💰",
+    oneWay: "Solo ida",
+    round: "Ida y vuelta",
+    luggage: "🧳 ¿Tienes equipaje?",
+    confirm: "💬Enviar reserva por WhatsApp💬"
   }
 };
 
@@ -774,9 +786,32 @@ function selectBags(val, el){
   document.getElementById("from").placeholder = t.from;
   document.getElementById("to").placeholder = t.to;
 
+  // 👇 الجديد (الأزرار)
+  const oneWayBtn = document.getElementById("oneWayBtn");
+  if(oneWayBtn){
+    oneWayBtn.innerText = t.oneWay;
+  }
+
+  const roundBtn = document.getElementById("roundBtn");
+  if(roundBtn){
+    roundBtn.innerText = t.round;
+  }
+
+  const luggageTitle = document.getElementById("luggageTitle");
+  if(luggageTitle){
+    luggageTitle.innerText = t.luggage;
+  }
+
+  // زر السعر
   const priceBtn = document.getElementById("priceBtn");
   if(priceBtn){
     priceBtn.innerText = t.price;
+  }
+
+  // زر واتساب
+  const confirmBtn = document.getElementById("confirmBtn");
+  if(confirmBtn){
+    confirmBtn.innerText = t.confirm;
   }
 
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
