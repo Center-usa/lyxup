@@ -1326,19 +1326,7 @@ fetch(`${API_URL}/get-user-country`)
 
 })
 .catch(() => {
-
-    // 2️⃣ fallback من الفرونت (الأدق)
-    fetch("https://ipapi.co/json/")
-	.then(res => res.json())
-	.then(data => {
-    console.log("REAL COUNTRY:", data.country);
-
-    setCurrency(data.country);
-})
-	.catch(() => {
     setCurrency("ES");
-});
-
 });
 
 
