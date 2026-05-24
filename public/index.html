@@ -713,8 +713,18 @@ aria-label="احجز خدمة VIP">
     oneWay: "ذهاب فقط",
     round: "ذهاب وعودة",
     luggage: "🧳 هل لديك شنط؟",
-    confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬"
+    confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬",
+
+    // 🔥 alerts
+    fillData: "من فضلك اكمل البيانات",
+    error: "❌ حصل خطأ",
+    writeAddress: "اكتب العنوان",
+    calcFirst: "احسب السعر الأول",
+    choosePayment: "من فضلك اختر نوع الدفع",
+    cancel: "تم إلغاء العملية",
+    dateError: "تاريخ العودة لازم يكون بعد تاريخ الذهاب"
   },
+
   en: {
     title: "Book in seconds",
     name: "Name",
@@ -725,8 +735,18 @@ aria-label="احجز خدمة VIP">
     oneWay: "One way",
     round: "Round trip",
     luggage: "🧳 Do you have luggage?",
-    confirm: "💬Send booking via WhatsApp💬"
+    confirm: "💬Send booking via WhatsApp💬",
+
+    // 🔥 alerts
+    fillData: "Please fill all fields",
+    error: "❌ Something went wrong",
+    writeAddress: "Enter address",
+    calcFirst: "Calculate price first",
+    choosePayment: "Please select payment type",
+    cancel: "Operation cancelled",
+    dateError: "Return date must be after departure"
   },
+
   es: {
     title: "Reserva en segundos",
     name: "Nombre",
@@ -737,7 +757,16 @@ aria-label="احجز خدمة VIP">
     oneWay: "Solo ida",
     round: "Ida y vuelta",
     luggage: "🧳 ¿Tienes equipaje?",
-    confirm: "💬Enviar reserva por WhatsApp💬"
+    confirm: "💬Enviar reserva por WhatsApp💬",
+
+    // 🔥 alerts
+    fillData: "Por favor completa los datos",
+    error: "❌ Ocurrió un error",
+    writeAddress: "Introduce la dirección",
+    calcFirst: "Calcula el precio primero",
+    choosePayment: "Selecciona el tipo de pago",
+    cancel: "Operación cancelada",
+    dateError: "La fecha de regreso debe ser posterior"
   }
 };
 
@@ -1051,7 +1080,7 @@ function sendWhatsApp(){
 
     // 🔥 validation مهم
     if(!name || !phone || !from || !to){
-        alert("من فضلك اكمل البيانات");
+        alert(translations[lang].fillData);
         return;
     }
 	// 🔥 نحدد هل ده كمبيوتر ولا موبايل
@@ -1071,7 +1100,7 @@ if(isDesktop){
 }
 if(tripType === "round" && date && returnDate){
     if(new Date(returnDate) < new Date(date)){
-        alert("تاريخ العودة لازم يكون بعد تاريخ الذهاب");
+        alert(translations[lang].dateError);
         return;
     }
 }
@@ -1123,7 +1152,7 @@ async function calculatePrice(){
     }
 
     if(!from || !to){
-        document.getElementById("price").innerText = "اكتب العنوان";
+        document.getElementById("price").innerText = translations[lang].writeAddress;
         return;
     }
 
@@ -1261,7 +1290,7 @@ function payPaypal(){
     }
 
     if(!window.realPrice){
-        alert("احسب السعر الأول");
+        alert(translations[lang].calcFirst);
         return;
     }
 
