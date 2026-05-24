@@ -506,7 +506,7 @@ app.post("/create-checkout-session", async (req, res) => {
 
 async function getAccessToken() {
     const res = await axios({
-        url: "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+        url: "https://api-m.paypal.com/v1/oauth2/token",
         method: "post",
         auth: {
             username: CLIENT_ID,
@@ -548,7 +548,7 @@ app.post("/create-paypal-order", async (req, res) => {
         const accessToken = await getAccessToken();
 
         const response = await axios.post(
-            "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+            "https://api-m.paypal.com/v2/checkout/orders",
             {
                 intent: "CAPTURE",
                 purchase_units: [{
@@ -602,7 +602,7 @@ app.post("/capture-paypal-order", async (req, res) => {
 
     const response = await axios.post(
 	
-      `https://api-m.sandbox.paypal.com/v2/checkout/orders/${orderID}/capture`,
+      `https://api-m.paypal.com/v2/checkout/orders/${orderID}/capture`,
       {},
       {
         headers: {
