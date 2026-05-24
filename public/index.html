@@ -348,9 +348,9 @@ body {
 @media (hover: hover) and (pointer: fine) {
 
     .desktop-date::-webkit-calendar-picker-indicator {
-        opacity: 0;
-        pointer-events: none;
-    }
+    filter: invert(1);
+    cursor: pointer;
+}
 
 }
 .desktop-date-wrapper {
