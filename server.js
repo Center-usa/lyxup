@@ -703,6 +703,44 @@ app.get("/instapay-info", (req, res) => {
 
 
 app.get("/success", (req, res) => {
+
+  const lang = req.query.lang || "en";
+
+  const texts = {
+
+    ar: {
+      title: "تم تأكيد حجزك بنجاح ✅",
+      thanks: "شكرًا لاختيارك LYXUP 🚗",
+      contact: "سيتم التواصل معك خلال دقائق لتأكيد التفاصيل",
+      confirmed: "تم تأكيد الحجز",
+      note: "اضغط لتأكيد الحجز على واتساب",
+      whatsapp: "تأكيد عبر واتساب",
+      home: "رجوع للصفحة الرئيسية"
+    },
+
+    en: {
+      title: "Booking Confirmed ✅",
+      thanks: "Thank you for choosing LYXUP 🚗",
+      contact: "We will contact you shortly to confirm your ride",
+      confirmed: "Your booking is confirmed",
+      note: "Click to confirm via WhatsApp",
+      whatsapp: "Confirm on WhatsApp",
+      home: "Back to Home"
+    },
+
+    es: {
+      title: "Reserva confirmada ✅",
+      thanks: "Gracias por elegir LYXUP 🚗",
+      contact: "Nos pondremos en contacto contigo en breve",
+      confirmed: "Tu reserva está confirmada",
+      note: "Haz clic para confirmar por WhatsApp",
+      whatsapp: "Confirmar por WhatsApp",
+      home: "Volver al inicio"
+    }
+
+  };
+
+  const t = texts[lang] || texts.en;
   res.send(`
   <!DOCTYPE html>
   <html lang="en">
@@ -788,18 +826,19 @@ app.get("/success", (req, res) => {
     <div class="box">
       <div class="icon">🎉</div>
 
-      <h2>Booking Confirmed</h2>
+      <h2>${t.title}</h2>
 
-      <p>تم تأكيد حجزك بنجاح ✅</p>
-      <p>شكراً لاختيارك <strong>LYXUP 🚗</strong></p>
-      <p>سيتم التواصل معك خلال دقائق لتأكيد التفاصيل</p>
+	  <p>${t.thanks}</p>
+      <p>${t.contact}</p>
 
       <div class="divider"></div>
 
-      <p><strong>Your booking is confirmed</strong></p>
-      <p>We will contact you shortly to confirm your ride details</p>
-      <p>📩 Your request has been received</p>
-	  <p class="hint">👇 اضغط لتأكيد الحجز على واتساب</p>
+      <p><strong>${t.confirmed}</strong></p>
+      <p>${t.contact}</p>
+
+      <p>📩</p>
+
+	  <p class="hint">👇 ${t.note}</p>
 
 	  <style>
 	  .hint {
@@ -815,9 +854,9 @@ app.get("/success", (req, res) => {
 	 50% { transform: translateY(8px); }
 	 }
 </style>
-	  <button class="btn" onclick="openWhatsApp()">Confirm on WhatsApp</button>
+	  <button class="btn" onclick="openWhatsApp()">${t.whatsapp}</button>
 
-	  <button class="btn" onclick="goHome()">رجوع للصفحة الرئيسية</button>
+	  <button class="btn" onclick="goHome()">${t.home}</button>
 
 	  <script>
 	  function goHome() {
