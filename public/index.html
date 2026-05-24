@@ -1305,13 +1305,6 @@ async function payInstapay(){
 }
 let currencySelect = document.getElementById("currency");
 
-// ✅ event بره
-currencySelect.addEventListener("change", function(){
-    calculatePrice();
-});
-
-// ✅ fetch يحدد الدولة
-let currencySelect = document.getElementById("currency");
 
 // 1️⃣ نحاول من السيرفر
 fetch(`${API_URL}/get-user-country`)
@@ -1347,10 +1340,11 @@ fetch(`${API_URL}/get-user-country`)
 
 // 🔥 function واحدة للتحكم
 function setCurrency(country){
+
     if(country === "EG"){
         currencySelect.value = "EGP";
     }
-    else if(country === "US"){
+    else if(["US","CA","AU"].includes(country)){
         currencySelect.value = "USD";
     }
     else{
