@@ -1318,6 +1318,7 @@ fetch(`${API_URL}/get-user-country`)
     else{
         currencySelect.value = "EUR";
     }
+	calculatePrice();
 
     currencySelect.addEventListener("change", function(){
         calculatePrice();
@@ -1326,6 +1327,7 @@ fetch(`${API_URL}/get-user-country`)
 })
 .catch(() => {
     document.getElementById("currency").value = "EUR";
+	calculatePrice();
 });
 let lastTouchEnd = 0;
 
