@@ -6,9 +6,6 @@
 <title>LYXUP</title>
 
 <style>
-html[dir="ltr"] .input {
-    text-align: left;
-}
 html, body {
     touch-action: manipulation;
     overflow-x: hidden;
@@ -83,7 +80,28 @@ body {
     cursor: pointer;
 }
 
+/* 🔥 الكمبيوتر بس */
+@media (hover: hover) and (pointer: fine) {
+    .hidden-date {
+        position: static;
+        opacity: 1;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        background: #111;
+        color: #fff;
+        font-size: 16px;
+        direction: ltr;
+        text-align: left;
+    }
 
+    .date-box {
+        display: none;
+    }
+}
 
 /* باقي التصميم */
 .map-field-wrapper {
@@ -361,37 +379,6 @@ body {
 
 }
 
-    .desktop-date-wrapper.departure::after,
-    .desktop-date-wrapper.return::after {
-        content: attr(data-placeholder);
-        position: absolute;
-        right: 80px; /* 👈 مسافة من الأيقونة */
-        top: 50%;
-        transform: translateY(-50%);
-        color: #aaa;
-        pointer-events: none;
-        font-size: 14px;
-        white-space: nowrap;
-    }
-
-    /* 🔥 ضبط شكل input */
-    .desktop-date {
-        position: relative;
-        z-index: 2;
-        background: transparent;
-        color: transparent; /* 👈 يخفي mm/dd/yyyy */
-        caret-color: white; /* 👈 يخلي المؤشر ظاهر */
-    }
-
-    /* 🔥 أيقونة التاريخ */
-    .desktop-date::-webkit-calendar-picker-indicator {
-        filter: invert(1);
-        cursor: pointer;
-        opacity: 1;
-    }
-
-}
-
 /* لما المستخدم يختار تاريخ */
 .desktop-date-wrapper.has-value::after {
     display: none;
@@ -460,7 +447,7 @@ body {
 
 <div class="hero">
 
-<h1 id="title"></h1>
+<h1>تجربة سفر مريحة وفاخرة</h1>
 
 <input id="name" class="input" placeholder="الاسم">
 <input id="phone" class="input" placeholder="رقم الهاتف">
@@ -523,7 +510,7 @@ body {
 </div>
 <div class="luggage-section">
 
-    <div id="luggageTitle" class="luggage-title"></div>
+    <div class="luggage-title">🧳 هل لديك شنط؟</div>
 
     <div class="luggage-options">
 
@@ -544,9 +531,7 @@ body {
     <option value="coaster">👤20+ 🚌 Coaster </option>
 </select>
 
-<button id="priceBtn" class="btn primary" onclick="calculatePrice()">
-  احسب السعر 💰
-</button>
+<button class="btn primary" onclick="calculatePrice()">احسب السعر 💰</button>
 
 <div id="price" class="price-box">السعر: --</div>
 <div class="currency-box">
@@ -712,128 +697,6 @@ aria-label="احجز خدمة VIP">
 </script>
 
 <script>
-	const translations = {
-  ar: {
-    title: "احجز في ثواني",
-    name: "الاسم",
-    phone: "رقم الهاتف",
-    from: "من",
-    to: "إلى",
-    price: "احسب السعر 💰",
-    oneWay: "ذهاب فقط",
-    round: "ذهاب وعودة",
-    luggage: "🧳 هل لديك شنط؟",
-    confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬",
-
-    // 🔥 التاريخ
-    dateDeparture: "📅 تاريخ الذهاب",
-    dateReturn: "📅 تاريخ العودة",
-
-    // 🔥 alerts
-    fillData: "من فضلك اكمل البيانات",
-    error: "❌ حصل خطأ",
-    writeAddress: "اكتب العنوان",
-    calcFirst: "احسب السعر الأول",
-    choosePayment: "من فضلك اختر نوع الدفع",
-    cancel: "تم إلغاء العملية",
-    dateError: "تاريخ العودة لازم يكون بعد تاريخ الذهاب",
-
-    // 🔥 WhatsApp
-    whatsapp: {
-      title: "🚗 *حجز LYXUP*",
-      name: "👤 *الاسم:*",
-      phone: "📞 *الموبايل:*",
-      from: "📍 *من:*",
-      to: "📍 *إلى:*",
-      car: "🚘 *السيارة:*",
-      bags: "🧳 *الشنط:*",
-      success: "✨ تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز."
-    }
-  },
-
-  en: {
-    title: "Book in seconds",
-    name: "Name",
-    phone: "Phone number",
-    from: "From",
-    to: "To",
-    price: "Calculate price 💰",
-    oneWay: "One way",
-    round: "Round trip",
-    luggage: "🧳 Do you have luggage?",
-    confirm: "💬Send booking via WhatsApp💬",
-
-    // 🔥 التاريخ
-    dateDeparture: "📅 Departure date",
-    dateReturn: "📅 Return date",
-
-    // 🔥 alerts
-    fillData: "Please fill all fields",
-    error: "❌ Something went wrong",
-    writeAddress: "Enter address",
-    calcFirst: "Calculate price first",
-    choosePayment: "Please select payment type",
-    cancel: "Operation cancelled",
-    dateError: "Return date must be after departure",
-
-    // 🔥 WhatsApp
-    whatsapp: {
-      title: "🚗 *LYXUP Booking*",
-      name: "👤 *Name:*",
-      phone: "📞 *Phone:*",
-      from: "📍 *From:*",
-      to: "📍 *To:*",
-      car: "🚘 *Car:*",
-      bags: "🧳 *Luggage:*",
-      success: "✨ Your request has been sent successfully. We will contact you shortly."
-    }
-  },
-
-  es: {
-    title: "Reserva en segundos",
-    name: "Nombre",
-    phone: "Número de teléfono",
-    from: "Desde",
-    to: "Hasta",
-    price: "Calcular precio 💰",
-    oneWay: "Solo ida",
-    round: "Ida y vuelta",
-    luggage: "🧳 ¿Tienes equipaje?",
-    confirm: "💬Enviar reserva por WhatsApp💬",
-
-    // 🔥 التاريخ
-    dateDeparture: "📅 Fecha de salida",
-    dateReturn: "📅 Fecha de regreso",
-
-    // 🔥 alerts
-    fillData: "Por favor completa los datos",
-    error: "❌ Ocurrió un error",
-    writeAddress: "Introduce la dirección",
-    calcFirst: "Calcula el precio primero",
-    choosePayment: "Selecciona el tipo de pago",
-    cancel: "Operación cancelada",
-    dateError: "La fecha de regreso debe ser posterior",
-
-    // 🔥 WhatsApp
-    whatsapp: {
-      title: "🚗 *Reserva LYXUP*",
-      name: "👤 *Nombre:*",
-      phone: "📞 *Teléfono:*",
-      from: "📍 *Desde:*",
-      to: "📍 *Hasta:*",
-      car: "🚘 *Vehículo:*",
-      bags: "🧳 *Equipaje:*",
-      success: "✨ Tu solicitud ha sido enviada. Nos pondremos en contacto contigo."
-    }
-  }
-};
-let browserLang = navigator.language;
-
-let lang =
-  localStorage.getItem("lang") ||
-  (browserLang.startsWith("ar") ? "ar" :
-   browserLang.startsWith("es") ? "es" :
-   "en");
 const API_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1" ||
@@ -862,72 +725,6 @@ function selectBags(val, el){
         alert("يفضل اختيار SUV أو H1 بسبب عدد الشنط");
     }
 }
-	function applyTranslations() {
-  const t = translations[lang];
-
-  // العنوان
-  document.getElementById("title").innerText = t.title;
-
-  // الحقول
-  document.getElementById("name").placeholder = t.name;
-  document.getElementById("phone").placeholder = t.phone;
-  document.getElementById("from").placeholder = t.from;
-  document.getElementById("to").placeholder = t.to;
-
-  // 🔥 أزرار الرحلة
-  const oneWayBtn = document.getElementById("oneWayBtn");
-  if(oneWayBtn){
-    oneWayBtn.innerText = t.oneWay;
-  }
-
-  const roundBtn = document.getElementById("roundBtn");
-  if(roundBtn){
-    roundBtn.innerText = t.round;
-  }
-
-  // 🔥 الشنط
-  const luggageTitle = document.getElementById("luggageTitle");
-  if(luggageTitle){
-    luggageTitle.innerText = t.luggage;
-  }
-
-  // 🔥 التاريخ (موبايل)
-  const dateText = document.getElementById("dateText");
-  if(dateText){
-    dateText.innerText = t.dateDeparture;
-  }
-
-  const returnDateText = document.getElementById("returnDateText");
-  if(returnDateText){
-    returnDateText.innerText = t.dateReturn;
-  }
-
-  // 🔥 التاريخ (كمبيوتر - placeholder)
-  const depWrapper = document.querySelector(".desktop-date-wrapper.departure");
-  if(depWrapper){
-    depWrapper.setAttribute("data-placeholder", t.dateDeparture);
-  }
-
-  const retWrapper = document.querySelector(".desktop-date-wrapper.return");
-  if(retWrapper){
-    retWrapper.setAttribute("data-placeholder", t.dateReturn);
-  }
-
-  // 🔥 زر السعر
-  const priceBtn = document.getElementById("priceBtn");
-  if(priceBtn){
-    priceBtn.innerText = t.price;
-  }
-
-  // 🔥 زر واتساب
-  const confirmBtn = document.getElementById("confirmBtn");
-  if(confirmBtn){
-    confirmBtn.innerText = t.confirm;
-  }
-
-  // 🔥 اتجاه الصفحة
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-}
 
 function syncDate(val){
     const wrapper = document.querySelector(".desktop-date-wrapper.departure");
@@ -948,13 +745,13 @@ function syncDate(val){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
@@ -982,13 +779,13 @@ function setDate(){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = translations[lang].dateReturn;
+            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
     }
@@ -1161,67 +958,62 @@ function sendWhatsApp(){
     let price = document.getElementById("price").innerText;
     let car = document.getElementById("carType").value;
 
-    const t = translations[lang];
-    const w = t.whatsapp;
-
-    // 🔥 validation
+    // 🔥 validation مهم
     if(!name || !phone || !from || !to){
-        alert(t.fillData);
+        alert("من فضلك اكمل البيانات");
         return;
     }
+	// 🔥 نحدد هل ده كمبيوتر ولا موبايل
+let isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    // 🔥 تحديد نوع الجهاز
-    let isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+let date = "";
+let returnDate = "";
 
-    let date = "";
-    let returnDate = "";
-
-    if(isDesktop){
-        date = document.getElementById("date-desktop").value;
-        returnDate = document.getElementById("returnDate-desktop").value;
-    }else{
-        date = document.getElementById("date").value;
-        returnDate = document.getElementById("returnDate").value;
+if(isDesktop){
+    // 💻 كمبيوتر
+    date = document.getElementById("date-desktop").value;
+    returnDate = document.getElementById("returnDate-desktop").value;
+}else{
+    // 📱 موبايل
+    date = document.getElementById("date").value;
+    returnDate = document.getElementById("returnDate").value;
+}
+if(tripType === "round" && date && returnDate){
+    if(new Date(returnDate) < new Date(date)){
+        alert("تاريخ العودة لازم يكون بعد تاريخ الذهاب");
+        return;
     }
+}
 
-    // 🔥 validation التواريخ
-    if(tripType === "round" && date && returnDate){
-        if(new Date(returnDate) < new Date(date)){
-            alert(t.dateError);
-            return;
-        }
+let tripDateText = "";
+
+if(tripType === "oneway"){
+    if(date){
+        tripDateText = `📅 *تاريخ الذهاب:* ${date}`;
     }
-
-    // 🔥 نص التاريخ مترجم
-    let tripDateText = "";
-
-    if(tripType === "oneway"){
-        if(date){
-            tripDateText = `📅 ${date}`;
-        }
-    }else{
-        if(date && returnDate){
-            tripDateText = `📅 ${date}\n📅 ${returnDate}`;
-        }
+}else{
+    if(date && returnDate){
+        tripDateText = `📅 *تاريخ الذهاب:* ${date}\n📅 *تاريخ العودة:* ${returnDate}`;
     }
+}
 
-    // 🔥 الرسالة الديناميك
-    let msg = `${w.title}
 
-${w.name} ${name}
-${w.phone} ${phone}
+    let msg = `🚗 *حجز LYXUP*
 
-${w.from} ${from}
-${w.to} ${to}
+👤 *الاسم:* ${name}
+📞 *الموبايل:* ${phone}
 
-${tripDateText}
+📍 *من:* ${from}
+📍 *إلى:* ${to}
 
-${w.car} ${car}
-${w.bags} ${bags}
+\n${tripDateText}\n
 
-💰 *${price}*
+🚘 *السيارة:* ${car}
+🧳 *الشنط:* ${bags}
 
-${w.success}`;
+💰 *${price}*:
+
+✨ *تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز.*`;
 
     window.open(`https://api.whatsapp.com/send?phone=201202712711&text=${encodeURIComponent(msg)}`);
 }
@@ -1240,7 +1032,7 @@ async function calculatePrice(){
     }
 
     if(!from || !to){
-        document.getElementById("price").innerText = translations[lang].writeAddress;
+        document.getElementById("price").innerText = "اكتب العنوان";
         return;
     }
 
@@ -1378,7 +1170,7 @@ function payPaypal(){
     }
 
     if(!window.realPrice){
-        alert(translations[lang].calcFirst);
+        alert("احسب السعر الأول");
         return;
     }
 
@@ -1611,7 +1403,7 @@ function togglePaymentOptions(){
 		}, 2000);
 		}
 }
-applyTranslations();
+
 </script>
 <script src="https://www.paypal.com/sdk/js?client-id=AboKpdw5yBx0BcbJtgeRFZr_070wcECHZgFtg3ebXmAfIkoUtU-OuF32rftLRzEM_sHWBSxzQpcibwkf&currency=EUR"></script>
 </body>
