@@ -695,7 +695,9 @@ aria-label="احجز خدمة VIP">
   async 
   defer>
 </script>
-const translations = {
+
+<script>
+	const translations = {
   ar: {
     title: "احجز في ثواني",
     name: "الاسم",
@@ -729,7 +731,6 @@ let lang =
   (browserLang.startsWith("ar") ? "ar" :
    browserLang.startsWith("es") ? "es" :
    "en");
-<script>
 const API_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1" ||
