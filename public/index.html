@@ -1303,11 +1303,17 @@ async function payInstapay(){
     sendWhatsApp();
 	}, 500);
 }
+let currencySelect = document.getElementById("currency");
+
+// ✅ event بره
+currencySelect.addEventListener("change", function(){
+    calculatePrice();
+});
+
+// ✅ fetch يحدد الدولة
 fetch(`${API_URL}/get-user-country`)
 .then(res => res.json())
 .then(data => {
-
-    let currencySelect = document.getElementById("currency");
 
     if(data.country === "EG"){
         currencySelect.value = "EGP";
@@ -1318,16 +1324,13 @@ fetch(`${API_URL}/get-user-country`)
     else{
         currencySelect.value = "EUR";
     }
-	calculatePrice();
 
-    currencySelect.addEventListener("change", function(){
-        calculatePrice();
-    });
+    calculatePrice(); // مهم
 
 })
 .catch(() => {
-    document.getElementById("currency").value = "EUR";
-	calculatePrice();
+    currencySelect.value = "EUR";
+    calculatePrice();
 });
 let lastTouchEnd = 0;
 
