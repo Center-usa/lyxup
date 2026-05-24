@@ -348,12 +348,25 @@ body {
 }
 /* 🔥 تبيض أيقونة التاريخ - كمبيوتر فقط */
 @media (hover: hover) and (pointer: fine) {
+    .hidden-date {
+        position: static;
+        opacity: 1;
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 12px;
+        border: none;
+        background: #111;
+        color: #fff;
+        font-size: 16px;
+        direction: ltr;
+        text-align: left;
+    }
 
-    .desktop-date::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    cursor: pointer;
-}
-
+    .date-box {
+        display: none;
+    }
 }
 .desktop-date-wrapper {
     position: relative;
