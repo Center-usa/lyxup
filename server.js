@@ -839,20 +839,29 @@ app.get("/success", (req, res) => {
 app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 app.get('/get-user-country', async (req, res) => {
   try {
+
+    // ✅ 1. المصدر الأساسي (Vercel - سريع ودقيق)
+    const countryFromVercel = req.headers['x-vercel-ip-country'];
+
+    if (countryFromVercel) {
+      return res.json({ country: countryFromVercel });
+    }
+
+    // 🔁 2. fallback (لو مش على Vercel)
     const ip = (req.headers['x-forwarded-for'] || "")
- 	 .split(",")[0]
-  	.trim() || req.socket.remoteAddress;
-	const response = await fetch(`https://ipwho.is/${ip}`);
-	const data = await response.json();
-    const country = data.success ? data.country_code : "EG";
+      .split(",")[0]
+      .trim() || req.socket.remoteAddress;
 
-    console.log("🌍 COUNTRY:", country);
+    const response = await fetch(`https://ipwho.is/${ip}`);
+    const data = await response.json();
 
-    res.json({ country });
+    const country = data.success ? data.country_code : "ES";
+
+    return res.json({ country });
 
   } catch (err) {
-    console.log("❌ ERROR:", err);
-    res.json({ country: "EG" });
+    // 🔥 fallback نهائي
+    return res.json({ country: "ES" });
   }
 });
 
