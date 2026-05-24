@@ -722,7 +722,19 @@ aria-label="احجز خدمة VIP">
     calcFirst: "احسب السعر الأول",
     choosePayment: "من فضلك اختر نوع الدفع",
     cancel: "تم إلغاء العملية",
-    dateError: "تاريخ العودة لازم يكون بعد تاريخ الذهاب"
+    dateError: "تاريخ العودة لازم يكون بعد تاريخ الذهاب",
+
+    // 🔥 WhatsApp
+    whatsapp: {
+      title: "🚗 *حجز LYXUP*",
+      name: "👤 *الاسم:*",
+      phone: "📞 *الموبايل:*",
+      from: "📍 *من:*",
+      to: "📍 *إلى:*",
+      car: "🚘 *السيارة:*",
+      bags: "🧳 *الشنط:*",
+      success: "✨ تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز."
+    }
   },
 
   en: {
@@ -744,7 +756,19 @@ aria-label="احجز خدمة VIP">
     calcFirst: "Calculate price first",
     choosePayment: "Please select payment type",
     cancel: "Operation cancelled",
-    dateError: "Return date must be after departure"
+    dateError: "Return date must be after departure",
+
+    // 🔥 WhatsApp
+    whatsapp: {
+      title: "🚗 *LYXUP Booking*",
+      name: "👤 *Name:*",
+      phone: "📞 *Phone:*",
+      from: "📍 *From:*",
+      to: "📍 *To:*",
+      car: "🚘 *Car:*",
+      bags: "🧳 *Luggage:*",
+      success: "✨ Your request has been sent successfully. We will contact you shortly."
+    }
   },
 
   es: {
@@ -766,7 +790,19 @@ aria-label="احجز خدمة VIP">
     calcFirst: "Calcula el precio primero",
     choosePayment: "Selecciona el tipo de pago",
     cancel: "Operación cancelada",
-    dateError: "La fecha de regreso debe ser posterior"
+    dateError: "La fecha de regreso debe ser posterior",
+
+    // 🔥 WhatsApp
+    whatsapp: {
+      title: "🚗 *Reserva LYXUP*",
+      name: "👤 *Nombre:*",
+      phone: "📞 *Teléfono:*",
+      from: "📍 *Desde:*",
+      to: "📍 *Hasta:*",
+      car: "🚘 *Vehículo:*",
+      bags: "🧳 *Equipaje:*",
+      success: "✨ Tu solicitud ha sido enviada. Nos pondremos en contacto contigo."
+    }
   }
 };
 
@@ -1078,62 +1114,67 @@ function sendWhatsApp(){
     let price = document.getElementById("price").innerText;
     let car = document.getElementById("carType").value;
 
-    // 🔥 validation مهم
+    const t = translations[lang];
+    const w = t.whatsapp;
+
+    // 🔥 validation
     if(!name || !phone || !from || !to){
-        alert(translations[lang].fillData);
+        alert(t.fillData);
         return;
     }
-	// 🔥 نحدد هل ده كمبيوتر ولا موبايل
-let isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-let date = "";
-let returnDate = "";
+    // 🔥 تحديد نوع الجهاز
+    let isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-if(isDesktop){
-    // 💻 كمبيوتر
-    date = document.getElementById("date-desktop").value;
-    returnDate = document.getElementById("returnDate-desktop").value;
-}else{
-    // 📱 موبايل
-    date = document.getElementById("date").value;
-    returnDate = document.getElementById("returnDate").value;
-}
-if(tripType === "round" && date && returnDate){
-    if(new Date(returnDate) < new Date(date)){
-        alert(translations[lang].dateError);
-        return;
+    let date = "";
+    let returnDate = "";
+
+    if(isDesktop){
+        date = document.getElementById("date-desktop").value;
+        returnDate = document.getElementById("returnDate-desktop").value;
+    }else{
+        date = document.getElementById("date").value;
+        returnDate = document.getElementById("returnDate").value;
     }
-}
 
-let tripDateText = "";
-
-if(tripType === "oneway"){
-    if(date){
-        tripDateText = `📅 *تاريخ الذهاب:* ${date}`;
+    // 🔥 validation التواريخ
+    if(tripType === "round" && date && returnDate){
+        if(new Date(returnDate) < new Date(date)){
+            alert(t.dateError);
+            return;
+        }
     }
-}else{
-    if(date && returnDate){
-        tripDateText = `📅 *تاريخ الذهاب:* ${date}\n📅 *تاريخ العودة:* ${returnDate}`;
+
+    // 🔥 نص التاريخ مترجم
+    let tripDateText = "";
+
+    if(tripType === "oneway"){
+        if(date){
+            tripDateText = `📅 ${date}`;
+        }
+    }else{
+        if(date && returnDate){
+            tripDateText = `📅 ${date}\n📅 ${returnDate}`;
+        }
     }
-}
 
+    // 🔥 الرسالة الديناميك
+    let msg = `${w.title}
 
-    let msg = `🚗 *حجز LYXUP*
+${w.name} ${name}
+${w.phone} ${phone}
 
-👤 *الاسم:* ${name}
-📞 *الموبايل:* ${phone}
+${w.from} ${from}
+${w.to} ${to}
 
-📍 *من:* ${from}
-📍 *إلى:* ${to}
+${tripDateText}
 
-\n${tripDateText}\n
+${w.car} ${car}
+${w.bags} ${bags}
 
-🚘 *السيارة:* ${car}
-🧳 *الشنط:* ${bags}
+💰 *${price}*
 
-💰 *${price}*:
-
-✨ *تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز.*`;
+${w.success}`;
 
     window.open(`https://api.whatsapp.com/send?phone=201202712711&text=${encodeURIComponent(msg)}`);
 }
