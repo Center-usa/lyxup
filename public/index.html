@@ -326,6 +326,19 @@ body {
 /* 🔥 تبيض أيقونة التاريخ - كمبيوتر فقط */
 @media (hover: hover) and (pointer: fine) {
 
+    .desktop-date::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
+
+}
+.desktop-date-wrapper {
+    position: relative;
+}
+
+/* النص الوهمي */
+@media (hover: hover) and (pointer: fine) {
+
     .desktop-date-wrapper.departure::after {
         content: "تاريخ الذهاب";
         position: absolute;
@@ -347,16 +360,6 @@ body {
     }
 
 }
-.desktop-date-wrapper {
-    position: relative;
-}
-
-/* النص الوهمي */
-@media (hover: hover) and (pointer: fine) {
-
-    .desktop-date-wrapper {
-        position: relative;
-    }
 
     .desktop-date-wrapper.departure::after,
     .desktop-date-wrapper.return::after {
