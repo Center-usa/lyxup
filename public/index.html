@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -312,8 +312,18 @@ body {
     background: #000;
     display: flex;
     justify-content: space-around;
-    padding: 10px;
+    align-items: center; /* 🔥 مهم */
+    padding: 12px 0;
     border-top: 1px solid #111;
+    z-index: 999;
+}
+
+.bottom-bar div {
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
 }
 /* 🔥 input الكمبيوتر */
 .desktop-date {
@@ -358,7 +368,7 @@ body {
 @media (hover: hover) and (pointer: fine) {
 
     .desktop-date-wrapper.departure::after {
-        content: "تاريخ الذهاب";
+        content: attr(data-placeholder);
         position: absolute;
         right: 50px;
         top: 50%;
@@ -368,7 +378,7 @@ body {
     }
 
     .desktop-date-wrapper.return::after {
-        content: "تاريخ العودة";
+        content: attr(data-placeholder);
         position: absolute;
         right: 50px;
         top: 50%;
@@ -447,10 +457,10 @@ body {
 
 <div class="hero">
 
-<h1>تجربة سفر مريحة وفاخرة</h1>
+<h1></h1>
 
-<input id="name" class="input" placeholder="الاسم">
-<input id="phone" class="input" placeholder="رقم الهاتف">
+<input id="name" class="input" placeholder="">
+<input id="phone" class="input" placeholder="">
 
 <div class="trip-type">
     <button id="oneWayBtn" class="active" onclick="setTripType('oneway')">ذهاب فقط</button>
@@ -484,7 +494,7 @@ body {
 
 </div>
 <div class="map-field-wrapper">
-    <input id="from" class="input" placeholder="من">
+    <input id="from" class="input" placeholder="">
     <button class="map-toggle" onclick="openMap('from')">📍</button>
 
     <div id="mapPanel-from" class="map-panel">
@@ -497,7 +507,7 @@ body {
 </div>
 
 <div class="map-field-wrapper">
-    <input id="to" class="input" placeholder="إلى">
+    <input id="to" class="input" placeholder="">
     <button class="map-toggle" onclick="openMap('to')">📍</button>
 
     <div id="mapPanel-to" class="map-panel">
@@ -684,10 +694,10 @@ aria-label="احجز خدمة VIP">
 </div>
 
 <div class="bottom-bar">
-    <div>🏠 الرئيسية</div>
-    <div>احجز 🚗</div>
-    <div onclick="sendWhatsApp()">واتساب 💬</div>
-    <div onclick="window.location='tel:01202712711'"> اتصال 📞</div>
+    <div></div>
+    <div></div>
+    <div onclick="sendWhatsApp()"></div>
+    <div onclick="window.location='tel:01202712711'"></div>
 </div>
 
 <script 
@@ -697,6 +707,8 @@ aria-label="احجز خدمة VIP">
 </script>
 
 <script>
+
+
 const API_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1" ||
@@ -705,7 +717,461 @@ const API_URL =
     : window.location.origin;
 
 	let bags = 0;
-// اختيار الشنط
+let lang = localStorage.getItem("lang");
+
+if(!lang){
+  const userLang = navigator.language.toLowerCase();
+
+  if(userLang.startsWith("ar")) lang = "ar";
+  else if(userLang.startsWith("es")) lang = "es";
+  else lang = "en";
+
+  // 🔥 يتحط هنا بالظبط
+  localStorage.setItem("lang", lang);
+}
+const translations = {
+
+ar: {
+  title: "تجربة سفر مريحة وفاخرة",
+
+  name: "الاسم",
+  phone: "رقم الهاتف",
+  from: "من",
+  to: "إلى",
+
+  oneWay: "ذهاب فقط",
+  round: "ذهاب وعودة",
+
+  dateDeparture: "تاريخ الذهاب",
+  dateReturn: "تاريخ العودة",
+
+  luggage: "🧳 هل لديك شنط؟",
+  noBags: "بدون",
+  bagsSmall: "1-2",
+  bagsMedium: "3-5",
+  bagsLarge: "أكثر",
+
+  price: "احسب السعر 💰",
+  pricePlaceholder: "السعر: --",
+
+  currency: "💱 اختر العملة",
+  confirm: "💬إرسال تفاصيل الحجز عبر واتساب💬",
+
+  whatsapp: {
+    title: "حجز LYXUP",
+    name: "الاسم:",
+    phone: "الموبايل:",
+    from: "من:",
+    to: "إلى:",
+    car: "السيارة:",
+    bags: "الشنط:",
+    dateDeparture: "تاريخ الذهاب:",
+    dateReturn: "تاريخ العودة:",
+    success: "تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز."
+  },
+
+  fillData: "من فضلك املأ كل البيانات",
+  dateError: "تاريخ العودة لازم يكون بعد الذهاب",
+  calcFirst: "احسب السعر الأول",
+  cancel: "تم إلغاء الدفع",
+  error: "حدث خطأ",
+
+  deposit: "دفعة تأكيد الحجز",
+  depositDesc: "يتم احتسابها ضمن إجمالي الرحلة",
+  fullPay: "دفع كامل الرحلة",
+  confirmBooking: "تأكيد الحجز 💳",
+
+  payCard: "💳 الدفع بالبطاقة",
+  payPaypal: "🅿️ الدفع عبر PayPal",
+  payInstapay: "📱 الدفع عبر Instapay",
+
+  myLocation: "موقعي",
+  done: "تم",
+
+  home: "الرئيسية",
+  book: "احجز",
+  call: "اتصال",
+
+  airportTitle: "توصيل مطار القاهرة",
+  airportDesc: "من وإلى المطار بأسعار مميزة",
+  
+  coastTitle: "توصيل الساحل الشمالي",
+  coastDesc: "رحلات مريحة وسريعة بأفضل الأسعار",
+
+  corporateTitle: "نقل الشركات",
+  corporateDesc: "تنقلات رسمية وخدمة احترافية لرجال الأعمال",
+
+  tripsTitle: "رحلات خاصة",
+  tripsDesc: "تنقلات مرنة داخل وخارج المدينة براحة تامة",
+
+  vipTitle: "خدمة VIP",
+  vipDesc: "سيارات فاخرة وتجربة تنقل راقية",
+  
+  whatsappLabel: "واتساب",
+  
+  bagsWarning: "يفضل اختيار SUV أو H1 بسبب عدد الشنط",
+  enterLocation: "اكتب العنوان",
+  errorPrice: "❌ حدث خطأ",
+  
+  choosePayment: "من فضلك اختر نوع الدفع",
+  sessionError: "فشل إنشاء جلسة الدفع",
+  serverError: "خطأ في الاتصال بالسيرفر",
+  
+  bagsError: "❌ عدد الشنط يتطلب سيارة أكبر",
+  
+  instapayFull: "💰 تحويل كامل مبلغ الرحلة على الرقم:\n\n",
+  instapayDeposit: "💳 تحويل دفعة تأكيد الحجز على الرقم:\n\n",
+  afterTransfer:
+  "⚠️ بعد التحويل:\n" +
+  "اضغط على زر (إرسال تفاصيل الحجز عبر واتساب)\n" +
+  "وأرسل صورة التحويل لتأكيد الحجز",
+  
+  loading: "جاري التحميل...",
+  
+  paymentPolicy:
+  "⚠️ سياسة الدفع والإلغاء:\n\n" +
+  "💳 يتم دفع 25% فقط لتأكيد الحجز، ويتم خصمها من إجمالي الرحلة.\n\n" +
+  "✔ يمكنك إلغاء الحجز واسترداد المبلغ بالكامل إذا تم الإلغاء قبل موعد الرحلة بـ 24 ساعة على الأقل.\n\n" +
+  "❌ في حالة الإلغاء خلال أقل من 24 ساعة من موعد الرحلة، لن يتم استرداد مبلغ التأكيد.\n\n" +
+  "🔒 الدفعة تستخدم لتأمين السيارة والسائق لك في الموعد المحدد.\n\n" +
+  "هل تريد المتابعة؟",
+},
+
+  en: {
+  title: "Comfortable and Luxury Travel Experience",
+
+  name: "Name",
+  phone: "Phone number",
+  from: "From",
+  to: "To",
+
+  oneWay: "One way",
+  round: "Round trip",
+
+  dateDeparture: "Departure date",
+  dateReturn: "Return date",
+
+  luggage: "🧳 Do you have luggage?",
+  noBags: "None",
+  bagsSmall: "1-2",
+  bagsMedium: "3-5",
+  bagsLarge: "More",
+
+  price: "Calculate price 💰",
+  pricePlaceholder: "Price: --",
+
+  currency: "💱 Select currency",
+  confirm: "💬Send booking via WhatsApp💬",
+
+  whatsapp: {
+    title: "LYXUP Booking",
+    name: "Name:",
+    phone: "Phone:",
+    from: "From:",
+    to: "To:",
+    car: "Car:",
+    bags: "Luggage:",
+    dateDeparture: "Departure date:",
+    dateReturn: "Return date:",
+    success: "Your request has been sent successfully. We will contact you soon."
+  },
+
+  // 🔥 alerts
+  fillData: "Please fill all fields",
+  dateError: "Return date must be after departure",
+  calcFirst: "Calculate price first",
+  cancel: "Payment cancelled",
+  error: "Something went wrong",
+
+  // 🔥 الدفع
+  deposit: "Booking deposit",
+  depositDesc: "This amount will be deducted from the total trip price",
+  fullPay: "Full payment",
+  confirmBooking: "Confirm booking 💳",
+
+  payCard: "💳 Pay by card",
+  payPaypal: "🅿️ Pay with PayPal",
+  payInstapay: "📱 Pay with Instapay",
+
+  // 🔥 الماب
+  myLocation: "My location",
+  done: "Done",
+
+  // 🔥 البوتوم
+  home: "Home",
+  book: "Book",
+  call: "Call",
+
+  // 🔥 الخدمات
+  airportTitle: "Cairo Airport Transfer",
+  airportDesc: "To and from the airport with competitive prices",
+  
+  coastTitle: "North Coast Transfer",
+  coastDesc: "Comfortable and fast trips at the best prices",
+
+  corporateTitle: "Corporate Transport",
+  corporateDesc: "Professional transport for business needs",
+
+  tripsTitle: "Private Trips",
+  tripsDesc: "Flexible trips inside and outside the city",
+
+  vipTitle: "VIP Service",
+  vipDesc: "Luxury cars and premium experience",
+  
+  whatsappLabel: "WhatsApp",
+  
+  bagsWarning: "We recommend SUV or H1 due to luggage",
+  enterLocation: "Enter location",
+  errorPrice: "❌ Error occurred",
+  
+  choosePayment: "Please select payment type",
+  sessionError: "Failed to create payment session",
+  serverError: "Server connection error",
+  
+  bagsError: "❌ Too many bags for this car",
+  
+  instapayFull: "💰 Transfer full trip amount to this number:\n\n",
+  instapayDeposit: "💳 Transfer booking deposit to this number:\n\n",
+  afterTransfer:
+  "⚠️ After transfer:\n" +
+  "Click (Send booking via WhatsApp)\n" +
+  "Send payment proof to confirm your booking",
+  
+  loading: "Loading...",
+  
+  paymentPolicy:
+  "⚠️ Payment & cancellation policy:\n\n" +
+  "💳 Only 25% is required to confirm your booking, and it will be deducted from the total trip price.\n\n" +
+  "✔ You can cancel and get a full refund if you cancel at least 24 hours before the trip.\n\n" +
+  "❌ If you cancel less than 24 hours before the trip, the deposit is non-refundable.\n\n" +
+  "🔒 The deposit secures your car and driver for your scheduled time.\n\n" +
+  "Do you want to continue?",
+},
+es: {
+  title: "Experiencia de viaje cómoda y lujosa",
+
+  name: "Nombre",
+  phone: "Número de teléfono",
+  from: "Desde",
+  to: "Hasta",
+
+  oneWay: "Solo ida",
+  round: "Ida y vuelta",
+
+  dateDeparture: "Fecha de salida",
+  dateReturn: "Fecha de regreso",
+
+  luggage: "🧳 ¿Tienes equipaje?",
+  noBags: "Sin",
+  bagsSmall: "1-2",
+  bagsMedium: "3-5",
+  bagsLarge: "Más",
+
+  price: "Calcular precio 💰",
+  pricePlaceholder: "Precio: --",
+
+  currency: "💱 Seleccionar moneda",
+  confirm: "💬Enviar reserva por WhatsApp💬",
+
+  whatsapp: {
+    title: "Reserva LYXUP",
+    name: "Nombre:",
+    phone: "Teléfono:",
+    from: "Desde:",
+    to: "Hasta:",
+    car: "Vehículo:",
+    bags: "Equipaje:",
+    dateDeparture: "Fecha de salida:",
+    dateReturn: "Fecha de regreso:",
+    success: "Tu solicitud ha sido enviada. Nos pondremos en contacto contigo."
+  },
+
+  // 🔥 الرسائل العامة
+  fillData: "Por favor completa todos los campos",
+  dateError: "La fecha de regreso debe ser después de la salida",
+  calcFirst: "Calcula el precio primero",
+  cancel: "Pago cancelado",
+  error: "Ocurrió un error",
+  coastTitle: "Traslado a la Costa Norte",
+  coastDesc: "Viajes cómodos y rápidos a los mejores precios",
+
+  corporateTitle: "Transporte corporativo",
+  corporateDesc: "Servicio profesional para empresas",
+
+  tripsTitle: "Viajes privados",
+  tripsDesc: "Viajes flexibles dentro y fuera de la ciudad",
+
+  vipTitle: "Servicio VIP",
+  vipDesc: "Coches de lujo y experiencia premium",
+  
+  whatsappLabel: "WhatsApp",
+  
+  bagsWarning: "Se recomienda SUV o H1 por el equipaje",
+  enterLocation: "Introduce la ubicación",
+  errorPrice: "❌ Ocurrió un error",
+  
+  choosePayment: "Por favor selecciona el tipo de pago",
+  sessionError: "Error al crear la sesión de pago",
+  serverError: "Error de conexión con el servidor",
+  
+  bagsError: "❌ Demasiado equipaje para este vehículo",
+  
+  instapayFull: "💰 Transfiere el importe completo a este número:\n\n",
+  instapayDeposit: "💳 Transfiere el depósito de reserva a este número:\n\n",
+  afterTransfer:
+  "⚠️ Después de transferir:\n" +
+  "Haz clic en (Enviar reserva por WhatsApp)\n" +
+  "Envía el comprobante para confirmar tu reserva",
+  
+  loading: "Cargando...",
+  
+  paymentPolicy:
+  "⚠️ Política de pago y cancelación:\n\n" +
+  "💳 Solo se paga el 25% para confirmar la reserva, y se descuenta del total del viaje.\n\n" +
+  "✔ Puedes cancelar y obtener un reembolso completo si cancelas al menos 24 horas antes del viaje.\n\n" +
+  "❌ Si cancelas con menos de 24 horas, el depósito no es reembolsable.\n\n" +
+  "🔒 El depósito asegura tu coche y conductor en el horario reservado.\n\n" +
+  "¿Deseas continuar?",
+ }
+
+};
+
+function applyTranslations(lang) {
+  const t = translations[lang];
+
+  // 🔥 العنوان
+  const title = document.querySelector(".hero h1");
+  if(title) title.innerText = t.title;
+
+  // 🔥 inputs
+  const name = document.getElementById("name");
+  const phone = document.getElementById("phone");
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+
+  if(name) name.placeholder = t.name;
+  if(phone) phone.placeholder = t.phone;
+  if(from) from.placeholder = t.from;
+  if(to) to.placeholder = t.to;
+
+  // 🔥 نوع الرحلة
+  const oneWayBtn = document.getElementById("oneWayBtn");
+  const roundBtn = document.getElementById("roundBtn");
+
+  if(oneWayBtn) oneWayBtn.innerText = t.oneWay;
+  if(roundBtn) roundBtn.innerText = t.round;
+
+  // 🔥 التاريخ (موبايل)
+  const dateText = document.getElementById("dateText");
+  const returnDateText = document.getElementById("returnDateText");
+
+  if(dateText) dateText.innerText = "📅 " + t.dateDeparture;
+  if(returnDateText) returnDateText.innerText = "📅 " + t.dateReturn;
+
+  // 🔥 التاريخ (كمبيوتر)
+  const depWrapper = document.querySelector(".desktop-date-wrapper.departure");
+  const retWrapper = document.querySelector(".desktop-date-wrapper.return");
+
+  if(depWrapper) depWrapper.setAttribute("data-placeholder", t.dateDeparture);
+  if(retWrapper) retWrapper.setAttribute("data-placeholder", t.dateReturn);
+
+  // 🔥 الشنط
+  const luggageTitle = document.querySelector(".luggage-title");
+  if(luggageTitle) luggageTitle.innerText = t.luggage;
+
+  const luggageBtns = document.querySelectorAll(".luggage-btn");
+
+  if(luggageBtns[0]) luggageBtns[0].innerText = t.noBags;
+  if(luggageBtns[1]) luggageBtns[1].innerText = "🧳 " + t.bagsSmall;
+  if(luggageBtns[2]) luggageBtns[2].innerText = "🧳 " + t.bagsMedium;
+  if(luggageBtns[3]) luggageBtns[3].innerText = "🧳 " + t.bagsLarge;
+
+  // 🔥 زر السعر
+  const priceBtn = document.querySelector('button[onclick="calculatePrice()"]');
+  if(priceBtn) priceBtn.innerText = t.price;
+
+  // 🔥 السعر
+  const price = document.getElementById("price");
+  if(price) price.innerText = t.pricePlaceholder;
+
+  // 🔥 العملة
+  const currencyLabel = document.querySelector(".currency-box label");
+  if(currencyLabel) currencyLabel.innerText = t.currency;
+
+  // 🔥 زر واتساب
+  const confirmBtn = document.getElementById("confirmBtn");
+  if(confirmBtn) confirmBtn.innerText = t.confirm;
+
+  // 🔥 الدفع
+  const paymentLabels = document.querySelectorAll('#paymentTypeBox label');
+
+  if(paymentLabels[0]){
+    paymentLabels[0].childNodes[1].textContent = " " + t.deposit;
+    const desc = paymentLabels[0].querySelector("div");
+    if(desc) desc.innerText = t.depositDesc;
+  }
+
+  if(paymentLabels[1]){
+    paymentLabels[1].childNodes[1].textContent = " " + t.fullPay;
+  }
+
+  // 🔥 زر تأكيد الحجز
+  const depositBtn = document.getElementById("depositBtn");
+  if(depositBtn) depositBtn.innerText = t.confirmBooking;
+
+  // 🔥 طرق الدفع
+  const payBtns = document.querySelectorAll("#paymentOptions .btn");
+
+  if(payBtns[0]) payBtns[0].innerText = t.payCard;
+  if(payBtns[1]) payBtns[1].innerText = t.payPaypal;
+  if(payBtns[2]) payBtns[2].innerText = t.payInstapay;
+
+  // 🔥 الماب
+  const mapBtns = document.querySelectorAll(".map-actions .btn");
+
+  mapBtns.forEach(btn => {
+    if(btn.innerText.includes("📡")){
+      btn.innerText = "📡 " + t.myLocation;
+    }
+    if(btn.innerText.includes("تم") || btn.innerText.includes("Done")){
+      btn.innerText = t.done;
+    }
+  });
+
+  // 🔥 الخدمات
+  const titles = document.querySelectorAll(".card .title");
+  const descs = document.querySelectorAll(".card .desc");
+
+  if(titles[0]) titles[0].innerText = t.airportTitle;
+  if(descs[0]) descs[0].innerText = t.airportDesc;
+
+  if(titles[1]) titles[1].innerText = t.coastTitle;
+  if(descs[1]) descs[1].innerText = t.coastDesc;
+
+  if(titles[2]) titles[2].innerText = t.corporateTitle;
+  if(descs[2]) descs[2].innerText = t.corporateDesc;
+
+  if(titles[3]) titles[3].innerText = t.tripsTitle;
+  if(descs[3]) descs[3].innerText = t.tripsDesc;
+
+  if(titles[4]) titles[4].innerText = t.vipTitle;
+  if(descs[4]) descs[4].innerText = t.vipDesc;
+
+  // 🔥 البوتوم بار
+  const bottom = document.querySelectorAll(".bottom-bar div");
+
+  if(bottom[0]) bottom[0].innerText = "🏠 " + t.home;
+  if(bottom[1]) bottom[1].innerText = t.book + " 🚗";
+  if(bottom[2]) bottom[2].innerText = t.whatsappLabel + " 💬";
+  if(bottom[3]) bottom[3].innerText = t.call + " 📞";
+
+  // 🔥 الاتجاه
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = lang;
+  
+}
+// 🔥 تطبيق الترجمة
+applyTranslations(lang);
 function selectBags(val, el){
     bags = val;
 
@@ -722,8 +1188,8 @@ function selectBags(val, el){
 	}
 
     if(bags >= 3 && carType === "sedan"){
-        alert("يفضل اختيار SUV أو H1 بسبب عدد الشنط");
-    }
+    alert(translations[lang].bagsWarning);
+	}
 }
 
 function syncDate(val){
@@ -745,13 +1211,13 @@ function syncDate(val){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = "📅 " + translations[lang].dateReturn
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = "📅 " + translations[lang].dateReturn
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
@@ -779,13 +1245,13 @@ function setDate(){
 
         if(returnInput.value && new Date(returnInput.value) < new Date(val)){
             returnInput.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = "📅 " + translations[lang].dateReturn
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
 
         if(returnMobile.value && returnMobile.value < val){
             returnMobile.value = "";
-            document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+            document.getElementById("returnDateText").innerText = "📅 " + translations[lang].dateReturn
             document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
         }
     }
@@ -812,7 +1278,7 @@ function setTripType(type){
         document.getElementById("returnDate-desktop").removeAttribute("min");
 
         // 🔥 رجّع النص
-        document.getElementById("returnDateText").innerText = "📅 تاريخ العودة";
+        document.getElementById("returnDateText").innerText = "📅 " + translations[lang].dateReturn
 
         // 🔥 شيل placeholder
         document.querySelector(".desktop-date-wrapper.return")?.classList.remove("has-value");
@@ -960,7 +1426,7 @@ function sendWhatsApp(){
 
     // 🔥 validation مهم
     if(!name || !phone || !from || !to){
-        alert("من فضلك اكمل البيانات");
+        alert(translations[lang].fillData);
         return;
     }
 	// 🔥 نحدد هل ده كمبيوتر ولا موبايل
@@ -980,40 +1446,45 @@ if(isDesktop){
 }
 if(tripType === "round" && date && returnDate){
     if(new Date(returnDate) < new Date(date)){
-        alert("تاريخ العودة لازم يكون بعد تاريخ الذهاب");
+        alert(translations[lang].dateError);
         return;
     }
 }
 
 let tripDateText = "";
+	const t = translations[lang].whatsapp;
 
 if(tripType === "oneway"){
     if(date){
-        tripDateText = `📅 *تاريخ الذهاب:* ${date}`;
+        tripDateText = `📅 *${t.dateDeparture}* ${date}`;
     }
 }else{
     if(date && returnDate){
-        tripDateText = `📅 *تاريخ الذهاب:* ${date}\n📅 *تاريخ العودة:* ${returnDate}`;
+        tripDateText =
+        `📅 *${t.dateDeparture}* ${date}\n` +
+        `📅 *${t.dateReturn}* ${returnDate}`;
     }
 }
 
 
-    let msg = `🚗 *حجز LYXUP*
+	
 
-👤 *الاسم:* ${name}
-📞 *الموبايل:* ${phone}
+	let msg = `🚗 *${t.title}*
 
-📍 *من:* ${from}
-📍 *إلى:* ${to}
+	👤 *${t.name}* ${name}
+	📞 *${t.phone}* ${phone}
 
-\n${tripDateText}\n
+	📍 *${t.from}* ${from}
+	📍 *${t.to}* ${to}
 
-🚘 *السيارة:* ${car}
-🧳 *الشنط:* ${bags}
+	\n${tripDateText}\n
 
-💰 *${price}*:
+	🚘 *${t.car}* ${car}
+	🧳 *${t.bags}* ${bags}
 
-✨ *تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد الحجز.*`;
+	💰 *${price}*
+
+	✨ *${t.success}*`;
 
     window.open(`https://api.whatsapp.com/send?phone=201202712711&text=${encodeURIComponent(msg)}`);
 }
@@ -1027,12 +1498,12 @@ async function calculatePrice(){
 	console.log({from, to, carType, tripType, currency});
 
     if(bags >= 3 && carType === "sedan"){
-        document.getElementById("price").innerText = "❌ عدد الشنط يتطلب سيارة أكبر";
+        document.getElementById("price").innerText = translations[lang].bagsError;
         return;
     }
 
     if(!from || !to){
-        document.getElementById("price").innerText = "اكتب العنوان";
+        document.getElementById("price").innerText = translations[lang].enterLocation;
         return;
     }
 
@@ -1065,7 +1536,7 @@ async function calculatePrice(){
         document.getElementById("paymentTypeBox").style.display = "block";
 
     } catch(e){
-        document.getElementById("price").innerText = "❌ حصل خطأ";
+        document.getElementById("price").innerText = translations[lang].errorPrice;
     }
 }
 
@@ -1083,7 +1554,7 @@ function unlockUI() {
   const btn = document.getElementById("depositBtn");
   if (btn) {
     btn.disabled = false;
-    btn.innerText = "ادفع الآن"; // أو النص الأصلي
+    btn.innerText = translations[lang].confirmBooking; // أو النص الأصلي
   }
 
   // تنظيف PayPal
@@ -1095,24 +1566,12 @@ async function payStripe(){
     let currency = document.getElementById("currency").value;
 
     if(!selected){
-        alert("من فضلك اختر نوع الدفع");
+        alert(translations[lang].choosePayment);
         return;
     }
 
     // 🔥 اعمل confirm بدري
-    let ok = confirm(
-    "⚠️ سياسة الدفع والإلغاء:\n\n" +
-
-    "💳 يتم دفع 25% فقط لتأكيد الحجز، ويتم خصمها من إجمالي الرحلة.\n\n" +
-
-    "✔ يمكنك إلغاء الحجز واسترداد المبلغ بالكامل إذا تم الإلغاء قبل موعد الرحلة بـ 24 ساعة على الأقل.\n\n" +
-
-    "❌ في حالة الإلغاء خلال أقل من 24 ساعة من موعد الرحلة، لن يتم استرداد مبلغ التأكيد.\n\n" +
-
-    "🔒 الدفعة تستخدم لتأمين السيارة والسائق لك في الموعد المحدد.\n\n" +
-
-    "هل تريد المتابعة؟"
-	);
+    let ok = confirm(translations[lang].paymentPolicy);
 
     if(!ok){
         return;
@@ -1152,12 +1611,12 @@ async function payStripe(){
         if(data.url){
             window.location.href = data.url; // 🔥 استخدم href
         } else {
-            alert("فشل إنشاء جلسة الدفع");
+            alert(translations[lang].sessionError);
         }
 
     } catch(err){
         console.log(err);
-        alert("خطأ في الاتصال بالسيرفر");
+        alert(translations[lang].serverError);
     }
 }
 function payPaypal(){
@@ -1165,12 +1624,12 @@ function payPaypal(){
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
 
     if(!selected){
-        alert("اختر نوع الدفع");
+        alert(translations[lang].choosePayment);
         return;
     }
 
     if(!window.realPrice){
-        alert("احسب السعر الأول");
+        alert(translations[lang].calcFirst);
         return;
     }
 
@@ -1209,7 +1668,7 @@ function payPaypal(){
 
             if(!data.id){
                 console.log(data);
-                alert("❌ فشل إنشاء الدفع");
+                alert(translations[lang].sessionError);
 
                 // 🔓 رجّع كل حاجة
                 unlockUI();
@@ -1248,7 +1707,7 @@ function payPaypal(){
             if(result.status === "COMPLETED"){
 			window.location.href = `${API_URL}/success`;
 		} else {
-                alert("❌ الدفع فشل");
+                alert(translations[lang].error);
                 unlockUI();
             }
         },
@@ -1256,7 +1715,7 @@ function payPaypal(){
         onCancel: function(data){
             console.log("❌ تم إلغاء الدفع", data);
 
-            alert("تم إلغاء العملية");
+            alert(translations[lang].cancel);
 
             // 🔓 رجّع كل حاجة
             unlockUI();
@@ -1264,7 +1723,7 @@ function payPaypal(){
 
         onError: function(err){
             console.log(err);
-            alert("❌ حصل خطأ في PayPal");
+            alert(translations[lang].error);
 
             // 🔓 رجّع كل حاجة
             unlockUI();
@@ -1285,20 +1744,18 @@ async function payInstapay(){
 
     let message = "";
 
-    if(selected === "full"){
-    message = 
-    "💰 تحويل كامل مبلغ الرحلة على الرقم:\n\n" +
-    data.number + "\n\n" +
-    "⚠️ بعد التحويل:\n" +
-    "اضغط على زر (إرسال تفاصيل الحجز عبر واتساب)\n" +
-    "وأرسل صورة التحويل لتأكيد الحجز";
-} else {
-    message = 
-    "💳 تحويل دفعة تأكيد الحجز على الرقم:\n\n" +
-    data.number + "\n\n" +
-    "⚠️ بعد التحويل:\n" +
-    "اضغط على زر (إرسال تفاصيل الحجز عبر واتساب)\n" +
-    "وأرسل صورة التحويل لتأكيد الحجز";
+const t = translations[lang];
+
+	if(selected === "full"){
+    message =
+        t.instapayFull +
+        data.number + "\n\n" +
+        t.afterTransfer;
+	} else {
+    message =
+        t.instapayDeposit +
+        data.number + "\n\n" +
+        t.afterTransfer;
 }
 
     alert(message);
@@ -1367,7 +1824,7 @@ function togglePaymentOptions(){
     let selected = document.querySelector('input[name="payType"]:checked');
 
     if(!selected){
-        alert("من فضلك اختر نوع الدفع");
+        alert(translations[lang].choosePayment);
         return;
     }
 
@@ -1379,10 +1836,10 @@ function togglePaymentOptions(){
 
 		if (btn) {
 		btn.disabled = true;
-		btn.innerText = "جاري التحميل...";
+		btn.innerText = translations[lang].loading;
 
 		setTimeout(() => {
-        btn.innerText = "تأكيد الحجز 💳";
+        btn.innerText = translations[lang].confirmBooking;
         btn.disabled = false;
 		}, 2000);
 		}
