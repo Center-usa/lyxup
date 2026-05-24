@@ -325,25 +325,27 @@ body {
 }
 /* 🔥 تبيض أيقونة التاريخ - كمبيوتر فقط */
 @media (hover: hover) and (pointer: fine) {
-    .hidden-date {
-        position: static;
-        opacity: 1;
-        width: 100%;
-        height: auto;
-        margin-bottom: 10px;
-        padding: 15px;
-        border-radius: 12px;
-        border: none;
-        background: #111;
-        color: #fff;
-        font-size: 16px;
-        direction: ltr;
-        text-align: left;
+
+    .desktop-date-wrapper.departure::after {
+        content: "تاريخ الذهاب";
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        pointer-events: none;
     }
 
-    .date-box {
-        display: none;
+    .desktop-date-wrapper.return::after {
+        content: "تاريخ العودة";
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        pointer-events: none;
     }
+
 }
 .desktop-date-wrapper {
     position: relative;
