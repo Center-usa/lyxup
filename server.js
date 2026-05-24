@@ -839,10 +839,12 @@ app.get("/success", (req, res) => {
 app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 app.get("/get-user-country", async (req, res) => {
     try {
-        const response = await fetch("https://ipwho.is/");
+        const response = await fetch("https://ipapi.co/json/");
         const data = await response.json();
-        res.json({ country: data.country_code || "ES" });
-    } catch {
+        const country = (data && data.country_code) ? data.country_code : "ES";
+		console.log("🌍 COUNTRY:", country);
+		res.json({ country });
+ 	   } catch {
         res.json({ country: "ES" });
     }
 });
