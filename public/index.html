@@ -695,7 +695,40 @@ aria-label="احجز خدمة VIP">
   async 
   defer>
 </script>
+const translations = {
+  ar: {
+    title: "احجز في ثواني",
+    name: "الاسم",
+    phone: "رقم الهاتف",
+    from: "من",
+    to: "إلى",
+    price: "احسب السعر 💰",
+  },
+  en: {
+    title: "Book in seconds",
+    name: "Name",
+    phone: "Phone number",
+    from: "From",
+    to: "To",
+    price: "Calculate price 💰",
+  },
+  es: {
+    title: "Reserva en segundos",
+    name: "Nombre",
+    phone: "Número de teléfono",
+    from: "Desde",
+    to: "Hasta",
+    price: "Calcular precio 💰",
+  }
+};
 
+let browserLang = navigator.language;
+
+let lang =
+  localStorage.getItem("lang") ||
+  (browserLang.startsWith("ar") ? "ar" :
+   browserLang.startsWith("es") ? "es" :
+   "en");
 <script>
 const API_URL =
   window.location.hostname === "localhost" ||
@@ -724,6 +757,23 @@ function selectBags(val, el){
     if(bags >= 3 && carType === "sedan"){
         alert("يفضل اختيار SUV أو H1 بسبب عدد الشنط");
     }
+}
+	function applyTranslations() {
+  const t = translations[lang];
+
+  document.querySelector("h1").innerText = t.title;
+
+  document.getElementById("name").placeholder = t.name;
+  document.getElementById("phone").placeholder = t.phone;
+  document.getElementById("from").placeholder = t.from;
+  document.getElementById("to").placeholder = t.to;
+
+  const priceBtn = document.getElementById("priceBtn");
+  if(priceBtn){
+    priceBtn.innerText = t.price;
+  }
+
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
 }
 
 function syncDate(val){
@@ -1403,7 +1453,7 @@ function togglePaymentOptions(){
 		}, 2000);
 		}
 }
-
+applyTranslations();
 </script>
 <script src="https://www.paypal.com/sdk/js?client-id=AboKpdw5yBx0BcbJtgeRFZr_070wcECHZgFtg3ebXmAfIkoUtU-OuF32rftLRzEM_sHWBSxzQpcibwkf&currency=EUR"></script>
 </body>
