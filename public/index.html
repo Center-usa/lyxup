@@ -1316,11 +1316,7 @@ fetch(`${API_URL}/get-user-country`)
 .then(data => {
 
     console.log("SERVER COUNTRY:", data.country);
-
-    // لو السيرفر قال مصر (غالبًا غلط)
-    if(data.country === "EG"){
-        throw new Error("Server fallback triggered");
-    }
+ 
 
     setCurrency(data.country);
 
