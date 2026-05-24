@@ -881,7 +881,7 @@ function selectBags(val, el){
     luggageTitle.innerText = t.luggage;
   }
 
-  // 🔥 التاريخ (المهم)
+  // 🔥 التاريخ (موبايل)
   const dateText = document.getElementById("dateText");
   if(dateText){
     dateText.innerText = t.dateDeparture;
@@ -890,6 +890,17 @@ function selectBags(val, el){
   const returnDateText = document.getElementById("returnDateText");
   if(returnDateText){
     returnDateText.innerText = t.dateReturn;
+  }
+
+  // 🔥 التاريخ (كمبيوتر - placeholder)
+  const depWrapper = document.querySelector(".desktop-date-wrapper.departure");
+  if(depWrapper){
+    depWrapper.setAttribute("data-placeholder", t.dateDeparture);
+  }
+
+  const retWrapper = document.querySelector(".desktop-date-wrapper.return");
+  if(retWrapper){
+    retWrapper.setAttribute("data-placeholder", t.dateReturn);
   }
 
   // 🔥 زر السعر
