@@ -767,7 +767,7 @@ function selectBags(val, el){
 	function applyTranslations() {
   const t = translations[lang];
 
-  document.querySelector("h1").innerText = t.title;
+  document.getElementById("title").innerText = t.title;
 
   document.getElementById("name").placeholder = t.name;
   document.getElementById("phone").placeholder = t.phone;
