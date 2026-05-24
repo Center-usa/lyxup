@@ -463,13 +463,13 @@ body {
 <input id="phone" class="input" placeholder="">
 
 <div class="trip-type">
-    <button id="oneWayBtn" class="active" onclick="setTripType('oneway')">ذهاب فقط</button>
-    <button id="roundBtn" onclick="setTripType('round')">ذهاب وعودة</button>
+    <button id="oneWayBtn" class="active" onclick="setTripType('oneway')"></button>
+	<button id="roundBtn" onclick="setTripType('round')"></button>
 </div>
 
 <!-- 🔥 تاريخ الذهاب (موبايل) -->
 <div class="date-box">
-    <span id="dateText">📅 تاريخ الذهاب</span>
+    <span id="dateText"></span>
     <input type="date" id="date" class="hidden-date" onchange="setDate()">
 </div>
 
@@ -483,7 +483,7 @@ body {
 
     <!-- 📱 موبايل -->
     <div class="date-box">
-        <span id="returnDateText">📅 تاريخ العودة</span>
+        <span id="returnDateText"></span>
         <input type="date" id="returnDate" class="hidden-date" onchange="setReturnDate()">
     </div>
 
@@ -500,8 +500,8 @@ body {
     <div id="mapPanel-from" class="map-panel">
         <div id="map-from" class="map-box"></div>
         <div class="map-actions">
-            <button class="btn secondary" onclick="useMyLocation('from')">📡 موقعي</button>
-            <button class="btn primary" onclick="closeMap('from')">تم</button>
+            <button class="btn secondary" onclick="useMyLocation('from')"></button>
+			<button class="btn primary" onclick="closeMap('from')"></button>
         </div>
     </div>
 </div>
@@ -520,14 +520,14 @@ body {
 </div>
 <div class="luggage-section">
 
-    <div class="luggage-title">🧳 هل لديك شنط؟</div>
+    <div class="luggage-title"></div>
 
     <div class="luggage-options">
 
-        <div class="luggage-btn active" onclick="selectBags(0, this)">بدون</div>
-		<div class="luggage-btn" onclick="selectBags(2, this)">🧳 1-2</div>
-		<div class="luggage-btn" onclick="selectBags(5, this)">🧳 3-5</div>
-		<div class="luggage-btn" onclick="selectBags(8, this)">🧳 أكثر</div>
+        <div class="luggage-btn active" onclick="selectBags(0, this)"></div>
+		<div class="luggage-btn" onclick="selectBags(2, this)"></div>
+		<div class="luggage-btn" onclick="selectBags(5, this)"></div>
+		<div class="luggage-btn" onclick="selectBags(8, this)"></div>
 
     </div>
 
@@ -541,41 +541,37 @@ body {
     <option value="coaster">👤20+ 🚌 Coaster </option>
 </select>
 
-<button class="btn primary" onclick="calculatePrice()">احسب السعر 💰</button>
+<button class="btn primary" onclick="calculatePrice()"></button>
 
-<div id="price" class="price-box">السعر: --</div>
+<div id="price" class="price-box"></div>
 <div class="currency-box">
-    <label>💱 اختر العملة</label>
+    <label class="currency-label"></label>
     <select id="currency">
         <option value="EUR">🇪🇺 € Euro</option>
 		<option value="USD">🇺🇸 $ USD</option>
 		<option value="EGP">🇪🇬 EGP</option>
     </select>
 </div>
-<button id="confirmBtn" class="btn primary" style="display:none;" onclick="sendWhatsApp()">
-💬إرسال تفاصيل الحجز عبر واتساب💬
-</button>
+<button id="confirmBtn" class="btn primary" style="display:none;" onclick="sendWhatsApp()"></button>
+
 <div id="paymentTypeBox" style="display:none; margin-top:10px;">
 
     <label style="display:block; margin-bottom:8px; background:#111; padding:12px; border-radius:10px;">
     <input type="radio" name="payType" value="deposit" onchange="onSelectPaymentType()">
-    💳 دفعة لتأكيد الحجز
-    <div style="font-size:12px; color:#aaa;">
-        يتم احتسابها ضمن إجمالي الرحلة
-    </div>
-	</label>
+
+    <span class="pay-deposit"></span>
+
+    <div class="pay-deposit-desc" style="font-size:12px; color:#aaa;"></div>
+</label>
 
 	<label style="display:block; background:#111; padding:12px; border-radius:10px;">
     <input type="radio" name="payType" value="full" onchange="onSelectPaymentType()">
-    💰 دفع كامل الرحلة
+    <span class="pay-full"></span>
 	</label>
 
 </div>
 <!-- 💳 زر الدفع -->
-<button id="depositBtn" class="btn primary" onclick="togglePaymentOptions()" style="background:#00c853; display:none;">
-تأكيد الحجز 💳
-</button>
-
+<button id="depositBtn" class="btn primary" onclick="togglePaymentOptions()" style="background:#00c853; display:none;"></button>
 
 
 <!-- 💰 طرق الدفع -->
@@ -708,7 +704,6 @@ aria-label="احجز خدمة VIP">
 
 <script>
 
-
 const API_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1" ||
@@ -835,6 +830,16 @@ ar: {
   "❌ في حالة الإلغاء خلال أقل من 24 ساعة من موعد الرحلة، لن يتم استرداد مبلغ التأكيد.\n\n" +
   "🔒 الدفعة تستخدم لتأمين السيارة والسائق لك في الموعد المحدد.\n\n" +
   "هل تريد المتابعة؟",
+  
+  successPage: {
+  title: "تم تأكيد حجزك بنجاح ✅",
+  thanks: "شكرًا لاختيارك LYXUP 🚗",
+  contact: "سيتم التواصل معك خلال دقائق لتأكيد التفاصيل",
+  confirmed: "تم تأكيد الحجز",
+  note: "اضغط لتأكيد الحجز على واتساب",
+  whatsapp: "تأكيد عبر واتساب",
+  home: "رجوع للصفحة الرئيسية"
+}
 },
 
   en: {
@@ -946,6 +951,16 @@ ar: {
   "❌ If you cancel less than 24 hours before the trip, the deposit is non-refundable.\n\n" +
   "🔒 The deposit secures your car and driver for your scheduled time.\n\n" +
   "Do you want to continue?",
+  
+  successPage: {
+  title: "Booking Confirmed ✅",
+  thanks: "Thank you for choosing LYXUP 🚗",
+  contact: "We will contact you shortly to confirm your ride",
+  confirmed: "Your booking is confirmed",
+  note: "Click to confirm via WhatsApp",
+  whatsapp: "Confirm on WhatsApp",
+  home: "Back to Home"
+}
 },
 es: {
   title: "Experiencia de viaje cómoda y lujosa",
@@ -1032,6 +1047,16 @@ es: {
   "❌ Si cancelas con menos de 24 horas, el depósito no es reembolsable.\n\n" +
   "🔒 El depósito asegura tu coche y conductor en el horario reservado.\n\n" +
   "¿Deseas continuar?",
+  
+  successPage: {
+  title: "Reserva confirmada ✅",
+  thanks: "Gracias por elegir LYXUP 🚗",
+  contact: "Nos pondremos en contacto contigo en breve",
+  confirmed: "Tu reserva está confirmada",
+  note: "Haz clic para confirmar por WhatsApp",
+  whatsapp: "Confirmar por WhatsApp",
+  home: "Volver al inicio"
+}
  }
 
 };
@@ -1103,17 +1128,13 @@ function applyTranslations(lang) {
   if(confirmBtn) confirmBtn.innerText = t.confirm;
 
   // 🔥 الدفع
-  const paymentLabels = document.querySelectorAll('#paymentTypeBox label');
+  const depositText = document.querySelector(".pay-deposit");
+  const depositDesc = document.querySelector(".pay-deposit-desc");
+  const fullText = document.querySelector(".pay-full");
 
-  if(paymentLabels[0]){
-    paymentLabels[0].childNodes[1].textContent = " " + t.deposit;
-    const desc = paymentLabels[0].querySelector("div");
-    if(desc) desc.innerText = t.depositDesc;
-  }
-
-  if(paymentLabels[1]){
-    paymentLabels[1].childNodes[1].textContent = " " + t.fullPay;
-  }
+  if(depositText) depositText.innerText = "💳 " + t.deposit;
+  if(depositDesc) depositDesc.innerText = t.depositDesc;
+  if(fullText) fullText.innerText = "💰 " + t.fullPay;
 
   // 🔥 زر تأكيد الحجز
   const depositBtn = document.getElementById("depositBtn");
@@ -1168,6 +1189,9 @@ function applyTranslations(lang) {
   // 🔥 الاتجاه
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   document.documentElement.lang = lang;
+  
+  if(depositText) depositText.innerText = "💳 " + t.deposit;
+  if(depositDesc) depositDesc.innerText = t.depositDesc;
   
 }
 // 🔥 تطبيق الترجمة
@@ -1705,7 +1729,7 @@ function payPaypal(){
             const result = await res.json();
 
             if(result.status === "COMPLETED"){
-			window.location.href = `${API_URL}/success`;
+			window.location.href = `${API_URL}/success?lang=${lang}`;
 		} else {
                 alert(translations[lang].error);
                 unlockUI();
