@@ -1314,6 +1314,7 @@ currencySelect.addEventListener("change", function(){
 fetch(`${API_URL}/get-user-country`)
 .then(res => res.json())
 .then(data => {
+    let currencySelect = document.getElementById("currency");
 
     if(data.country === "EG"){
         currencySelect.value = "EGP";
@@ -1325,11 +1326,10 @@ fetch(`${API_URL}/get-user-country`)
         currencySelect.value = "EUR";
     }
 
-    calculatePrice(); // مهم
-
+    calculatePrice();
 })
 .catch(() => {
-    currencySelect.value = "EUR";
+    document.getElementById("currency").value = "EUR";
     calculatePrice();
 });
 let lastTouchEnd = 0;
