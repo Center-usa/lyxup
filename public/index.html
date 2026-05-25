@@ -1169,14 +1169,12 @@ function applyTranslations(lang) {
   // 🔥 الماب
   const mapBtns = document.querySelectorAll(".map-actions .btn");
 
-  mapBtns.forEach(btn => {
-    if(btn.innerText.includes("📡")){
-      btn.innerText = "📡 " + t.myLocation;
-    }
-    if(btn.innerText.includes("تم") || btn.innerText.includes("Done")){
-      btn.innerText = t.done;
-    }
-  });
+  const mapBtns = document.querySelectorAll(".map-actions .btn");
+
+	if(mapBtns[0]) mapBtns[0].innerText = "📡 " + t.myLocation;
+	if(mapBtns[1]) mapBtns[1].innerText = "✔ " + t.done;
+	if(mapBtns[2]) mapBtns[2].innerText = "📡 " + t.myLocation;
+	if(mapBtns[3]) mapBtns[3].innerText = "✔ " + t.done;
 
   // 🔥 الخدمات
   const titles = document.querySelectorAll(".card .title");
