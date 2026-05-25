@@ -596,15 +596,15 @@ body {
 </div>
 
 <div class="services">
-    <a class="card" data-link="airport" title="حجز توصيل من وإلى مطار القاهرة بسيارة خاصة" aria-label="احجز خدمة توصيل مطار القاهرة">
+    <a href="/airport-transfer-cairo" class="card" title="حجز توصيل من وإلى مطار القاهرة بسيارة خاصة" aria-label="احجز خدمة توصيل مطار القاهرة">
   <div class="card-content">
 
     <div class="right">
       <img src="/images/airport.png" class="car-img" alt="توصيل مطار القاهرة">
       
       <div class="text">
-        <div class="title"></div>
-        <div class="desc"></div>
+        <div class="title">توصيل مطار القاهرة</div>
+        <div class="desc">من وإلى المطار بأسعار مميزة</div>
       </div>
     </div>
 
@@ -612,7 +612,7 @@ body {
 
   </div>
 </a>
-    <a class="card" data-link="coast" 
+    <a href="/north-coast-transfer" class="card" 
 title="حجز توصيل إلى الساحل الشمالي بسيارة خاصة" 
 aria-label="احجز رحلة إلى الساحل الشمالي">
 
@@ -622,8 +622,8 @@ aria-label="احجز رحلة إلى الساحل الشمالي">
       <img src="/images/coast.png" class="car-img" alt="توصيل الساحل الشمالي">
       
       <div class="text">
-        <div class="title"></div>
-        <div class="desc"></div>
+        <div class="title">توصيل الساحل الشمالي</div>
+        <div class="desc">رحلات مريحة وسريعة بأفضل الأسعار</div>
       </div>
     </div>
 
@@ -631,7 +631,7 @@ aria-label="احجز رحلة إلى الساحل الشمالي">
 
   </div>
 </a>
-    <a class="card" data-link="corporate" 
+    <a href="/corporate-transport" class="card" 
 title="حجز خدمات نقل للشركات والتنقلات الرسمية بسيارات فاخرة" 
 aria-label="احجز خدمة نقل الشركات">
 
@@ -641,8 +641,8 @@ aria-label="احجز خدمة نقل الشركات">
       <img src="/images/corporate.png" class="car-img" alt="خدمة نقل الشركات">
       
       <div class="text">
-        <div class="title"></div>
-        <div class="desc"></div>
+        <div class="title">نقل الشركات</div>
+        <div class="desc">تنقلات رسمية وخدمة احترافية لرجال الأعمال</div>
       </div>
     </div>
 
@@ -650,7 +650,7 @@ aria-label="احجز خدمة نقل الشركات">
 
   </div>
 </a>
-    <a class="card" data-link="trips" 
+    <a href="/private-trips" class="card" 
 title="حجز رحلات خاصة داخل وخارج المدينة بسيارة خاصة" 
 aria-label="احجز رحلة خاصة">
 
@@ -660,16 +660,16 @@ aria-label="احجز رحلة خاصة">
       <img src="/images/trips.png" class="car-img" alt="رحلات خاصة">
       
       <div class="text">
-        <div class="title"></div>
-        <div class="desc"></div>
+        <div class="title">رحلات خاصة</div>
+        <div class="desc">تنقلات مرنة داخل وخارج المدينة براحة تامة</div>
       </div>
     </div>
 
     <div class="arrow">→</div>
 
   </div>
-</a>	
-<a class="card" data-link="vip" 
+</a>
+<a href="/vip-service" class="card" 
 title="حجز خدمة VIP بسيارات فاخرة وسائقين محترفين" 
 aria-label="احجز خدمة VIP">
 
@@ -679,8 +679,8 @@ aria-label="احجز خدمة VIP">
       <img src="/images/vip.png" class="car-img" alt="خدمة VIP">
       
       <div class="text">
-        <div class="title"></div>
-        <div class="desc"></div>
+        <div class="title">خدمة VIP</div>
+        <div class="desc">سيارات فاخرة وتجربة تنقل راقية</div>
       </div>
     </div>
 
@@ -1215,15 +1215,6 @@ function applyTranslations(lang) {
 }
 // 🔥 تطبيق الترجمة
 applyTranslations(lang);
-
-document.querySelectorAll(".card").forEach(card => {
-  let type = card.dataset.link;
-
-  if(lang === "ar") card.href = "/" + type + "-cairo";
-  if(lang === "en") card.href = "/en/" + type;
-  if(lang === "es") card.href = "/es/" + type;
-});
-
 function selectBags(val, el){
     bags = val;
 
