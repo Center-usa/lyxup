@@ -20,3 +20,12 @@
     }
   ]
 }
+{
+  "redirects": [
+    {
+      "source": "https://www.lyxup.app/:path*",
+      "destination": "https://lyxup.app/:path*",
+      "permanent": true
+    }
+  ]
+}
