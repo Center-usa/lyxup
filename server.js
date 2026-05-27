@@ -8,6 +8,9 @@ const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/ar", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 app.get("/favicon.png", (req, res) => {
   res.sendFile(__dirname + "/public/favicon.png");
 });
