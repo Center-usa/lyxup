@@ -17,6 +17,13 @@ app.get("/en", (req, res) => {
 app.get("/es", (req, res) => {
   res.sendFile(__dirname + "/public/es.html");
 });
+app.get("/en", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/es", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
