@@ -725,26 +725,6 @@ aria-label="احجز خدمة VIP">
   defer>
 </script>
 
-let lang;
-
-const path = window.location.pathname;
-
-if (path.startsWith("/en")) {
-  lang = "en";
-} else if (path.startsWith("/es")) {
-  lang = "es";
-} else {
-  // 👇 هنا بس نستخدم لغة الجهاز
-  const userLang = navigator.language.toLowerCase();
-
-  if (userLang.startsWith("ar")) {
-    lang = "ar";
-  } else if (userLang.startsWith("es")) {
-    lang = "es";
-  } else {
-    lang = "en";
-  }
-}
 	
 const API_URL =
   window.location.hostname === "localhost" ||
