@@ -18,10 +18,7 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ]
-}
-{
-  {
+  ],
   "redirects": [
     {
       "source": "/:path*",
