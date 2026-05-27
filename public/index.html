@@ -742,6 +742,7 @@ const path = window.location.pathname;
 // 🔥 ده اللي كان ناقص
 if (path.startsWith("/en")) lang = "en";
 else if (path.startsWith("/es")) lang = "es";
+else if (path.startsWith("/ar")) lang = "ar";
 
 if(!lang){
   const userLang = navigator.language.toLowerCase();
