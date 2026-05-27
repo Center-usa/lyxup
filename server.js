@@ -8,6 +8,9 @@ const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/favicon.png", (req, res) => {
+  res.sendFile(__dirname + "/public/favicon.png");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
