@@ -21,9 +21,16 @@
   ]
 }
 {
+  {
   "redirects": [
     {
-      "source": "https://www.lyxup.app/:path*",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lyxup.app"
+        }
+      ],
       "destination": "https://lyxup.app/:path*",
       "permanent": true
     }
