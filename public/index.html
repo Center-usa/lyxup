@@ -1141,8 +1141,13 @@ function applyTranslations(lang) {
 
  const path = window.location.pathname;
 
- if(path.startsWith("/en")) lang = "en";
- if(path.startsWith("/es")) lang = "es";
+if (path.startsWith("/en")) {
+  lang = "en";
+} else if (path.startsWith("/es")) {
+  lang = "es";
+} else {
+  lang = "ar";
+}
 
   if(luggageBtns[0]) luggageBtns[0].innerText = t.noBags;
   if(luggageBtns[1]) luggageBtns[1].innerText = "🧳 " + t.bagsSmall;
