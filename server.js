@@ -875,7 +875,7 @@ app.get("/success", (req, res) => {
   </html>
   `);
 });
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+
 app.get('/get-user-country', async (req, res) => {
   try {
 
