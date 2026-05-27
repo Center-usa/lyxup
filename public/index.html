@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 🔥 Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPKPEP16Q0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MPKPEP16Q0');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>LYXUP</title>
@@ -738,8 +729,6 @@ const API_URL =
 	let bags = 0;
 let lang = localStorage.getItem("lang");
 
-let lang = localStorage.getItem("lang");
-
 if(!lang){
   const userLang = navigator.language.toLowerCase();
 
@@ -747,8 +736,10 @@ if(!lang){
   else if(userLang.startsWith("es")) lang = "es";
   else lang = "en";
 
+  // 🔥 يتحط هنا بالظبط
   localStorage.setItem("lang", lang);
 }
+const translations = {
 
 ar: {
   title: "تجربة سفر مريحة وفاخرة",
