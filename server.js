@@ -11,6 +11,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/favicon.png", (req, res) => {
   res.sendFile(__dirname + "/public/favicon.png");
 });
+app.get("/en", (req, res) => {
+  res.sendFile(__dirname + "/public/en.html");
+});
+app.get("/es", (req, res) => {
+  res.sendFile(__dirname + "/public/es.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
