@@ -722,12 +722,24 @@ let lang;
 
 const path = window.location.pathname;
 
+// ✅ لو فيه لغة في الرابط → نمشي وراها
 if (path.startsWith("/en")) {
   lang = "en";
 } else if (path.startsWith("/es")) {
   lang = "es";
 } else {
-  lang = "ar";
+
+  // 🌍 لو مفيش لغة → نحدد حسب الجهاز
+  const userLang = navigator.language.toLowerCase();
+
+  if (userLang.startsWith("ar")) {
+    lang = "ar";
+  } else if (userLang.startsWith("es")) {
+    lang = "es";
+  } else {
+    lang = "en";
+  }
+
 }
 	
 const API_URL =
