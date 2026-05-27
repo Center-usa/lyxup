@@ -737,6 +737,11 @@ const API_URL =
 
 	let bags = 0;
 let lang = localStorage.getItem("lang");
+const path = window.location.pathname;
+
+// 🔥 ده اللي كان ناقص
+if (path.startsWith("/en")) lang = "en";
+else if (path.startsWith("/es")) lang = "es";
 
 if(!lang){
   const userLang = navigator.language.toLowerCase();
@@ -744,10 +749,10 @@ if(!lang){
   if(userLang.startsWith("ar")) lang = "ar";
   else if(userLang.startsWith("es")) lang = "es";
   else lang = "en";
-
-  // 🔥 يتحط هنا بالظبط
-  localStorage.setItem("lang", lang);
 }
+
+// حفظ اللغة
+localStorage.setItem("lang", lang);
 const translations = {
 
 ar: {
