@@ -730,12 +730,13 @@ let lang;
 
 const path = window.location.pathname;
 
-// ✅ لو فيه لغة في الرابط → نمشي وراها
 if (path.startsWith("/en")) {
   lang = "en";
 } else if (path.startsWith("/es")) {
   lang = "es";
 } else {
+  lang = "en"; // 👈 الافتراضي
+}
 
   // 🌍 لو مفيش لغة → نحدد حسب الجهاز
   const userLang = navigator.language.toLowerCase();
