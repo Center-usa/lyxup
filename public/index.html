@@ -1,15 +1,6 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-<!-- 🔥 Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPKPEP16Q0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MPKPEP16Q0');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>LYXUP</title>
@@ -33,7 +24,8 @@ html, body {
     touch-action: manipulation;
     overflow-x: hidden;
 }
-	
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
     font-family: Arial;
@@ -133,7 +125,7 @@ body {
 }
 
 .map-field-wrapper .input {
-  	padding-left: 55px;
+    padding-left: 55px;
     padding-right: 15px;
 }
 
@@ -725,7 +717,8 @@ aria-label="احجز خدمة VIP">
   defer>
 </script>
 
-	
+<script>
+
 const API_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1" ||
@@ -734,7 +727,18 @@ const API_URL =
     : window.location.origin;
 
 	let bags = 0;
+let lang = localStorage.getItem("lang");
 
+if(!lang){
+  const userLang = navigator.language.toLowerCase();
+
+  if(userLang.startsWith("ar")) lang = "ar";
+  else if(userLang.startsWith("es")) lang = "es";
+  else lang = "en";
+
+  // 🔥 يتحط هنا بالظبط
+  localStorage.setItem("lang", lang);
+}
 const translations = {
 
 ar: {
@@ -1134,16 +1138,6 @@ function applyTranslations(lang) {
   if(luggageTitle) luggageTitle.innerText = t.luggage;
 
   const luggageBtns = document.querySelectorAll(".luggage-btn");
-
- const path = window.location.pathname;
-
-if (path.startsWith("/en")) {
-  lang = "en";
-} else if (path.startsWith("/es")) {
-  lang = "es";
-} else {
-  lang = "ar";
-}
 
   if(luggageBtns[0]) luggageBtns[0].innerText = t.noBags;
   if(luggageBtns[1]) luggageBtns[1].innerText = "🧳 " + t.bagsSmall;
