@@ -738,16 +738,32 @@ const API_URL =
 	let bags = 0;
 let lang = localStorage.getItem("lang");
 
-if(!lang){
-  const userLang = navigator.language.toLowerCase();
+let lang;
 
-  if(userLang.startsWith("ar")) lang = "ar";
-  else if(userLang.startsWith("es")) lang = "es";
-  else lang = "en";
+const path = window.location.pathname;
 
-  // 🔥 يتحط هنا بالظبط
-  localStorage.setItem("lang", lang);
+// ✅ الأول نشوف الرابط
+if (path.startsWith("/en")) {
+  lang = "en";
+} else if (path.startsWith("/es")) {
+  lang = "es";
+} else {
+  // ✅ لو مفيش في الرابط
+  lang = localStorage.getItem("lang");
+
+  if (!lang) {
+    const userLang = navigator.language.toLowerCase();
+
+    if (userLang.startsWith("ar")) lang = "ar";
+    else if (userLang.startsWith("es")) lang = "es";
+    else lang = "en";
+
+    localStorage.setItem("lang", lang);
+  }
 }
+
+// 🔥 نحفظ الاختيار
+localStorage.setItem("lang", lang);
 const translations = {
 
 ar: {
