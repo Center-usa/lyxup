@@ -1585,7 +1585,16 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-        document.getElementById("price").innerText = data.text;
+        let priceMatch = data.text.match(/(\d+)/);
+		let distanceMatch = data.text.match(/\((.*?)\)/);
+
+		let priceValue = priceMatch ? priceMatch[0] : "--";
+		let distanceValue = distanceMatch ? distanceMatch[1] : "";
+
+		const t = translations[lang];
+
+document.getElementById("price").innerText =
+  `${t.pricePlaceholder.replace('--', priceValue)} (${distanceValue})`;
 
         window.realPrice = data.rawPrice;
 
