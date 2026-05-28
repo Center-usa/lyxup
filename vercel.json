@@ -8,6 +8,10 @@
   ],
   "routes": [
     {
+      "src": "/sitemap.xml",
+      "dest": "/public/sitemap.xml"
+    },
+    {
       "src": "/images/(.*)",
       "dest": "/public/images/$1"
     },
@@ -17,6 +21,17 @@
     {
       "src": "/(.*)",
       "dest": "server.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
     }
   ],
   "redirects": [
