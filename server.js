@@ -7,10 +7,7 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
-app.get('/sitemap.xml', (req, res) => {
-  res.setHeader('Content-Type', 'application/xml');
-  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
-});
+app.use(express.static(path.join(__dirname, "public")));
 app.get("/ar", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
@@ -945,20 +942,14 @@ app.get("/private-trips", (req, res) => {
 app.get("/vip-service", (req, res) => {
   res.sendFile(__dirname + "/public/vip.html");
 });
+app.get("/sitemap.xml", (req, res) => {
+  res.sendFile(__dirname + "/sitemap.xml");
+});
+app.use(express.static(path.join(__dirname, "public")));
 
 // fallback
-
-app.get("*", (req, res) => {
-
-  // سيب الملفات زي sitemap و robots تشتغل طبيعي
-  if (req.path.includes(".")) {
-    return res.sendFile(
-      path.join(__dirname, "public", req.path.replace(/^\//, ""))
-    );
-  }
-
-  // باقي الصفحات
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 module.exports = app;
