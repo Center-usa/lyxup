@@ -7,8 +7,16 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
-
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  if (req.path.includes(".")) {
+    return res.sendFile(path.join(__dirname, "public", req.path));
+  }
+
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.get("/ar", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
