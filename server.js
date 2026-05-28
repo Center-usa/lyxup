@@ -947,11 +947,19 @@ app.get("/vip-service", (req, res) => {
 });
 
 // fallback
-if (req.path.includes(".")) {
-  return res.sendFile(
-    path.join(__dirname, "public", req.path.replace(/^\\//, ""))
-  );
-}
+// fallback
+app.get("*", (req, res) => {
+
+  // سيب الملفات زي sitemap و robots تشتغل طبيعي
+  if (req.path.includes(".")) {
+    return res.sendFile(
+      path.join(__dirname, "public", req.path.replace(/^\\//, ""))
+    );
+  }
+
+  // باقي الصفحات
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
   // باقي الصفحات
   res.sendFile(path.join(__dirname, "public", "index.html"));
