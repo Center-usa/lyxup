@@ -7,18 +7,7 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
-app.get("*", (req, res) => {
-  if (req.path.startsWith('/api')) {
-    return res.status(404).end();
-  }
 
-  // مهم جدًا 👇
-  if (req.path.includes('.')) {
-    return res.status(404).end();
-  }
-
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 app.use(express.static(path.join(__dirname, "public")));
 app.get("/ar", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
