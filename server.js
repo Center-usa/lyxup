@@ -9,7 +9,7 @@ const axios = require("axios");
 const app = express();
 app.get("/sitemap.xml", (req, res) => {
   res.setHeader("Content-Type", "application/xml");
-  res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+  res.sendFile(path.join(process.cwd(), "public", "sitemap.xml"));
 });
 
 app.use(express.static(path.join(__dirname, "public")));
