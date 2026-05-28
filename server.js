@@ -8,6 +8,10 @@ const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/sitemap.xml", (req, res) => {
+  res.setHeader("Content-Type", "application/xml");
+  res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+});
 app.get("/ar", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
@@ -943,7 +947,6 @@ app.get("/vip-service", (req, res) => {
   res.sendFile(__dirname + "/public/vip.html");
 });
 
-app.use(express.static(path.join(__dirname, "public")));
 
 // fallback
 app.get("/", (req, res) => {
