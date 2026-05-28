@@ -942,10 +942,7 @@ app.get("/private-trips", (req, res) => {
 app.get("/vip-service", (req, res) => {
   res.sendFile(__dirname + "/public/vip.html");
 });
-app.get("/sitemap.xml", (req, res) => {
-  res.setHeader("Content-Type", "application/xml");
-  res.sendFile(__dirname + "/public/sitemap.xml");
-});
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // fallback
