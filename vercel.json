@@ -9,6 +9,9 @@
   "routes": [
     {
       "src": "/sitemap.xml",
+      "headers": {
+        "Content-Type": "application/xml"
+      },
       "dest": "/public/sitemap.xml"
     },
     {
