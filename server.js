@@ -943,9 +943,6 @@ app.get("/private-trips", (req, res) => {
 app.get("/vip-service", (req, res) => {
   res.sendFile(__dirname + "/public/vip.html");
 });
-app.get("/sitemap.xml", (req, res) => {
-  res.sendFile(__dirname + "/sitemap.xml");
-});
 
 // fallback
 app.get("/", (req, res) => {
