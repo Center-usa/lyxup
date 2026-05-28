@@ -946,7 +946,6 @@ app.get("/vip-service", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
   res.sendFile(__dirname + "/sitemap.xml");
 });
-app.use(express.static(path.join(__dirname, "public")));
 
 // fallback
 app.get("/", (req, res) => {
