@@ -1565,6 +1565,12 @@ if(tripType === "oneway"){
 
 	✨ *${t.success}*`;
 
+	gtag('event', 'conversion', {
+  'send_to': 'AW-18196763174/XXXXXXXXXXXX',
+  'value': window.realPrice || 1,
+  'currency': (document.getElementById("currency") ? document.getElementById("currency").value : 'EGP')
+});
+	
     window.open(`https://api.whatsapp.com/send?phone=201202712711&text=${encodeURIComponent(msg)}`);
 }
 
