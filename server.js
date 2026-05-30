@@ -34,30 +34,35 @@ app.use(
       directives: {
         "default-src": ["'self'"],
 
-        "script-src": [
-          "'self'",
-          "'unsafe-inline'",
-          "https://www.paypal.com",
-          "https://www.paypalobjects.com",
-          "https://maps.googleapis.com",
-          "https://maps.gstatic.com"
-        ],
+      "script-src": [
+  "'self'",
+  "'unsafe-inline'",
+  "https://www.paypal.com",
+  "https://www.paypalobjects.com",
+  "https://maps.googleapis.com",
+  "https://maps.gstatic.com",
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com"
+],
 
-        "connect-src": [
-          "'self'",
-          "https://maps.googleapis.com",
-          "https://maps.gstatic.com",
-          "https://www.paypal.com",
-          "https://www.sandbox.paypal.com"
-        ],
+"connect-src": [
+  "'self'",
+  "https://maps.googleapis.com",
+  "https://maps.gstatic.com",
+  "https://www.paypal.com",
+  "https://www.sandbox.paypal.com",
+  "https://www.google-analytics.com",
+  "https://region1.google-analytics.com"
+],
 
-        "img-src": [
-          "'self'",
-          "data:",
-          "https://maps.googleapis.com",
-          "https://maps.gstatic.com",
-          "https://www.paypalobjects.com" // 🔥 ده الجديد
-        ],
+"img-src": [
+  "'self'",
+  "data:",
+  "https://maps.googleapis.com",
+  "https://maps.gstatic.com",
+  "https://www.paypalobjects.com",
+  "https://www.google-analytics.com"
+],
 
         "frame-src": [
           "'self'",
