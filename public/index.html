@@ -80,7 +80,13 @@ body {
     line-height: 1.4;
     margin-bottom: 6px;
 
-    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.08);
+    /* 🔥 الجريدينت */
+    background: linear-gradient(90deg, #ffffff, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* fallback لو متصفح قديم */
+    color: #fff;
 }
 
 .hero h2 {
