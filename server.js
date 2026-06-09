@@ -44,6 +44,14 @@ app.get("/es", (req, res) => {
 app.get("/about", (req, res) => {
   res.sendFile(__dirname + "/public/about.html");
 });
+
+app.get("/en/about", (req, res) => {
+  res.sendFile(__dirname + "/public/en-about.html");
+});
+
+app.get("/es/about", (req, res) => {
+  res.sendFile(__dirname + "/public/es-about.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
