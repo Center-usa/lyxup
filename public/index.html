@@ -781,21 +781,24 @@ const API_URL =
     : window.location.origin;
 
 	let bags = 0;
-let lang;
+let lang = localStorage.getItem("lang");
 const path = window.location.pathname;
 
-// ✅ لو الرابط فيه لغة → التزم بيها
+// 🔥 ده اللي كان ناقص
 if (path.startsWith("/en")) lang = "en";
 else if (path.startsWith("/es")) lang = "es";
+else if (path.startsWith("/ar")) lang = "ar";
 
-// ✅ لو الصفحة الرئيسية بس
-else {
+if(!lang){
   const userLang = navigator.language.toLowerCase();
 
-  if (userLang.startsWith("es")) lang = "es";
-  else if (userLang.startsWith("en")) lang = "en";
-  else lang = "ar";
+  if(userLang.startsWith("ar")) lang = "ar";
+  else if(userLang.startsWith("es")) lang = "es";
+  else lang = "en";
 }
+
+// حفظ اللغة
+localStorage.setItem("lang", lang);
 const translations = {
 
 ar: {
