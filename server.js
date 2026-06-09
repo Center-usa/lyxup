@@ -84,6 +84,22 @@ app.get("/en/privacy-policy", (req, res) => {
 app.get("/es/privacy-policy", (req, res) => {
   res.sendFile(__dirname + "/public/es-privacy-policy.html");
 });
+// 📄 TERMS & CONDITIONS PAGES
+
+// عربي
+app.get("/terms", (req, res) => {
+  res.sendFile(__dirname + "/public/terms.html");
+});
+
+// إنجليزي
+app.get("/en/terms", (req, res) => {
+  res.sendFile(__dirname + "/public/en-terms.html");
+});
+
+// إسباني
+app.get("/es/terms", (req, res) => {
+  res.sendFile(__dirname + "/public/es-terms.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
