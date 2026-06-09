@@ -68,6 +68,22 @@ app.get("/en/contact", (req, res) => {
 app.get("/es/contact", (req, res) => {
   res.sendFile(__dirname + "/public/es-contact.html");
 });
+// 🔒 PRIVACY POLICY PAGES
+
+// عربي
+app.get("/privacy-policy", (req, res) => {
+  res.sendFile(__dirname + "/public/privacy-policy.html");
+});
+
+// إنجليزي
+app.get("/en/privacy-policy", (req, res) => {
+  res.sendFile(__dirname + "/public/en-privacy-policy.html");
+});
+
+// إسباني
+app.get("/es/privacy-policy", (req, res) => {
+  res.sendFile(__dirname + "/public/es-privacy-policy.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
