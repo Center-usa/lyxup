@@ -12,27 +12,21 @@ app.get("/sitemap.xml", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
 });
 
-// 🔥 Routes الأول (مهم جدًا)
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/ar", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+app.get("/favicon.png", (req, res) => {
+  res.sendFile(__dirname + "/public/favicon.png");
+});
 app.get("/en", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "en.html"));
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get("/es", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "es.html"));
+  res.sendFile(__dirname + "/public/index.html");
 });
-
-app.get("/ar", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// favicon
-app.get("/favicon.png", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "favicon.png"));
-});
-
-
-// 🔥 بعد كدة static
-app.use(express.static(path.join(__dirname, "public")));
 app.set("trust proxy", 1);
 app.use(
   helmet({
