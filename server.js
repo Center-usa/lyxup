@@ -21,7 +21,14 @@ app.get("/favicon.png", (req, res) => {
   res.sendFile(__dirname + "/public/favicon.png");
 });
 app.get("/en", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+
+  const ua = req.headers["user-agent"] || "";
+
+  if (ua.includes("facebookexternalhit") || ua.includes("WhatsApp")) {
+    return res.sendFile(path.join(__dirname, "public", "en-preview.html"));
+  }
+
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.get("/es", (req, res) => {
