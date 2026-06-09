@@ -840,14 +840,16 @@ const API_URL =
     : window.location.origin;
 
 	let bags = 0;
+// 🔥 1. تحديد اللغة
 let lang = localStorage.getItem("lang");
 const path = window.location.pathname;
 
-// 🔥 ده اللي كان ناقص
+// أولوية للرابط
 if (path.startsWith("/en")) lang = "en";
 else if (path.startsWith("/es")) lang = "es";
 else if (path.startsWith("/ar")) lang = "ar";
 
+// fallback من الجهاز
 if(!lang){
   const userLang = navigator.language.toLowerCase();
 
@@ -858,6 +860,15 @@ if(!lang){
 
 // حفظ اللغة
 localStorage.setItem("lang", lang);
+
+// 🔥 2. اتجاه الصفحة (لازم قبل الترجمة)
+if(lang === "ar"){
+    document.documentElement.setAttribute("dir", "rtl");
+} else {
+    document.documentElement.setAttribute("dir", "ltr");
+}
+
+// 🔥 3. الترجمة (موجودة عندك)
 const translations = {
 
 ar: {
@@ -1215,7 +1226,53 @@ es: {
 
 function applyTranslations(lang) {
   const t = translations[lang];
+// 🔥 داخل applyTranslations بعد const t = translations[lang];
 
+const menuHome = document.getElementById("menu-home");
+const menuServicesTitle = document.getElementById("menu-services-title");
+const menuCompanyTitle = document.getElementById("menu-company-title");
+const menuLegalTitle = document.getElementById("menu-legal-title");
+
+const menuAirport = document.getElementById("menu-airport");
+const menuCoast = document.getElementById("menu-coast");
+const menuCorporate = document.getElementById("menu-corporate");
+const menuTrips = document.getElementById("menu-trips");
+const menuVIP = document.getElementById("menu-vip");
+
+const menuAbout = document.getElementById("menu-about");
+const menuContact = document.getElementById("menu-contact");
+const menuPrivacy = document.getElementById("menu-privacy");
+const menuTerms = document.getElementById("menu-terms");
+
+// Titles
+if(menuServicesTitle) menuServicesTitle.innerText =
+  lang === "ar" ? "⚙️ الخدمات" : lang === "es" ? "⚙️ Servicios" : "⚙️ Services";
+
+if(menuCompanyTitle) menuCompanyTitle.innerText =
+  lang === "ar" ? "🏢 الشركة" : lang === "es" ? "🏢 Empresa" : "🏢 Company";
+
+if(menuLegalTitle) menuLegalTitle.innerText =
+  lang === "ar" ? "⚖️ قانوني" : "⚖️ Legal";
+
+// Links
+if(menuHome) menuHome.innerText = "🏠 " + t.home;
+if(menuAirport) menuAirport.innerText = "✈️ " + t.airportTitle;
+if(menuCoast) menuCoast.innerText = "🏖️ " + t.coastTitle;
+if(menuCorporate) menuCorporate.innerText = "🏢 " + t.corporateTitle;
+if(menuTrips) menuTrips.innerText = "🚗 " + t.tripsTitle;
+if(menuVIP) menuVIP.innerText = "⭐ " + t.vipTitle;
+
+if(menuAbout) menuAbout.innerText =
+  lang === "ar" ? "ℹ️ من نحن" : lang === "es" ? "ℹ️ Sobre nosotros" : "ℹ️ About Us";
+
+if(menuContact) menuContact.innerText =
+  lang === "ar" ? "📞 اتصل بنا" : lang === "es" ? "📞 Contacto" : "📞 Contact";
+
+if(menuPrivacy) menuPrivacy.innerText =
+  lang === "ar" ? "🔒 سياسة الخصوصية" : lang === "es" ? "🔒 Privacidad" : "🔒 Privacy Policy";
+
+if(menuTerms) menuTerms.innerText =
+  lang === "ar" ? "📄 الشروط والأحكام" : lang === "es" ? "📄 Términos" : "📄 Terms & Conditions";
   // 🔥 العنوان
   const subtitle = document.querySelector(".hero h2");
   if(subtitle) subtitle.innerText = t.title;
@@ -1367,6 +1424,7 @@ function selectBags(val, el){
     alert(translations[lang].bagsWarning);
 	}
 }
+	
 
 function syncDate(val){
     const wrapper = document.querySelector(".desktop-date-wrapper.departure");
@@ -2042,29 +2100,35 @@ function togglePaymentOptions(){
   async
   defer>
 </script>
-	
 	<div id="sidebar" class="sidebar">
 
     <div id="closeBtn" class="close-btn">✖</div>
 
+    <!-- 🏠 HOME -->
     <div class="menu-section">
-        <a href="/">🏠 Home</a>
+        <a href="/" id="menu-home"></a>
     </div>
 
-    <div class="menu-title">Services</div>
-    <a href="/airport-transfer-cairo">✈️ Airport Transfer</a>
-    <a href="/north-coast-transfer">🏖️ North Coast</a>
-    <a href="/corporate-transport">🏢 Corporate</a>
-    <a href="/private-trips">🚗 Private Trips</a>
-    <a href="/vip-service">⭐ VIP</a>
+    <!-- 🚗 SERVICES -->
+    <div class="menu-title" id="menu-services-title"></div>
 
-    <div class="menu-title">Company</div>
-    <a href="/about">ℹ️ About Us</a>
-    <a href="/contact">📞 Contact</a>
+    <a href="/airport-transfer-cairo" id="menu-airport"></a>
+    <a href="/north-coast-transfer" id="menu-coast"></a>
+    <a href="/corporate-transport" id="menu-corporate"></a>
+    <a href="/private-trips" id="menu-trips"></a>
+    <a href="/vip-service" id="menu-vip"></a>
 
-    <div class="menu-title">Legal</div>
-    <a href="/privacy-policy">🔒 Privacy Policy</a>
-    <a href="/terms">📄 Terms & Conditions</a>
+    <!-- ℹ️ COMPANY -->
+    <div class="menu-title" id="menu-company-title"></div>
+
+    <a href="/about" id="menu-about"></a>
+    <a href="/contact" id="menu-contact"></a>
+
+    <!-- ⚖️ LEGAL -->
+    <div class="menu-title" id="menu-legal-title"></div>
+
+    <a href="/privacy-policy" id="menu-privacy"></a>
+    <a href="/terms" id="menu-terms"></a>
 
 </div>
 
