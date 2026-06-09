@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>من نحن | LYXUP</title>
+
+<meta name="description" content="تعرف على شركة LYXUP وخدمات النقل الفاخرة التي نقدمها مع سائقين محترفين.">
+<meta name="keywords" content="من نحن, LYXUP, نقل فاخر, سائق خاص, حجز سيارة">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://lyxup.app/about">
+
+</head>
+<body style="background:#000;color:#fff;font-family:Arial;padding:20px;line-height:1.8">
+
+<h1>من نحن</h1>
+
+<p>LYXUP هي شركة متخصصة في خدمات النقل الفاخرة وتوصيل المطارات.</p>
+
+<h2>رؤيتنا</h2>
+<p>تقديم تجربة سفر مريحة وآمنة بأسعار تنافسية.</p>
+
+<h2>خدماتنا</h2>
+<ul>
+<li>توصيل من وإلى المطار</li>
+<li>سائق خاص</li>
+<li>خدمات VIP</li>
+</ul>
+
+</body>
+</html>
