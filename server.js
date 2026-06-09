@@ -32,7 +32,14 @@ app.get("/en", (req, res) => {
 });
 
 app.get("/es", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+
+  const ua = req.headers["user-agent"] || "";
+
+  if (ua.includes("facebookexternalhit") || ua.includes("WhatsApp")) {
+    return res.sendFile(path.join(__dirname, "public", "es-preview.html"));
+  }
+
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.set("trust proxy", 1);
 app.use(
