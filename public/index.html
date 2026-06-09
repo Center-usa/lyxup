@@ -1404,7 +1404,7 @@ if(menuTerms) menuTerms.innerText =
   
 }
 // 🔥 تطبيق الترجمة
-applyTranslations(lang);
+
 function selectBags(val, el){
     bags = val;
 
@@ -2135,7 +2135,7 @@ function togglePaymentOptions(){
 <div id="overlay"></div>
 	<script>
 document.addEventListener("DOMContentLoaded", () => {
-	
+	applyTranslations(lang);
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
     const closeBtn = document.getElementById("closeBtn");
