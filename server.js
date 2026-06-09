@@ -52,6 +52,22 @@ app.get("/en/about", (req, res) => {
 app.get("/es/about", (req, res) => {
   res.sendFile(__dirname + "/public/es-about.html");
 });
+// 🌍 CONTACT PAGES
+
+// عربي
+app.get("/contact", (req, res) => {
+  res.sendFile(__dirname + "/public/contact.html");
+});
+
+// إنجليزي
+app.get("/en/contact", (req, res) => {
+  res.sendFile(__dirname + "/public/en-contact.html");
+});
+
+// إسباني
+app.get("/es/contact", (req, res) => {
+  res.sendFile(__dirname + "/public/es-contact.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
