@@ -2158,8 +2158,22 @@ document.addEventListener("DOMContentLoaded", () => {
         sidebar.classList.remove("active");
         overlay.classList.remove("active");
     };
+	let lang = localStorage.getItem("lang") || "en";
+
+const aboutLink = document.getElementById("menu-about");
+
+if(aboutLink){
+  if(lang === "ar"){
+    aboutLink.href = "/about";
+  } else if(lang === "en"){
+    aboutLink.href = "/en/about";
+  } else if(lang === "es"){
+    aboutLink.href = "/es/about";
+  }
+}
 
 });
 </script>
+	
 </body>
 </html>
