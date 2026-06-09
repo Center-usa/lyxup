@@ -41,6 +41,9 @@ app.get("/es", (req, res) => {
 
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+app.get("/about", (req, res) => {
+  res.sendFile(__dirname + "/public/about.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
