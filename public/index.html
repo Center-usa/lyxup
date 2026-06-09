@@ -2171,6 +2171,39 @@ if(aboutLink){
     aboutLink.href = "/es/about";
   }
 }
+const contactLink = document.getElementById("menu-contact");
+
+if(contactLink){
+  if(lang === "ar"){
+    contactLink.href = "/contact";
+  } else if(lang === "en"){
+    contactLink.href = "/en/contact";
+  } else if(lang === "es"){
+    contactLink.href = "/es/contact";
+  }
+}
+const privacyLink = document.getElementById("menu-privacy");
+
+if(privacyLink){
+  if(lang === "ar"){
+    privacyLink.href = "/privacy-policy";
+  } else if(lang === "en"){
+    privacyLink.href = "/en/privacy-policy";
+  } else if(lang === "es"){
+    privacyLink.href = "/es/privacy-policy";
+  }
+}
+const termsLink = document.getElementById("menu-terms");
+
+if(termsLink){
+  if(lang === "ar"){
+    termsLink.href = "/terms";
+  } else if(lang === "en"){
+    termsLink.href = "/en/terms";
+  } else if(lang === "es"){
+    termsLink.href = "/es/terms";
+  }
+}
 
 });
 </script>
