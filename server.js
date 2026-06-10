@@ -222,6 +222,24 @@ app.get("/en/cairo-to-sharm-transfer", (req, res) => {
 app.get("/es/cairo-to-sharm-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-cairo-to-sharm-transfer.html");
 });
+// ==============================
+// 🚗 Sharm El Sheikh to Cairo Transfer
+// ==============================
+
+// 🇸🇦 عربي - sharm-to-cairo-transfer.html
+app.get("/sharm-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/sharm-to-cairo-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-sharm-to-cairo-transfer.html
+app.get("/en/sharm-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-sharm-to-cairo-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-sharm-to-cairo-transfer.html
+app.get("/es/sharm-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-sharm-to-cairo-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
