@@ -156,7 +156,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/sharm-to-cairo-transfer"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/sharm-to-cairo-transfer"/>
   </url>
-
+<!-- 🚖 Taxi Cairo Airport -->
+    <url>
+      <loc>https://lyxup.app/taxi-cairo-airport</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/taxi-cairo-airport"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/taxi-cairo-airport"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/taxi-cairo-airport"/>
+    </url>
 
   <!-- 🚗 الخدمات القديمة -->
 
