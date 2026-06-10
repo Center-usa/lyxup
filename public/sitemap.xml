@@ -141,6 +141,14 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-to-cairo-transfer"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-to-cairo-transfer"/>
     </url>
+<!-- 🚗 Cairo to Sharm El Sheikh -->
+
+    <url>
+      <loc>https://lyxup.app/cairo-to-sharm-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-sharm-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-sharm-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-sharm-transfer"/>
+    </url>
 
 
   <!-- 🚗 الخدمات القديمة -->
