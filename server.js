@@ -168,6 +168,24 @@ app.get("/en/alexandria-airport-transfer", (req, res) => {
 app.get("/es/alexandria-airport-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-alexandria-airport-transfer.html");
 });
+// ==============================
+// 🚗 Cairo to Hurghada Transfer
+// ==============================
+
+// 🇸🇦 عربي - cairo-to-hurghada-transfer.html
+app.get("/cairo-to-hurghada-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/cairo-to-hurghada-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-cairo-to-hurghada-transfer.html
+app.get("/en/cairo-to-hurghada-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-cairo-to-hurghada-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-cairo-to-hurghada-transfer.html
+app.get("/es/cairo-to-hurghada-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-cairo-to-hurghada-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
