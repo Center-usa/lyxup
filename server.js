@@ -240,6 +240,24 @@ app.get("/en/sharm-to-cairo-transfer", (req, res) => {
 app.get("/es/sharm-to-cairo-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-sharm-to-cairo-transfer.html");
 });
+// ==============================
+// 🚖 Taxi Cairo Airport
+// ==============================
+
+// 🇸🇦 عربي - taxi-cairo-airport.html
+app.get("/taxi-cairo-airport", (req, res) => {
+  res.sendFile(__dirname + "/public/taxi-cairo-airport.html");
+});
+
+// 🇺🇸 إنجليزي - en-taxi-cairo-airport.html
+app.get("/en/taxi-cairo-airport", (req, res) => {
+  res.sendFile(__dirname + "/public/en-taxi-cairo-airport.html");
+});
+
+// 🇪🇸 إسباني - es-taxi-cairo-airport.html
+app.get("/es/taxi-cairo-airport", (req, res) => {
+  res.sendFile(__dirname + "/public/es-taxi-cairo-airport.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
