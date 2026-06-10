@@ -79,7 +79,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/terms"/>
   </url>
 
-  <!-- 🚗 Cairo Airport -->
+  <!-- 🚗 الخدمات الجديدة -->
+
+  <!-- Cairo -->
 
   <url>
     <loc>https://lyxup.app/cairo-airport-transfer</loc>
@@ -88,7 +90,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-airport-transfer"/>
   </url>
 
-  <!-- 🌴 Hurghada Airport -->
+  <!-- Hurghada -->
 
   <url>
     <loc>https://lyxup.app/hurghada-airport-transfer</loc>
@@ -97,7 +99,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-airport-transfer"/>
   </url>
 
-  <!-- 🏝️ Sharm Airport -->
+  <!-- Sharm -->
 
   <url>
     <loc>https://lyxup.app/sharm-airport-transfer</loc>
@@ -106,7 +108,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/sharm-airport-transfer"/>
   </url>
 
-  <!-- 🌊 Alexandria Airport -->
+  <!-- Alexandria -->
 
   <url>
     <loc>https://lyxup.app/alexandria-airport-transfer</loc>
