@@ -170,6 +170,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/private-driver-cairo"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/private-driver-cairo"/>
     </url>
+  <!-- 💰 Cairo Airport Taxi Price -->
+    <url>
+      <loc>https://lyxup.app/cairo-airport-taxi-price</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-airport-taxi-price"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-airport-taxi-price"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-airport-taxi-price"/>
+    </url>
 
   <!-- 🚗 الخدمات القديمة -->
 
