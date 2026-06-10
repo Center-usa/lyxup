@@ -132,6 +132,24 @@ app.get("/en/hurghada-airport-transfer", (req, res) => {
 app.get("/es/hurghada-airport-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-hurghada-airport-transfer.html");
 });
+// ==============================
+// 🏝️ Sharm Airport Transfer
+// ==============================
+
+// 🇸🇦 عربي - sharm-airport-transfer.html
+app.get("/sharm-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/sharm-airport-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-sharm-airport-transfer.html
+app.get("/en/sharm-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-sharm-airport-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-sharm-airport-transfer.html
+app.get("/es/sharm-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-sharm-airport-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
