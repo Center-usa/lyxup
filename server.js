@@ -276,6 +276,24 @@ app.get("/en/private-driver-cairo", (req, res) => {
 app.get("/es/private-driver-cairo", (req, res) => {
   res.sendFile(__dirname + "/public/es-private-driver-cairo.html");
 });
+// ==============================
+// 💰 Cairo Airport Taxi Price
+// ==============================
+
+// 🇸🇦 عربي - cairo-airport-taxi-price.html
+app.get("/cairo-airport-taxi-price", (req, res) => {
+  res.sendFile(__dirname + "/public/cairo-airport-taxi-price.html");
+});
+
+// 🇺🇸 إنجليزي - en-cairo-airport-taxi-price.html
+app.get("/en/cairo-airport-taxi-price", (req, res) => {
+  res.sendFile(__dirname + "/public/en-cairo-airport-taxi-price.html");
+});
+
+// 🇪🇸 إسباني - es-cairo-airport-taxi-price.html
+app.get("/es/cairo-airport-taxi-price", (req, res) => {
+  res.sendFile(__dirname + "/public/es-cairo-airport-taxi-price.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
