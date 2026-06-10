@@ -258,6 +258,24 @@ app.get("/en/taxi-cairo-airport", (req, res) => {
 app.get("/es/taxi-cairo-airport", (req, res) => {
   res.sendFile(__dirname + "/public/es-taxi-cairo-airport.html");
 });
+// ==============================
+// 🚘 Private Driver Cairo
+// ==============================
+
+// 🇸🇦 عربي - private-driver-cairo.html
+app.get("/private-driver-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/private-driver-cairo.html");
+});
+
+// 🇺🇸 إنجليزي - en-private-driver-cairo.html
+app.get("/en/private-driver-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/en-private-driver-cairo.html");
+});
+
+// 🇪🇸 إسباني - es-private-driver-cairo.html
+app.get("/es/private-driver-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/es-private-driver-cairo.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
