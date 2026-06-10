@@ -184,6 +184,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/best-cairo-airport-transfer"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/best-cairo-airport-transfer"/>
     </url>
+  <!-- 💸 Cheap Cairo Airport Transfer -->
+    <url>
+      <loc>https://lyxup.app/cheap-cairo-airport-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cheap-cairo-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cheap-cairo-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cheap-cairo-airport-transfer"/>
+    </url>
 
   <!-- 🚗 الخدمات القديمة -->
 
