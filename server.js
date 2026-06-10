@@ -294,6 +294,24 @@ app.get("/en/cairo-airport-taxi-price", (req, res) => {
 app.get("/es/cairo-airport-taxi-price", (req, res) => {
   res.sendFile(__dirname + "/public/es-cairo-airport-taxi-price.html");
 });
+// ==============================
+// 🏆 Best Cairo Airport Transfer
+// ==============================
+
+// 🇸🇦 عربي - best-cairo-airport-transfer.html
+app.get("/best-cairo-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/best-cairo-airport-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-best-cairo-airport-transfer.html
+app.get("/en/best-cairo-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-best-cairo-airport-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-best-cairo-airport-transfer.html
+app.get("/es/best-cairo-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-best-cairo-airport-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
