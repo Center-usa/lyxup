@@ -114,6 +114,24 @@ app.get("/en/cairo-airport-transfer", (req, res) => {
 app.get("/es/cairo-airport-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-cairo-airport-transfer.html");
 });
+// ==============================
+// 🌴 Hurghada Airport Transfer
+// ==============================
+
+// 🇸🇦 عربي - hurghada-airport-transfer.html
+app.get("/hurghada-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/hurghada-airport-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-hurghada-airport-transfer.html
+app.get("/en/hurghada-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-hurghada-airport-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-hurghada-airport-transfer.html
+app.get("/es/hurghada-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-hurghada-airport-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
