@@ -186,6 +186,24 @@ app.get("/en/cairo-to-hurghada-transfer", (req, res) => {
 app.get("/es/cairo-to-hurghada-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-cairo-to-hurghada-transfer.html");
 });
+// ==============================
+// 🚗 Hurghada to Cairo Transfer
+// ==============================
+
+// 🇸🇦 عربي - hurghada-to-cairo-transfer.html
+app.get("/hurghada-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/hurghada-to-cairo-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-hurghada-to-cairo-transfer.html
+app.get("/en/hurghada-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-hurghada-to-cairo-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-hurghada-to-cairo-transfer.html
+app.get("/es/hurghada-to-cairo-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-hurghada-to-cairo-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
