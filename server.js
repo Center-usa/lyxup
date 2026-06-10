@@ -100,6 +100,10 @@ app.get("/en/terms", (req, res) => {
 app.get("/es/terms", (req, res) => {
   res.sendFile(__dirname + "/public/es-terms.html");
 });
+// 🇸🇦 AR Cairo Airport
+app.get("/ar/cairo-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/ar-cairo-airport-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
