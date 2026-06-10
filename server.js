@@ -204,6 +204,24 @@ app.get("/en/hurghada-to-cairo-transfer", (req, res) => {
 app.get("/es/hurghada-to-cairo-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-hurghada-to-cairo-transfer.html");
 });
+// ==============================
+// 🚗 Cairo to Sharm El Sheikh Transfer
+// ==============================
+
+// 🇸🇦 عربي - cairo-to-sharm-transfer.html
+app.get("/cairo-to-sharm-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/cairo-to-sharm-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-cairo-to-sharm-transfer.html
+app.get("/en/cairo-to-sharm-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-cairo-to-sharm-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-cairo-to-sharm-transfer.html
+app.get("/es/cairo-to-sharm-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-cairo-to-sharm-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
