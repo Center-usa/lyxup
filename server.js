@@ -150,6 +150,24 @@ app.get("/en/sharm-airport-transfer", (req, res) => {
 app.get("/es/sharm-airport-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-sharm-airport-transfer.html");
 });
+// ==============================
+// 🌊 Alexandria Airport Transfer
+// ==============================
+
+// 🇸🇦 عربي - alexandria-airport-transfer.html
+app.get("/alexandria-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/alexandria-airport-transfer.html");
+});
+
+// 🇺🇸 إنجليزي - en-alexandria-airport-transfer.html
+app.get("/en/alexandria-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/en-alexandria-airport-transfer.html");
+});
+
+// 🇪🇸 إسباني - es-alexandria-airport-transfer.html
+app.get("/es/alexandria-airport-transfer", (req, res) => {
+  res.sendFile(__dirname + "/public/es-alexandria-airport-transfer.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
