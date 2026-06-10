@@ -91,56 +91,56 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
   </url>
 
   <!-- Hurghada -->
-
-  <url>
-    <loc>https://lyxup.app/hurghada-airport-transfer</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-airport-transfer"/>
-  </url>
+  
+    <url>
+      <loc>https://lyxup.app/hurghada-airport-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-airport-transfer"/>
+    </url>
 
   <!-- Sharm -->
-
-  <url>
-    <loc>https://lyxup.app/sharm-airport-transfer</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/sharm-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/sharm-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/sharm-airport-transfer"/>
-  </url>
+  
+    <url>
+      <loc>https://lyxup.app/sharm-airport-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/sharm-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/sharm-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/sharm-airport-transfer"/>
+    </url>
 
   <!-- Alexandria -->
 
-  <url>
-    <loc>https://lyxup.app/alexandria-airport-transfer</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/alexandria-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/alexandria-airport-transfer"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/alexandria-airport-transfer"/>
-  </url>
+    <url>
+      <loc>https://lyxup.app/alexandria-airport-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/alexandria-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/alexandria-airport-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/alexandria-airport-transfer"/>
+    </url>
+    <!-- 🚗 Cairo to Hurghada -->
+
+    <url>
+      <loc>https://lyxup.app/cairo-to-hurghada-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-hurghada-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
+    </url>
   <!-- 🚗 Cairo to Hurghada -->
-
-  <url>
-    <loc>https://lyxup.app/cairo-to-hurghada-transfer</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-hurghada-transfer"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
-  </url>
-<!-- 🚗 Cairo to Hurghada -->
-
-<url>
-  <loc>https://lyxup.app/cairo-to-hurghada-transfer</loc>
-  <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-hurghada-transfer"/>
-  <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
-  <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
-</url>
+    
+    <url>
+      <loc>https://lyxup.app/cairo-to-hurghada-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-hurghada-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
+    </url>
 
 <!-- 🚗 Hurghada to Cairo -->
 
-<url>
-  <loc>https://lyxup.app/hurghada-to-cairo-transfer</loc>
-  <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-to-cairo-transfer"/>
-  <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-to-cairo-transfer"/>
-  <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-to-cairo-transfer"/>
-</url>
+    <url>
+      <loc>https://lyxup.app/hurghada-to-cairo-transfer</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-to-cairo-transfer"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-to-cairo-transfer"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-to-cairo-transfer"/>
+    </url>
 
 
   <!-- 🚗 الخدمات القديمة -->
