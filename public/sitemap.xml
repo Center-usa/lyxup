@@ -116,6 +116,15 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/alexandria-airport-transfer"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/alexandria-airport-transfer"/>
   </url>
+  <!-- 🚗 Cairo to Hurghada -->
+
+  <url>
+    <loc>https://lyxup.app/cairo-to-hurghada-transfer</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-to-hurghada-transfer"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
+  </url>
+
 
   <!-- 🚗 الخدمات القديمة -->
 
