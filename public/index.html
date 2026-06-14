@@ -1357,18 +1357,18 @@ if(menuTerms) menuTerms.innerText =
   if(payBtns[2]) payBtns[2].innerText = t.payInstapay;
 
   // 🔥 الماب
- mapBtns.forEach((btn, index) => {
-
-  // زرار الموقعي
-  if(index === 0){
+mapBtns.forEach(btn => {
+  if(btn.innerText.includes("📡")){
     btn.innerText = "📡 " + (t.myLocation || "My location");
   }
 
-  // زرار Done
-  if(index === 1){
+  if(
+    btn.innerText.includes("تم") ||
+    btn.innerText.includes("Done") ||
+    btn.innerText.includes("Hecho") // 🔥 مهم ده
+  ){
     btn.innerText = t.done || "Done";
   }
-
 });
 
 if(mapBtns[0]) mapBtns[0].innerText = "📡 " + t.myLocation;
