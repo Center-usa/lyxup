@@ -1357,22 +1357,21 @@ if(menuTerms) menuTerms.innerText =
   if(payBtns[2]) payBtns[2].innerText = t.payInstapay;
 
   // 🔥 الماب
-mapBtns.forEach(btn => {
-  if(btn.innerText.includes("📡")){
-    btn.innerText = "📡 " + (t.myLocation || "My location");
+const mapBtns = document.querySelectorAll(".map-actions .btn");
+
+mapBtns.forEach((btn, index) => {
+
+  // زرار الموقعي
+  if(index === 0){
+    btn.innerText = "📡 " + t.myLocation;
   }
 
-  if(
-    btn.innerText.includes("تم") ||
-    btn.innerText.includes("Done") ||
-    btn.innerText.includes("Hecho") // 🔥 مهم ده
-  ){
-    btn.innerText = t.done || "Done";
+  // زرار Done
+  if(index === 1){
+    btn.innerText = t.done;
   }
+
 });
-
-if(mapBtns[0]) mapBtns[0].innerText = "📡 " + t.myLocation;
-if(mapBtns[1]) mapBtns[1].innerText = t.done;
 
   // 🔥 الخدمات
   const titles = document.querySelectorAll(".card .title");
