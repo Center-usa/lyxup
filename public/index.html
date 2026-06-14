@@ -1359,19 +1359,10 @@ if(menuTerms) menuTerms.innerText =
   // 🔥 الماب
   const mapBtns = document.querySelectorAll(".map-actions .btn");
 
-  mapBtns.forEach(btn => {
-  if(btn.innerText.includes("📡")){
-    btn.innerText = "📡 " + (t.myLocation || "My location");
-  }
+  const mapBtns = document.querySelectorAll(".map-actions .btn");
 
-  if(
-    btn.innerText.includes("تم") ||
-    btn.innerText.includes("Done") ||
-    btn.innerText.includes("Hecho") // 🔥 مهم ده
-  ){
-    btn.innerText = t.done || "Done";
-  }
-});
+if(mapBtns[0]) mapBtns[0].innerText = "📡 " + t.myLocation;
+if(mapBtns[1]) mapBtns[1].innerText = t.done;
 
   // 🔥 الخدمات
   const titles = document.querySelectorAll(".card .title");
