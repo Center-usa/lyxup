@@ -2141,6 +2141,14 @@ function togglePaymentOptions(){
 	<script>
 document.addEventListener("DOMContentLoaded", () => {
 	applyTranslations(lang);
+	// 🔥 زرار الهوم اللي تحت بس
+const bottomHomeBtn = document.querySelector(".bottom-bar div:first-child");
+
+if(bottomHomeBtn){
+  bottomHomeBtn.onclick = () => {
+    window.location.href = "/" + (lang === "ar" ? "" : lang);
+  };
+}
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
     const closeBtn = document.getElementById("closeBtn");
