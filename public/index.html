@@ -1360,21 +1360,18 @@ if(menuTerms) menuTerms.innerText =
   if(payBtns[2]) payBtns[2].innerText = t.payInstapay;
 
   // 🔥 الماب
-const mapBtns = document.querySelectorAll(".map-actions .btn");
+// 🔥 FROM MAP
+const fromMapBtns = document.querySelectorAll("#mapPanel-from .map-actions .btn");
 
-mapBtns.forEach((btn, index) => {
+if(fromMapBtns[0]) fromMapBtns[0].innerText = "📡 " + t.myLocation;
+if(fromMapBtns[1]) fromMapBtns[1].innerText = t.done;
 
-  // زرار الموقعي
-  if(index === 0){
-    btn.innerText = "📡 " + t.myLocation;
-  }
 
-  // زرار Done
-  if(index === 1){
-    btn.innerText = t.done;
-  }
+// 🔥 TO MAP
+const toMapBtns = document.querySelectorAll("#mapPanel-to .map-actions .btn");
 
-});
+if(toMapBtns[0]) toMapBtns[0].innerText = "📡 " + t.myLocation;
+if(toMapBtns[1]) toMapBtns[1].innerText = t.done;
 
   // 🔥 الخدمات
   const titles = document.querySelectorAll(".card .title");
