@@ -1796,7 +1796,11 @@ async function calculatePrice(){
 		const t = translations[lang];
 		
 		document.getElementById("price").innerText =
-		  `${t.pricePlaceholder.replace('--', priceValue)} (${distanceValue})`;
+		 let symbol = currency === "EUR" ? "€" :
+             currency === "USD" ? "$" : "EGP";
+
+		document.getElementById("price").innerText =
+		  `${t.pricePlaceholder.replace('--', priceValue)} ${symbol} (${distanceValue})`;
 		
 		window.realPrice = data.rawPrice;
 
