@@ -78,38 +78,30 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/terms"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/terms"/>
   </url>
-
   <!-- 🚗 الخدمات الجديدة -->
 
   <!-- Cairo -->
-
   <url>
     <loc>https://lyxup.app/cairo-airport-transfer</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/cairo-airport-transfer"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-airport-transfer"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-airport-transfer"/>
   </url>
-
   <!-- Hurghada -->
-  
-    <url>
+      <url>
       <loc>https://lyxup.app/hurghada-airport-transfer</loc>
       <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-airport-transfer"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/hurghada-airport-transfer"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/hurghada-airport-transfer"/>
     </url>
-
   <!-- Sharm -->
-  
-    <url>
+      <url>
       <loc>https://lyxup.app/sharm-airport-transfer</loc>
       <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/sharm-airport-transfer"/>
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/sharm-airport-transfer"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/sharm-airport-transfer"/>
     </url>
-
   <!-- Alexandria -->
-
     <url>
       <loc>https://lyxup.app/alexandria-airport-transfer</loc>
       <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/alexandria-airport-transfer"/>
@@ -124,9 +116,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/cairo-to-hurghada-transfer"/>
       <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/cairo-to-hurghada-transfer"/>
     </url>
- 
-<!-- 🚗 Hurghada to Cairo -->
-
+ <!-- 🚗 Hurghada to Cairo -->
     <url>
       <loc>https://lyxup.app/hurghada-to-cairo-transfer</loc>
       <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/hurghada-to-cairo-transfer"/>
@@ -203,8 +193,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <changefreq>weekly</changefreq>
       <priority>0.9</priority>
     </url>
-  <!-- 🚗 الخدمات القديمة -->
-  <!-- 🚖 Taxi Cairo Airport to New Cairo -->
+   <!-- 🚖 Taxi Cairo Airport to New Cairo -->
     <url>
       <loc>https://lyxup.app/taxi-cairo-airport-to-new-cairo</loc>
       <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/taxi-cairo-airport-to-new-cairo"/>
@@ -214,6 +203,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <changefreq>weekly</changefreq>
       <priority>0.9</priority>
     </url>
+    <!-- 🚖 Taxi Cairo Airport to 6 October -->
+    <url>
+      <loc>https://lyxup.app/taxi-cairo-airport-to-6-october</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/taxi-cairo-airport-to-6-october"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/taxi-cairo-airport-to-6-october"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/taxi-cairo-airport-to-6-october"/>
+      <lastmod>2026-06-24</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
+    </url>
+  
+   <!-- 🚗 الخدمات القديمة -->
   <url>
     <loc>https://lyxup.app/airport-transfer-cairo</loc>
   </url>
