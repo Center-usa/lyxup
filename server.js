@@ -697,7 +697,7 @@ function formatDisplayPrice(price, currency) {
     }
 
     return {
-        displayPrice: Math.round(displayPrice),
+        displayPrice: Number(displayPrice.toFixed(2)),
         symbol
     };
 }
