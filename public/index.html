@@ -1776,8 +1776,19 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-        let priceMatch = data.text.match(/(\d+)/);
-		let distanceMatch = data.text.match(/\((.*?)\)/);
+       let priceValue = "--";
+
+		let currency = document.getElementById("currency").value;
+		
+		if (data.rawPrice) {
+		    if (currency === "EUR") {
+		        priceValue = (data.rawPrice / 50).toFixed(2);
+		    } else if (currency === "USD") {
+		        priceValue = (data.rawPrice / 50 * 1.1).toFixed(2);
+		    } else {
+		        priceValue = Number(data.rawPrice).toFixed(0);
+		    }
+		}
 
 		let priceValue = priceMatch ? priceMatch[0] : "--";
 		let distanceValue = distanceMatch ? distanceMatch[1] : "";
