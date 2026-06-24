@@ -1776,7 +1776,6 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-     	let priceValue = data.displayPrice;
 
 		let distanceMatch = data.text.match(/\((.*?)\)/);
 		let distanceValue = distanceMatch ? distanceMatch[1] : "";
@@ -1788,7 +1787,7 @@ async function calculatePrice(){
 		
 		
 		document.getElementById("price").innerText =
-		  `${t.pricePlaceholder.replace('--', displayPrice)} (${distanceValue})`;
+		 `السعر: ${displayPrice} (${distanceValue})`
 
         window.realPrice = data.rawPrice;
 
