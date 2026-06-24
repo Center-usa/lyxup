@@ -1776,7 +1776,7 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-        let priceValue = Number(data.displayPrice).toFixed(2);
+        let priceValue = Number(data.displayPrice || data.rawPrice).toFixed(2);
 
 		let distanceMatch = data.text.match(/\((.*?)\)/);
 		let distanceValue = distanceMatch ? distanceMatch[1] : "";
