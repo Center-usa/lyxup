@@ -1818,7 +1818,7 @@ function unlockUI() {
   document.getElementById("paypal-button-container").innerHTML = "";
 }
 async function payStripe(){
-
+	await calculatePrice();
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
     let currency = document.getElementById("currency").value;
 
@@ -1876,8 +1876,8 @@ async function payStripe(){
         alert(translations[lang].serverError);
     }
 }
-function payPaypal(){
-
+async function payPaypal(){
+	await calculatePrice();
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
 
     if(!selected){
