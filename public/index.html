@@ -1421,13 +1421,16 @@ function selectBags(val, el){
 
     let carType = document.getElementById("carType").value;
 
-	if(!carType){
-    carType = "sedan";
-	}
+    if(!carType){
+        carType = "sedan";
+    }
 
     if(bags >= 3 && carType === "sedan"){
-    alert(translations[lang].bagsWarning);
-	}
+        alert(translations[lang].bagsWarning);
+    }
+
+    // 🔥 أهم سطر
+    calculatePrice();
 }
 	
 
@@ -1815,7 +1818,7 @@ function unlockUI() {
   document.getElementById("paypal-button-container").innerHTML = "";
 }
 async function payStripe(){
-
+	await calculatePrice();
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
     let currency = document.getElementById("currency").value;
 
@@ -1874,7 +1877,7 @@ async function payStripe(){
     }
 }
 function payPaypal(){
-
+	await calculatePrice();
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
 
     if(!selected){
@@ -2019,7 +2022,9 @@ const t = translations[lang];
 	}, 500);
 }
 let currencySelect = document.getElementById("currency");
-
+document.getElementById("carType").addEventListener("change", () => {
+    calculatePrice();
+});
 
 // 1️⃣ نحاول من السيرفر
 fetch(`${API_URL}/get-user-country`)
