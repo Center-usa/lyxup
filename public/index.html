@@ -1787,7 +1787,7 @@ async function calculatePrice(){
 		
 		
 		document.getElementById("price").innerText =
-		 `السعر: ${displayPrice} (${distanceValue})`
+		 `${t.pricePlaceholder.replace('--', displayPrice)} (${distanceValue})`
 
         window.realPrice = data.rawPrice;
 
