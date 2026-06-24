@@ -201,7 +201,16 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <changefreq>weekly</changefreq>
       <priority>0.9</priority>
     </url>
-
+<!-- 🚖 Taxi Cairo Airport to Nasr City -->
+    <url>
+      <loc>https://lyxup.app/taxi-cairo-airport-to-nasr-city</loc>
+      <xhtml:link rel="alternate" hreflang="ar" href="https://lyxup.app/taxi-cairo-airport-to-nasr-city"/>
+      <xhtml:link rel="alternate" hreflang="en" href="https://lyxup.app/en/taxi-cairo-airport-to-nasr-city"/>
+      <xhtml:link rel="alternate" hreflang="es" href="https://lyxup.app/es/taxi-cairo-airport-to-nasr-city"/>
+      <lastmod>2026-06-24</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
+    </url>
   <!-- 🚗 الخدمات القديمة -->
 
   <url>
