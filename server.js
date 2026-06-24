@@ -366,6 +366,24 @@ app.get("/en/taxi-cairo-airport-to-nasr-city", (req, res) => {
 app.get("/es/taxi-cairo-airport-to-nasr-city", (req, res) => {
   res.sendFile(__dirname + "/public/es-taxi-cairo-airport-to-nasr-city.html");
 });
+// ==============================
+// 🚖 Taxi Cairo Airport to New Cairo
+// ==============================
+
+// 🇸🇦 عربي
+app.get("/taxi-cairo-airport-to-new-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/taxi-cairo-airport-to-new-cairo.html");
+});
+
+// 🇺🇸 English
+app.get("/en/taxi-cairo-airport-to-new-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/en-taxi-cairo-airport-to-new-cairo.html");
+});
+
+// 🇪🇸 Español
+app.get("/es/taxi-cairo-airport-to-new-cairo", (req, res) => {
+  res.sendFile(__dirname + "/public/es-taxi-cairo-airport-to-new-cairo.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
