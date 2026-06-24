@@ -2022,8 +2022,9 @@ const t = translations[lang];
 	}, 500);
 }
 let currencySelect = document.getElementById("currency");
-
-
+document.getElementById("carType").addEventListener("change", () => {
+    calculatePrice();
+});
 // 1️⃣ نحاول من السيرفر
 fetch(`${API_URL}/get-user-country`)
 .then(res => res.json())
