@@ -714,9 +714,9 @@ html[dir="rtl"] .sidebar.active {
     </div>
 	<div id="paypal-button-container" style="margin-top:10px;"></div>
 
-    <div class="btn" style="background:#111;" onclick="payInstapay()">
-        📱 الدفع عبر Instapay
-    </div>
+    <div id="instapayBtn" class="btn" style="background:#111;" onclick="payInstapay()">
+    📱 الدفع عبر Instapay
+</div>
 
 </div>
 
@@ -2055,12 +2055,23 @@ function setCurrency(country){
 
     if(country === "EG"){
         currencySelect.value = "EGP";
+
+        // ✅ يظهر InstaPay
+        document.getElementById("instapayBtn").style.display = "block";
+
     }
     else if(["US","CA","AU"].includes(country)){
         currencySelect.value = "USD";
+
+        // ❌ يخفي InstaPay
+        document.getElementById("instapayBtn").style.display = "none";
+
     }
     else{
         currencySelect.value = "EUR";
+
+        // ❌ يخفي InstaPay
+        document.getElementById("instapayBtn").style.display = "none";
     }
 
     calculatePrice();
