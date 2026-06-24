@@ -1876,7 +1876,7 @@ async function payStripe(){
         alert(translations[lang].serverError);
     }
 }
-function payPaypal(){
+async function payPaypal(){
 	await calculatePrice();
     let selected = document.querySelector('input[name="payType"]:checked')?.value;
 
