@@ -1776,18 +1776,17 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-        let priceMatch = data.text.match(/(\d+)/);
+        let priceValue = Number(data.rawPrice).toFixed(2);
+
 		let distanceMatch = data.text.match(/\((.*?)\)/);
-
-		let priceValue = priceMatch ? priceMatch[0] : "--";
 		let distanceValue = distanceMatch ? distanceMatch[1] : "";
-
+		
 		const t = translations[lang];
-
-document.getElementById("price").innerText =
-  `${t.pricePlaceholder.replace('--', priceValue)} (${distanceValue})`;
-
-        window.realPrice = data.rawPrice;
+		
+		document.getElementById("price").innerText =
+		  `${t.pricePlaceholder.replace('--', priceValue)} (${distanceValue})`;
+		
+		window.realPrice = data.rawPrice;
 
         document.getElementById("confirmBtn").style.display = "block";
         document.getElementById("paymentTypeBox").style.display = "block";
