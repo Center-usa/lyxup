@@ -1776,7 +1776,19 @@ async function calculatePrice(){
             throw new Error(data.error);
         }
 
-        let priceValue = Number(data.displayPrice || data.rawPrice).toFixed(2);
+        let currency = document.getElementById("currency").value;
+
+		let price;
+		
+		if (currency === "EUR") {
+		    price = data.displayPrice;   // سعر اليورو
+		} else if (currency === "USD") {
+		    price = data.displayUSD;     // لو عندك دولار
+		} else {
+		    price = data.rawPrice;       // الجنيه
+		}
+		
+		let priceValue = Number(price).toFixed(2);
 
 		let distanceMatch = data.text.match(/\((.*?)\)/);
 		let distanceValue = distanceMatch ? distanceMatch[1] : "";
