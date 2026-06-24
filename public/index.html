@@ -1783,9 +1783,15 @@ async function calculatePrice(){
 
 		const t = translations[lang];
 
+		let displayPrice = priceValue;
 		
-		
-		let displayPrice = data.displayPrice;
+		if (data.rawPrice) {
+	    let currency = document.getElementById("currency").value;
+	
+	    if (currency === "EUR") {
+	        displayPrice = (data.rawPrice / 50).toFixed(2);
+	    }
+	}
 		
 		document.getElementById("price").innerText =
 		  `${t.pricePlaceholder.replace('--', displayPrice)} (${distanceValue})`;
