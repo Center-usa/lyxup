@@ -1419,24 +1419,15 @@ function selectBags(val, el){
 
     el.classList.add("active");
 
-    let carSelect = document.getElementById("carType");
-    let carType = carSelect.value;
+    let carType = document.getElementById("carType").value;
 
-    // 🔥 منطق ذكي
+	if(!carType){
+    carType = "sedan";
+	}
+
     if(bags >= 3 && carType === "sedan"){
-        carSelect.value = "suv";
-    }
-
-    if(bags >= 6 && (carType === "sedan" || carType === "suv")){
-        carSelect.value = "h1";
-    }
-
-    if(bags >= 8){
-        carSelect.value = "hiace";
-    }
-
-    // 🔥 يحدث السعر فورًا
-    calculatePrice();
+    alert(translations[lang].bagsWarning);
+	}
 }
 	
 
