@@ -805,11 +805,12 @@ app.post("/calculate-price", async (req, res) => {
 
         const ride = await calculateRide({ from, to, carType, tripType, currency });
 
-	        res.json({
+	    res.json({
 	    text: ride.text,
 	    rawPrice: ride.rawPrice,
-	    displayPrice: ride.displayPrice
-		});
+	    displayPrice: ride.displayPrice,
+	    symbol: ride.symbol
+	});
 
     } catch (err) {
         console.error(err);
