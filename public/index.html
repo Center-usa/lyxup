@@ -1421,13 +1421,16 @@ function selectBags(val, el){
 
     let carType = document.getElementById("carType").value;
 
-	if(!carType){
-    carType = "sedan";
-	}
+    if(!carType){
+        carType = "sedan";
+    }
 
     if(bags >= 3 && carType === "sedan"){
-    alert(translations[lang].bagsWarning);
-	}
+        alert(translations[lang].bagsWarning);
+    }
+
+    // 🔥 أهم سطر
+    calculatePrice();
 }
 	
 
