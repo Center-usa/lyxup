@@ -1779,11 +1779,11 @@ async function calculatePrice(){
         let currency = document.getElementById("currency").value;
 
 		let price;
-
+		
 		if (currency === "EUR") {
-		    price = data.displayPrice || (data.rawPrice / 50);
+		    price = data.rawPrice / 50;
 		} else if (currency === "USD") {
-		    price = data.displayUSD || (data.rawPrice / 48);
+		    price = data.rawPrice / 45;
 		} else {
 		    price = data.rawPrice;
 		}
