@@ -1779,13 +1779,13 @@ async function calculatePrice(){
         let currency = document.getElementById("currency").value;
 
 		let price;
-		
+
 		if (currency === "EUR") {
-		    price = data.displayPrice;   // سعر اليورو
+		    price = data.displayPrice || (data.rawPrice / 50);
 		} else if (currency === "USD") {
-		    price = data.displayUSD;     // لو عندك دولار
+		    price = data.displayUSD || (data.rawPrice / 48);
 		} else {
-		    price = data.rawPrice;       // الجنيه
+		    price = data.rawPrice;
 		}
 		
 		let priceValue = Number(price).toFixed(2);
