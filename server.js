@@ -330,6 +330,24 @@ app.get("/en/cheap-cairo-airport-transfer", (req, res) => {
 app.get("/es/cheap-cairo-airport-transfer", (req, res) => {
   res.sendFile(__dirname + "/public/es-cheap-cairo-airport-transfer.html");
 });
+// ==============================
+// 🚖 Cairo Airport Taxi Booking
+// ==============================
+
+// 🇸🇦 عربي
+app.get("/cairo-airport-taxi-booking", (req, res) => {
+  res.sendFile(__dirname + "/public/cairo-airport-taxi-booking.html");
+});
+
+// 🇺🇸 إنجليزي
+app.get("/en/cairo-airport-taxi-booking", (req, res) => {
+  res.sendFile(__dirname + "/public/en-cairo-airport-taxi-booking.html");
+});
+
+// 🇪🇸 إسباني
+app.get("/es/cairo-airport-taxi-booking", (req, res) => {
+  res.sendFile(__dirname + "/public/es-cairo-airport-taxi-booking.html");
+});
 app.set("trust proxy", 1);
 app.use(
   helmet({
