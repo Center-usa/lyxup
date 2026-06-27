@@ -692,19 +692,43 @@ const CAIRO_KEYWORDS = [
     "القاهرة",
     "Giza",
     "الجيزة",
+
     "New Cairo",
     "القاهرة الجديدة",
-    "6th of October",
-    "6 October",
-    "الشيخ زايد",
-    "Sheikh Zayed",
+    "التجمع",
+    "التجمع الخامس",
+    "Fifth Settlement",
+
     "مدينة نصر",
     "Nasr City",
+
     "Heliopolis",
     "مصر الجديدة",
+
     "Maadi",
     "المعادي",
+
+    "Zamalek",
+    "الزمالك",
+
+    "Dokki",
+    "الدقي",
+
+    "Mohandessin",
+    "المهندسين",
+
+    "Sheikh Zayed",
+    "الشيخ زايد",
+
+    "6 October",
+    "6th of October",
+    "مدينة 6 أكتوبر",
+
+    "Smart Village",
+    "القرية الذكية",
+
     "Airport",
+    "Cairo International Airport",
     "مطار القاهرة"
 ];
 
@@ -712,9 +736,34 @@ const ALEX_KEYWORDS = [
     "Alexandria",
     "الإسكندرية",
     "الاسكندرية",
+
+    "Smouha",
+    "سموحة",
+
+    "Raml",
+    "Raml Station",
+    "محطة الرمل",
+
+    "Miami",
+    "ميامي",
+
+    "Sidi Gaber",
+    "سيدي جابر",
+
+    "Stanley",
+    "ستانلي",
+
+    "Gleem",
+    "جليم",
+
+    "Agami",
+    "العجمي",
+
     "Borg El Arab",
-    "برج العرب"
-];
+    "برج العرب",
+
+    "Alexandria Airport"
+];;
 
 function isCairoTrip(from, to) {
 
