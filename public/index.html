@@ -1529,6 +1529,9 @@ function setTripType(type){
         document.getElementById("roundBtn").classList.add("active");
         document.getElementById("returnDateBox").style.display = "block";
     }
+	if(document.getElementById("from").value && document.getElementById("to").value){
+    calculatePrice();
+}
 }
 function setReturnDate(){
     let val = document.getElementById("returnDate").value;
