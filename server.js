@@ -663,13 +663,14 @@ async function geocodeAddress(address) {
         throw new Error("Invalid address");
     }
 
-    return data.results[0].geometry.location;
+    return data.results[0];
 }
 
 async function getDistanceInfo(from, to) {
-    const fromLoc = await geocodeAddress(from);
-    const toLoc = await geocodeAddress(to);
-
+    const fromGeo = await geocodeAddress(from);
+	const toGeo = await geocodeAddress(to);
+	const fromLoc = fromGeo.geometry.location;
+	const toLoc = toGeo.geometry.location;
     const distanceRes = await fetch(
         `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${fromLoc.lat},${fromLoc.lng}&destinations=${toLoc.lat},${toLoc.lng}&key=${API_KEY}`
     );
@@ -682,126 +683,46 @@ async function getDistanceInfo(from, to) {
     }
 
     return {
-        distanceKm: element.distance.value / 1000,
-        distanceText: element.distance.text,
-        durationText: element.duration.text
-    };
-}
-const CAIRO_KEYWORDS = [
-    "Cairo",
-    "القاهرة",
-    "Giza",
-    "الجيزة",
-
-    "New Cairo",
-    "القاهرة الجديدة",
-    "التجمع",
-    "التجمع الخامس",
-    "Fifth Settlement",
-
-    "مدينة نصر",
-    "Nasr City",
-
-    "Heliopolis",
-    "مصر الجديدة",
-
-    "Maadi",
-    "المعادي",
-
-    "Zamalek",
-    "الزمالك",
-
-    "Dokki",
-    "الدقي",
-
-    "Mohandessin",
-    "المهندسين",
-
-    "Sheikh Zayed",
-    "الشيخ زايد",
-
-    "6 October",
-    "6th of October",
-    "مدينة 6 أكتوبر",
-
-    "Smart Village",
-    "القرية الذكية",
-
-    "Airport",
-    "Cairo International Airport",
-    "مطار القاهرة"
-];
-
-const ALEX_KEYWORDS = [
-    "Alexandria",
-    "الإسكندرية",
-    "الاسكندرية",
-
-    "Smouha",
-    "سموحة",
-
-    "Raml",
-    "Raml Station",
-    "محطة الرمل",
-
-    "Miami",
-    "ميامي",
-
-    "Sidi Gaber",
-    "سيدي جابر",
-
-    "Stanley",
-    "ستانلي",
-
-    "Gleem",
-    "جليم",
-
-    "Agami",
-    "العجمي",
-
-    "Borg El Arab",
-    "برج العرب",
-
-    "Alexandria Airport"
-];;
-
-function isCairoTrip(from, to) {
-
-    const fromInCairo = CAIRO_KEYWORDS.some(k =>
-        from.toLowerCase().includes(k.toLowerCase())
-    );
-
-    const toInCairo = CAIRO_KEYWORDS.some(k =>
-        to.toLowerCase().includes(k.toLowerCase())
-    );
-
-    return fromInCairo && toInCairo;
+	    distanceKm: element.distance.value / 1000,
+	    distanceText: element.distance.text,
+	    durationText: element.duration.text,
+	
+	    fromGeo,
+	    toGeo
+	};
 }
 
-function isAlexTrip(from, to) {
 
-    const fromInAlex = ALEX_KEYWORDS.some(k =>
-        from.toLowerCase().includes(k.toLowerCase())
-    );
 
-    const toInAlex = ALEX_KEYWORDS.some(k =>
-        to.toLowerCase().includes(k.toLowerCase())
-    );
 
-    return fromInAlex && toInAlex;
-}
+function getZone(geo) {
 
-    function calculateRawPrice(distanceKm, carType, tripType, from, to) {
+    const components = geo.address_components;
 
-    let zone;
+    const text = components
+        .map(c => c.long_name.toLowerCase())
+        .join(" ");
 
-    if (isCairoTrip(from, to)) {
-        zone = "cairo";
-    } else if (isAlexTrip(from, to)) {
-        zone = "alex";
-    } else {
-        zone = "travel";
+    if (
+        text.includes("cairo") ||
+        text.includes("القاهرة") ||
+        text.includes("giza") ||
+        text.includes("الجيزة")
+    ) {
+        return "cairo";
     }
+
+    if (
+        text.includes("alexandria") ||
+        text.includes("الإسكندرية") ||
+        text.includes("الاسكندرية")
+    ) {
+        return "alex";
+    }
+
+    return "travel";
+}
+    function calculateRawPrice(distanceKm, carType, tripType, zone) {
 
     let price = distanceKm * PRICING[zone][carType];
 
@@ -868,8 +789,29 @@ function getPaypalDetails(rawPrice, currency, type) {
 }
 
 async function calculateRide({ from, to, carType, tripType, currency }) {
+
     const distanceInfo = await getDistanceInfo(from, to);
-    const rawPrice = calculateRawPrice(distanceInfo.distanceKm, carType, tripType, from, to);
+
+    const fromZone = getZone(distanceInfo.fromGeo);
+    const toZone = getZone(distanceInfo.toGeo);
+
+    let zone;
+
+    if (fromZone === "cairo" && toZone === "cairo") {
+        zone = "cairo";
+    } else if (fromZone === "alex" && toZone === "alex") {
+        zone = "alex";
+    } else {
+        zone = "travel";
+    }
+
+    const rawPrice = calculateRawPrice(
+        distanceInfo.distanceKm,
+        carType,
+        tripType,
+        zone
+    );
+
     const formatted = formatDisplayPrice(rawPrice, currency);
 
     return {
@@ -877,6 +819,7 @@ async function calculateRide({ from, to, carType, tripType, currency }) {
         rawPrice,
         displayPrice: formatted.displayPrice,
         symbol: formatted.symbol,
+        zone,
         text: `السعر: ${formatted.displayPrice} ${formatted.symbol} (${distanceInfo.distanceText})`
     };
 }
