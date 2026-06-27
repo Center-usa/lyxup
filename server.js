@@ -626,8 +626,33 @@ const CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const SECRET = process.env.PAYPAL_SECRET;
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 console.log("KEY:", process.env.GOOGLE_MAPS_API_KEY);
-const PRICE_MULTIPLIERS = { sedan: 1, suv: 1.15, h1: 1.25, hiace: 1.4, coaster: 1.6 };
+const PRICING = {
 
+  cairo: {
+    sedan: 27.5,
+    suv: 31.25,
+    h1: 41.25,
+    hiace: 43.75,
+    coaster: 62.5
+  },
+
+  alex: {
+    sedan: 15.75,
+    suv: 17.625,
+    h1: 22.625,
+    hiace: 23.875,
+    coaster: 34.25
+  },
+
+  travel: {
+    sedan: 9.6,
+    suv: 11,
+    h1: 14.6,
+    hiace: 15.2,
+    coaster: 22
+  }
+
+};
 async function geocodeAddress(address) {
     const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${API_KEY}`
@@ -662,23 +687,77 @@ async function getDistanceInfo(from, to) {
         durationText: element.duration.text
     };
 }
+const CAIRO_KEYWORDS = [
+    "Cairo",
+    "القاهرة",
+    "Giza",
+    "الجيزة",
+    "New Cairo",
+    "القاهرة الجديدة",
+    "6th of October",
+    "6 October",
+    "الشيخ زايد",
+    "Sheikh Zayed",
+    "مدينة نصر",
+    "Nasr City",
+    "Heliopolis",
+    "مصر الجديدة",
+    "Maadi",
+    "المعادي",
+    "Airport",
+    "مطار القاهرة"
+];
 
-function calculateRawPrice(distanceKm, carType, tripType, from, to) {
-    const multiplier = PRICE_MULTIPLIERS[carType] || 1;
-    let price;
+const ALEX_KEYWORDS = [
+    "Alexandria",
+    "الإسكندرية",
+    "الاسكندرية",
+    "Borg El Arab",
+    "برج العرب"
+];
 
-    if (distanceKm <= 50) {
-        price = distanceKm <= 15 ? 250 : 250 + (distanceKm - 15) * 11.4;
-        if (price > 750) price = 750;
-        price *= multiplier;
+function isCairoTrip(from, to) {
+
+    const fromInCairo = CAIRO_KEYWORDS.some(k =>
+        from.toLowerCase().includes(k.toLowerCase())
+    );
+
+    const toInCairo = CAIRO_KEYWORDS.some(k =>
+        to.toLowerCase().includes(k.toLowerCase())
+    );
+
+    return fromInCairo && toInCairo;
+}
+
+function isAlexTrip(from, to) {
+
+    const fromInAlex = ALEX_KEYWORDS.some(k =>
+        from.toLowerCase().includes(k.toLowerCase())
+    );
+
+    const toInAlex = ALEX_KEYWORDS.some(k =>
+        to.toLowerCase().includes(k.toLowerCase())
+    );
+
+    return fromInAlex && toInAlex;
+}
+
+    function calculateRawPrice(distanceKm, carType, tripType, from, to) {
+
+    let zone;
+
+    if (isCairoTrip(from, to)) {
+        zone = "cairo";
+    } else if (isAlexTrip(from, to)) {
+        zone = "alex";
     } else {
-        price = tripType === "round"
-            ? distanceKm * 8 * 2 * multiplier
-            : distanceKm * 8.5 * multiplier;
+        zone = "travel";
     }
 
-    if ((from.includes("مطار") || to.includes("مطار")) && price < 750) {
-        price = 750;
+    let price = distanceKm * PRICING[zone][carType];
+
+    if (tripType === "round") {
+        price *= 2;
     }
 
     return price;
