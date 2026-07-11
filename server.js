@@ -1125,13 +1125,25 @@ app.post("/capture-paypal-order", async (req, res) => {
       console.log("📤 PAYPAL TO SHEET:", sheetData);
 
       // 📤 Google Sheet
-      await fetch("https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(sheetData)
-      });
+      const sheetResponse = await fetch(
+	  "https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec",
+	  {
+	    method: "POST",
+	    headers: {
+	      "Content-Type": "application/json"
+	    },
+	    body: JSON.stringify(sheetData)
+	  }
+	);
+	
+	const sheetResult = await sheetResponse.text();
+	
+	console.log("📄 SHEET STATUS:", sheetResponse.status);
+	console.log("📄 SHEET RESPONSE:", sheetResult);
+	
+	if (!sheetResponse.ok) {
+	  throw new Error(`Google Sheet failed: ${sheetResponse.status}`);
+	}
 
       // 📩 Email (نفس Stripe)
       const transporter = nodemailer.createTransport({
