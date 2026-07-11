@@ -894,29 +894,30 @@ app.post("/calculate-price", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-const BASE_URL = "https://lyxup-iuai.vercel.app";
+const BASE_URL = "https://lyxup.app";
 
 // 💳 Stripe (🔥 تم إصلاحه بالكامل)
 app.post("/create-checkout-session", async (req, res) => {
 
     try {
 
-        const { 
-		name,
-		phone,
-		email,
-		from,
-		to,
-		carType,
-		price,
-		bags,
-		notes,
-		tripDate,
-		returnDate,
-		tripType,
-		currency,
-		type
-		} = req.body;
+        const {
+	    name,
+	    phone,
+	    email,
+	    from,
+	    to,
+	    carType,
+	    price,
+	    bags,
+	    notes,
+	    tripDate,
+	    returnDate,
+	    tripType,
+	    currency,
+	    type,
+	    lang
+	} = req.body;
 		const carTypeFixed = String(carType);
 		console.log("🚗 carType FROM FRONT:", carType);
         if (
@@ -937,7 +938,7 @@ app.post("/create-checkout-session", async (req, res) => {
         const { amount: finalAmount, stripeCurrency } = getStripeDetails(ride.rawPrice, currency, type);
 
         const label = type === "deposit" ? "Deposit Payment 💳" : "Full Payment 💰";
-
+		const safeLang = ["ar", "en", "es"].includes(lang) ? lang : "en";
         const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
@@ -969,8 +970,8 @@ app.post("/create-checkout-session", async (req, res) => {
         quantity: 1
         }],
 		
-        success_url: `${BASE_URL}/success`,
-		cancel_url: `${BASE_URL}/cancel`
+        success_url: `${BASE_URL}/success?lang=${safeLang}`,
+		cancel_url: `${BASE_URL}/cancel?lang=${safeLang}`
         
         });
         res.json({ url: session.url });
