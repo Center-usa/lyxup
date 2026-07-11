@@ -752,11 +752,17 @@ function formatDisplayPrice(price, currency) {
 }
 
 function getStripeDetails(rawPrice, currency, type) {
+
     let amount = type === "deposit"
         ? Math.max(rawPrice * 0.25, 300)
         : rawPrice;
 
     let stripeCurrency = "usd";
+
+    if (currency === "USD") {
+        amount = amount / 45;
+        stripeCurrency = "usd";
+    }
 
     if (currency === "EUR") {
         amount = amount / 50;
@@ -764,12 +770,12 @@ function getStripeDetails(rawPrice, currency, type) {
     }
 
     if (currency === "EGP") {
-        amount = amount / 45;
         stripeCurrency = "usd";
+        amount = amount / 45;
     }
 
     return {
-        amount: Math.max(100, Math.round(amount * 100)),
+        amount: Math.round(amount * 100),
         stripeCurrency
     };
 }
