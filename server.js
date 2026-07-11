@@ -466,26 +466,61 @@ app.use(rateLimit({
 
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+let stripe = null;
+
 if (process.env.STRIPE_SECRET_KEY) {
-  stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-}app.post("/webhook", bodyParser.raw({ type: "application/json" }), async (req, res) => {
+  stripe = require("stripe")(
+    process.env.STRIPE_SECRET_KEY.trim()
+  );
+}
+app.post(
+  "/webhook",
+  bodyParser.raw({ type: "application/json" }),
+  async (req, res) => {
 
-  const sig = req.headers["stripe-signature"];
-  let event;
+    const sig = req.headers["stripe-signature"];
+    const endpointSecret =
+      (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
 
-  try {
-    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    let event;
 
-    event = stripe.webhooks.constructEvent(
-      req.body,
-      sig,
-      endpointSecret
-    );
+    console.log("🔍 WEBHOOK DEBUG:", {
+      hasSecret: Boolean(endpointSecret),
+      secretPrefix: endpointSecret.substring(0, 6),
+      hasSignature: Boolean(sig),
+      bodyIsBuffer: Buffer.isBuffer(req.body),
+      bodyType: typeof req.body,
+      bodyLength: req.body?.length
+    });
 
-  } catch (err) {
-    console.log("❌ Webhook Error:", err.message);
-    return res.sendStatus(400);
-  }
+    try {
+      if (!stripe) {
+        throw new Error("Stripe is not initialized");
+      }
+
+      if (!endpointSecret) {
+        throw new Error("STRIPE_WEBHOOK_SECRET is missing");
+      }
+
+      if (!sig) {
+        throw new Error("Stripe signature header is missing");
+      }
+
+      event = stripe.webhooks.constructEvent(
+        req.body,
+        sig,
+        endpointSecret
+      );
+
+      console.log("✅ Webhook signature verified:", event.type);
+
+    } catch (err) {
+      console.error("❌ Webhook Error:", err.message);
+
+      return res
+        .status(400)
+        .send(`Webhook Error: ${err.message}`);
+    }
 
 // ✅ لما الدفع ينجح
 if (event.type === "checkout.session.completed") {
