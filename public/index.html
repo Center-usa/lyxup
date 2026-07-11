@@ -1851,22 +1851,27 @@ async function payStripe(){
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        email: "",
-        from,
-        to,
-        carType,
-        price: window.realPrice,
-        bags,
-        notes: "",
-        tripDate: document.getElementById("date").value || document.getElementById("date-desktop").value,
-        returnDate: document.getElementById("returnDate").value || document.getElementById("returnDate-desktop").value,
-        tripType,
-        currency,
-        type: selected
-    })
-});
+	    name: document.getElementById("name").value,
+	    phone: document.getElementById("phone").value,
+	    email: "",
+	    from,
+	    to,
+	    carType,
+	    price: window.realPrice,
+	    bags,
+	    notes: "",
+	    tripDate:
+	        document.getElementById("date").value ||
+	        document.getElementById("date-desktop").value,
+	    returnDate:
+	        document.getElementById("returnDate").value ||
+	        document.getElementById("returnDate-desktop").value,
+	    tripType,
+	    currency,
+	    type: selected,
+	    lang
+		})
+	});
 
         const data = await res.json();
 
