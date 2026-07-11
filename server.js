@@ -752,26 +752,25 @@ function formatDisplayPrice(price, currency) {
 }
 
 function getStripeDetails(rawPrice, currency, type) {
-
     let amount = type === "deposit"
         ? Math.max(rawPrice * 0.25, 300)
         : rawPrice;
 
-    let stripeCurrency = "usd";
-
-    if (currency === "USD") {
-        amount = amount / 45;
-        stripeCurrency = "usd";
-    }
-
-    if (currency === "EUR") {
-        amount = amount / 50;
-        stripeCurrency = "eur";
-    }
+    let stripeCurrency;
 
     if (currency === "EGP") {
-        stripeCurrency = "usd";
+        stripeCurrency = "egp";
+
+    } else if (currency === "USD") {
         amount = amount / 45;
+        stripeCurrency = "usd";
+
+    } else if (currency === "EUR") {
+        amount = amount / 50;
+        stripeCurrency = "eur";
+
+    } else {
+        throw new Error("Unsupported currency");
     }
 
     return {
