@@ -1111,27 +1111,35 @@ app.post("/capture-paypal-order", async (req, res) => {
   try {
 
     const {
-      orderID,
-      name,
-      phone,
-      email,
-      from,
-      to,
-      carType,
-      price,
-      bags,
-      notes,
-      tripDate,
-      returnDate,
-      tripType
-    } = req.body;
+	  orderID,
+	  name,
+	  phone,
+	  email,
+	  from,
+	  to,
+	  carType,
+	  price,
+	  bags,
+	  notes,
+	  tripDate,
+	  returnDate,
+	  tripType,
+	  currency,
+	  type
+	} = req.body;
 	const ride = await calculateRide({
-	from,
-	to,
-	carType,
-	tripType,
-	currency: "EUR"
+	  from,
+	  to,
+	  carType,
+	  tripType,
+	  currency
 	});
+	
+	const paypalDetails = getPaypalDetails(
+	  ride.rawPrice,
+	  currency,
+	  type
+	);
     const accessToken = await getAccessToken();
 
     const response = await axios.post(
@@ -1148,12 +1156,28 @@ app.post("/capture-paypal-order", async (req, res) => {
 	const payerEmail = response.data.payer?.email_address || "";
 
     if (response.data.status === "COMPLETED") {
-	  const paidAmount = response.data.purchase_units?.[0]?.payments?.captures?.[0]?.amount?.value;
+	 const capture =
+	  response.data.purchase_units?.[0]?.payments?.captures?.[0];
+	
+	const paidAmount = capture?.amount?.value;
+	const paidCurrency = capture?.amount?.currency_code;
 	 if (!paidAmount) {
 	return res.status(400).json({ error: "Invalid payment amount" });
 	}
+		let formattedPaidAmount;
 
-	const expectedAmount = (ride.rawPrice / 50).toFixed(2); // EUR
+	if (paidCurrency === "USD") {
+	  formattedPaidAmount = `$${Number(paidAmount).toFixed(2)}`;
+	} else if (paidCurrency === "EUR") {
+	  formattedPaidAmount = `€${Number(paidAmount).toFixed(2)}`;
+	} else if (paidCurrency === "EGP") {
+	  formattedPaidAmount = `${Number(paidAmount).toFixed(2)} EGP`;
+	} else {
+	  formattedPaidAmount =
+	    `${Number(paidAmount).toFixed(2)} ${paidCurrency}`;
+	}
+
+	const expectedAmount = paypalDetails.amount;
 
 	if (Math.abs(parseFloat(paidAmount) - parseFloat(expectedAmount)) > 0.01) {
 	console.log("🚨 PRICE MISMATCH!", { paidAmount, expectedAmount });
@@ -1168,7 +1192,7 @@ app.post("/capture-paypal-order", async (req, res) => {
         from: from || "",
         to: to || "",
         car: carType || "",
-        price: paidAmount,
+        price: formattedPaidAmount,
         payment: "PayPal",
         bags: bags || "",
         notes: notes || "",
@@ -1225,7 +1249,7 @@ app.post("/capture-paypal-order", async (req, res) => {
 		<p>From: ${from}</p>
 		<p>To: ${to}</p>
 		<p>Car: ${carType}</p>
-		<p>Amount: €${paidAmount}</p>
+		<p><b>Payment Received:</b> ${formattedPaidAmount}</p>
   `
 		});
 
