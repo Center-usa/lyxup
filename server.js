@@ -7,6 +7,8 @@ const rateLimit = require("express-rate-limit");
 const Stripe = require("stripe");
 const axios = require("axios");
 const app = express();
+const activeStripeWebhookSessions = new Set();
+const activeStripeWebhookEvents = new Set();
 app.get("/sitemap.xml", (req, res) => {
   res.type("application/xml");
   res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
@@ -526,11 +528,52 @@ app.post(
 if (event.type === "checkout.session.completed") {
 
   const session = event.data.object;
+  const sessionId = session.id;
+  const eventId = event.id;
 
   // ✅ حماية: نتأكد إن الدفع تم فعلاً
   if (session.payment_status !== "paid") {
     return res.sendStatus(200);
   }
+
+  if (
+    activeStripeWebhookSessions.has(sessionId) ||
+    activeStripeWebhookEvents.has(eventId)
+  ) {
+    console.log("Duplicate Stripe webhook skipped in-memory:", {
+      sessionId,
+      eventId
+    });
+    return res.sendStatus(200);
+  }
+
+  const paymentIntentId =
+    typeof session.payment_intent === "string"
+      ? session.payment_intent
+      : session.payment_intent?.id;
+
+  let paymentIntent = null;
+
+  try {
+    if (paymentIntentId) {
+      paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+      if (paymentIntent.metadata?.lyxup_webhook_completed === "true") {
+        console.log("Duplicate Stripe webhook skipped from Stripe metadata:", {
+          sessionId,
+          paymentIntentId
+        });
+        return res.sendStatus(200);
+      }
+    }
+  } catch (err) {
+    console.log("Could not inspect Stripe payment intent metadata:", err.message);
+  }
+
+  activeStripeWebhookSessions.add(sessionId);
+  activeStripeWebhookEvents.add(eventId);
+
+  try {
 
   // ✅ البيانات
   const metadata = session.metadata || {};
@@ -669,6 +712,10 @@ Amount: ${formattedPaidAmount}`
     console.log("📩 Email sent");
   } catch (error) {
     console.log("❌ Email error:", error);
+  }
+  } finally {
+    activeStripeWebhookSessions.delete(sessionId);
+    activeStripeWebhookEvents.delete(eventId);
   }
 }
 
