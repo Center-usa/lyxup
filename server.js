@@ -613,7 +613,7 @@ To: ${to}
 Car: ${carType}
 
 Customer Email: ${customerEmail}
-Amount: ${formattedPaidAmount}
+Amount: ${formattedPaidAmount}`
   );
 
   const whatsappLink = `https://wa.me/${phone}?text=${message}`;
