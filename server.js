@@ -586,17 +586,34 @@ if (event.type === "checkout.session.completed") {
   console.log("📤 SENDING TO SHEET:", sheetData);
 
   // ✅ إرسال للشيت (محمي)
-  try {
-    await fetch("https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(sheetData)
-    });
-  } catch (err) {
-    console.log("❌ Sheet error:", err);
-  }
+  const GOOGLE_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec";
+
+const sheetResponse = await fetch(GOOGLE_SHEET_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(sheetData)
+});
+
+const sheetResult = await sheetResponse.json();
+
+if (!sheetResponse.ok || sheetResult.success !== true) {
+  console.error("Google Sheet error:", sheetResult);
+
+  return res.status(500).send("Failed to save booking");
+}
+
+// نفس العملية اتسجلت قبل كده
+if (sheetResult.duplicate === true) {
+  console.log(
+    "Duplicate Stripe session skipped:",
+    sheetData.sessionId
+  );
+
+  return res.sendStatus(200);
+}
 
   console.log("💰 Payment Success!");
   console.log("📧 Email:", customerEmail);
