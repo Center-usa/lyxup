@@ -586,64 +586,17 @@ if (event.type === "checkout.session.completed") {
   console.log("📤 SENDING TO SHEET:", sheetData);
 
   // ✅ إرسال للشيت (محمي)
-  const GOOGLE_SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec";
-
-let sheetResult;
-
-try {
-  const sheetResponse = await fetch(GOOGLE_SHEET_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(sheetData),
-    redirect: "follow"
-  });
-
-  const sheetResponseText = await sheetResponse.text();
-
-  console.log("📄 SHEET STATUS:", sheetResponse.status);
-  console.log("📄 SHEET RAW RESPONSE:", sheetResponseText);
-
   try {
-    sheetResult = JSON.parse(sheetResponseText);
-  } catch (parseError) {
-    console.error(
-      "❌ Google Sheet returned invalid JSON:",
-      sheetResponseText
-    );
-
-    return res
-      .status(500)
-      .send("Google Sheet returned invalid JSON");
+    await fetch("https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(sheetData)
+    });
+  } catch (err) {
+    console.log("❌ Sheet error:", err);
   }
-
-  if (!sheetResponse.ok || sheetResult.success !== true) {
-    console.error("❌ Google Sheet error:", sheetResult);
-
-    return res
-      .status(500)
-      .send("Failed to save booking");
-  }
-
-  // نفس العملية اتسجلت قبل كده
-  if (sheetResult.duplicate === true) {
-    console.log(
-      "♻️ Duplicate Stripe session skipped:",
-      sheetData.sessionId
-    );
-
-    return res.sendStatus(200);
-  }
-
-} catch (sheetError) {
-  console.error("❌ Google Sheet request failed:", sheetError);
-
-  return res
-    .status(500)
-    .send("Google Sheet request failed");
-}
 
   console.log("💰 Payment Success!");
   console.log("📧 Email:", customerEmail);
