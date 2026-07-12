@@ -589,48 +589,60 @@ if (event.type === "checkout.session.completed") {
   const GOOGLE_SHEET_URL =
   "https://script.google.com/macros/s/AKfycbyOfF5cqOKAoS7Az-ASrEeFUW0fPcMXN_d-sFLG49xbUXWRnQreE-uSXh5t5t5SNKrS4g/exec";
 
-const sheetResponse = await fetch(GOOGLE_SHEET_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(sheetData)
-});
-
-const sheetResponseText = await sheetResponse.text();
-
-console.log("📄 SHEET STATUS:", sheetResponse.status);
-console.log("📄 SHEET RAW RESPONSE:", sheetResponseText);
-
 let sheetResult;
 
 try {
-  sheetResult = JSON.parse(sheetResponseText);
-} catch (error) {
-  console.error(
-    "❌ Google Sheet returned non-JSON response:",
-    sheetResponseText
-  );
+  const sheetResponse = await fetch(GOOGLE_SHEET_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(sheetData),
+    redirect: "follow"
+  });
 
-  return res.status(500).send(
-    "Google Sheet returned invalid response"
-  );
-}
+  const sheetResponseText = await sheetResponse.text();
 
-if (!sheetResponse.ok || sheetResult.success !== true) {
-  console.error("❌ Google Sheet error:", sheetResult);
+  console.log("📄 SHEET STATUS:", sheetResponse.status);
+  console.log("📄 SHEET RAW RESPONSE:", sheetResponseText);
 
-  return res.status(500).send("Failed to save booking");
-}
+  try {
+    sheetResult = JSON.parse(sheetResponseText);
+  } catch (parseError) {
+    console.error(
+      "❌ Google Sheet returned invalid JSON:",
+      sheetResponseText
+    );
 
-// نفس العملية اتسجلت قبل كده
-if (sheetResult.duplicate === true) {
-  console.log(
-    "Duplicate Stripe session skipped:",
-    sheetData.sessionId
-  );
+    return res
+      .status(500)
+      .send("Google Sheet returned invalid JSON");
+  }
 
-  return res.sendStatus(200);
+  if (!sheetResponse.ok || sheetResult.success !== true) {
+    console.error("❌ Google Sheet error:", sheetResult);
+
+    return res
+      .status(500)
+      .send("Failed to save booking");
+  }
+
+  // نفس العملية اتسجلت قبل كده
+  if (sheetResult.duplicate === true) {
+    console.log(
+      "♻️ Duplicate Stripe session skipped:",
+      sheetData.sessionId
+    );
+
+    return res.sendStatus(200);
+  }
+
+} catch (sheetError) {
+  console.error("❌ Google Sheet request failed:", sheetError);
+
+  return res
+    .status(500)
+    .send("Google Sheet request failed");
 }
 
   console.log("💰 Payment Success!");
