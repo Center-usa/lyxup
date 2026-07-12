@@ -67,6 +67,7 @@ html, body {
 body {
     margin: 0;
     font-family: Arial;
+    font-size: 16px;
     background: radial-gradient(circle at top, #16110a 0%, var(--bg) 24%);
     color: var(--text);
     padding-bottom: 100px;
@@ -91,7 +92,7 @@ body {
 
 .hero h1 {
     text-align: center;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 700;
     letter-spacing: 0.5px;
     line-height: 1.4;
@@ -108,7 +109,7 @@ body {
 
 .hero h2 {
     text-align: center;
-    font-size: 13px; /* 🔥 أصغر شوية */
+    font-size: 15px; /* 🔥 أصغر شوية */
     font-weight: 400;
 
     color: var(--text-muted); /* 🔥 أهم تعديل (أوضح بكتير) */
@@ -127,6 +128,7 @@ body {
 .input, select {
     width: 100%;
     padding: 15px;
+    font-size: 16px;
     border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--surface);
@@ -163,6 +165,7 @@ select:focus,
     justify-content: space-between;
     align-items: center;
     border: 1px solid var(--border);
+    font-size: 16px;
 }
 
 .date-box.active {
@@ -252,7 +255,7 @@ select:focus,
 .map-actions .btn {
     flex: 1;
     padding: 12px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .secondary {
@@ -269,6 +272,7 @@ select:focus,
 .trip-type button {
     flex: 1;
     padding: 12px;
+    font-size: 16px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -289,9 +293,10 @@ select:focus,
     padding: 18px;
     border-radius: 15px;
     border: none;
-    font-size: 18px;
+    font-size: 19px;
     margin-top: 10px;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .primary {
@@ -366,12 +371,12 @@ select:focus,
 }
 
 .title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .desc {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-muted);
     margin-top: 2px;
 }
@@ -399,17 +404,41 @@ select:focus,
 /* 🔥 موبايل */
 @media (max-width: 480px) {
 
+    .hero h1 {
+        font-size: 31px;
+        line-height: 1.28;
+    }
+
+    .hero h2 {
+        font-size: 16px;
+    }
+
+    .input, select,
+    .date-box,
+    .desktop-date {
+        font-size: 16px;
+    }
+
+    .trip-type button,
+    .luggage-btn {
+        font-size: 15px;
+    }
+
+    .btn {
+        font-size: 18px;
+    }
+
     .card {
         padding: 12px;
         border-radius: 14px;
     }
 
     .title {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .desc {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .car-img {
@@ -438,7 +467,7 @@ select:focus,
 
 .bottom-bar div {
     color: var(--text);
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
     cursor: pointer;
     flex: 1;
@@ -518,6 +547,8 @@ select:focus,
 .luggage-title {
     margin-bottom: 8px;
     color: var(--text-muted);
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .luggage-options {
@@ -533,7 +564,8 @@ select:focus,
     text-align: center;
     cursor: pointer;
     border: 1px solid var(--border);
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .luggage-btn.active {
@@ -552,7 +584,7 @@ select:focus,
 
 .currency-box label {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     color: var(--text-muted);
     margin-bottom: 6px;
 }
@@ -611,7 +643,7 @@ html[dir="rtl"] .sidebar.active {
 /* العناوين */
 .menu-title {
     margin-top: 15px;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text-soft);
     text-transform: uppercase;
 }
