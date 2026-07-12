@@ -597,10 +597,28 @@ const sheetResponse = await fetch(GOOGLE_SHEET_URL, {
   body: JSON.stringify(sheetData)
 });
 
-const sheetResult = await sheetResponse.json();
+const sheetResponseText = await sheetResponse.text();
+
+console.log("📄 SHEET STATUS:", sheetResponse.status);
+console.log("📄 SHEET RAW RESPONSE:", sheetResponseText);
+
+let sheetResult;
+
+try {
+  sheetResult = JSON.parse(sheetResponseText);
+} catch (error) {
+  console.error(
+    "❌ Google Sheet returned non-JSON response:",
+    sheetResponseText
+  );
+
+  return res.status(500).send(
+    "Google Sheet returned invalid response"
+  );
+}
 
 if (!sheetResponse.ok || sheetResult.success !== true) {
-  console.error("Google Sheet error:", sheetResult);
+  console.error("❌ Google Sheet error:", sheetResult);
 
   return res.status(500).send("Failed to save booking");
 }
