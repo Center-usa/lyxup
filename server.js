@@ -553,7 +553,9 @@ if (event.type === "checkout.session.completed") {
     from: from || "",
     to: to || "",
     car: carType,
-    price: metadata.price || amount,
+    price: Number(
+    Number(metadata.price || amount).toFixed(2)
+	),
     payment: "Stripe",
     bags: metadata.bags || "",
     notes: metadata.notes || "",
@@ -630,8 +632,8 @@ Amount: €${amount}`
 
       <hr/>
 
-      <p><b>Ride Price:</b> ${metadata.price} EGP</p>
-	  <p><b>Paid Amount:</b> ${amount} ${session.currency.toUpperCase()}</p>
+      <p><b>Ride Price:</b> ${Number(metadata.price).toFixed(2)} EGP</p>
+	  <p><b>Paid Amount:</b> ${Number(amount).toFixed(2)} ${session.currency.toUpperCase()}</p>
       <p><b>Email:</b> ${customerEmail}</p>
 
       <br/>
