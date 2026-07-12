@@ -125,6 +125,22 @@ body {
     opacity: 0.95;
 }
 
+body {
+    padding-bottom: 124px;
+}
+
+.hero {
+    padding: 22px 15px 14px;
+}
+
+.hero h1 {
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    margin: 0 0 28px 0;
+}
+
 .input, select {
     width: 100%;
     padding: 15px;
@@ -239,6 +255,21 @@ select:focus,
     display: block;
 }
 
+.trip-type {
+    margin-bottom: 16px;
+}
+
+.map-field-wrapper {
+    margin-bottom: 14px;
+}
+
+.date-box,
+.desktop-date,
+.input,
+select {
+    margin-bottom: 14px;
+}
+
 .map-box {
     width: 100%;
     height: 260px;
@@ -321,11 +352,19 @@ select:focus,
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
+.price-box {
+    margin-top: 18px;
+}
+
 .services {
 	margin-top: 10px; /* 🔥 ده الحل */
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.services {
+    margin-top: 20px;
 }
 .card {
     display: block;
@@ -404,6 +443,11 @@ select:focus,
 /* 🔥 موبايل */
 @media (max-width: 480px) {
 
+    .hero {
+        padding-top: 28px;
+        padding-bottom: 18px;
+    }
+
     .hero h1 {
         font-size: 31px;
         line-height: 1.28;
@@ -426,6 +470,21 @@ select:focus,
 
     .btn {
         font-size: 18px;
+    }
+
+    .trip-type {
+        margin-bottom: 18px;
+    }
+
+    .luggage-section {
+        margin-top: 12px;
+        margin-bottom: 20px;
+    }
+
+    .price-box,
+    .currency-box,
+    .services {
+        margin-top: 20px;
     }
 
     .card {
@@ -459,7 +518,7 @@ select:focus,
     display: flex;
     justify-content: space-around;
     align-items: center; /* 🔥 مهم */
-    padding: 12px 0;
+    padding: 14px 0 16px;
     border-top: 1px solid var(--border);
     backdrop-filter: blur(18px);
     z-index: 999;
@@ -544,6 +603,11 @@ select:focus,
     margin-bottom: 10px;
 }
 
+.luggage-section {
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
 .luggage-title {
     margin-bottom: 8px;
     color: var(--text-muted);
@@ -580,6 +644,10 @@ select:focus,
     background: var(--surface);
     border-radius: 12px;
     border: 1px solid var(--border);
+}
+
+.currency-box {
+    margin-top: 18px;
 }
 
 .currency-box label {
@@ -746,10 +814,10 @@ html[dir="rtl"] .sidebar.active {
 </div>
 
 <select id="carType">
-    <option value="sedan">👤3 🚗 Sedan </option>
+    <option value="sedan">👤4 🚗 Sedan </option>
     <option value="suv">👤6 🚙 SUV </option>
     <option value="h1">👤7 🚐 H1 </option>
-    <option value="hiace">👤13 🚐 Hiace </option>
+    <option value="hiace">👤12 🚐 Hiace </option>
     <option value="coaster">👤20+ 🚌 Coaster </option>
 </select>
 
