@@ -540,9 +540,30 @@ if (event.type === "checkout.session.completed") {
 
   console.log("🔥 METADATA:", metadata);
 
-  const customerEmail = session.customer_details?.email || "no-email";
-  const amount = session.amount_total / 100;
+  const customerEmail =
+  session.customer_details?.email || "no-email";
 
+	// المبلغ الذي دفعه العميل فعليًا
+	const amount = Number(
+	  (session.amount_total / 100).toFixed(2)
+	);
+	
+	// العملة الحقيقية التي تم الدفع بها
+	const paidCurrency =
+	  (session.currency || "egp").toUpperCase();
+	
+	// شكل المبلغ النهائي للشيت والإيميل
+	let formattedPaidAmount;
+	
+	if (paidCurrency === "USD") {
+	  formattedPaidAmount = `$${amount.toFixed(2)}`;
+	} else if (paidCurrency === "EUR") {
+	  formattedPaidAmount = `€${amount.toFixed(2)}`;
+	} else if (paidCurrency === "EGP") {
+	  formattedPaidAmount = `${amount.toFixed(2)} EGP`;
+	} else {
+	  formattedPaidAmount = `${amount.toFixed(2)} ${paidCurrency}`;
+	}
   // ✅ تجهيز البيانات للشيت
   const sheetData = {
     type: new Date().toISOString(),
@@ -553,9 +574,7 @@ if (event.type === "checkout.session.completed") {
     from: from || "",
     to: to || "",
     car: carType,
-    price: Number(
-    Number(metadata.price || amount).toFixed(2)
-	),
+    price: formattedPaidAmount,
     payment: "Stripe",
     bags: metadata.bags || "",
     notes: metadata.notes || "",
@@ -594,7 +613,7 @@ To: ${to}
 Car: ${carType}
 
 Customer Email: ${customerEmail}
-Amount: €${amount}`
+Amount: ${formattedPaidAmount}
   );
 
   const whatsappLink = `https://wa.me/${phone}?text=${message}`;
@@ -632,8 +651,7 @@ Amount: €${amount}`
 
       <hr/>
 
-      <p><b>Ride Price:</b> ${Number(metadata.price).toFixed(2)} EGP</p>
-	  <p><b>Paid Amount:</b> ${Number(amount).toFixed(2)} ${session.currency.toUpperCase()}</p>
+      <p><b>Payment Received:</b> ${formattedPaidAmount}</p>
       <p><b>Email:</b> ${customerEmail}</p>
 
       <br/>
