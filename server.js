@@ -630,7 +630,8 @@ Amount: €${amount}`
 
       <hr/>
 
-      <p><b>Amount Paid:</b> €${amount}</p>
+      <p><b>Ride Price:</b> ${metadata.price} EGP</p>
+	  <p><b>Paid Amount:</b> ${amount} ${session.currency.toUpperCase()}</p>
       <p><b>Email:</b> ${customerEmail}</p>
 
       <br/>
