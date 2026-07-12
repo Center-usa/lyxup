@@ -1886,133 +1886,167 @@ async function payStripe(){
         alert(translations[lang].serverError);
     }
 }
-async function payPaypal(){
-	const selectedCurrency =
-	  document.getElementById("currency").value;
-	
-	try {
-	  await loadPayPalSdk(selectedCurrency);
-	} catch (error) {
-	  console.error(error);
-	  alert(translations[lang].serverError);
-	  unlockUI();
-	  return;
-	}
-	await calculatePrice();
-    let selected = document.querySelector('input[name="payType"]:checked')?.value;
+async function payPaypal() {
+  // نحسب السعر الأول
+  await calculatePrice();
 
-    if(!selected){
-        alert(translations[lang].choosePayment);
-        return;
-    }
+  const selected =
+    document.querySelector(
+      'input[name="payType"]:checked'
+    )?.value;
 
-    if(!window.realPrice){
-        alert(translations[lang].calcFirst);
-        return;
-    }
+  if (!selected) {
+    alert(translations[lang].choosePayment);
+    return;
+  }
 
-    // 🔥 اقفل الاختيارات
-    document.querySelectorAll('input[name="payType"]').forEach(el => {
-        el.disabled = true;
-    });
+  if (!window.realPrice) {
+    alert(translations[lang].calcFirst);
+    return;
+  }
 
-    // 🔥 اقفل زر PayPal نفسه
-    const paypalBtn = document.querySelector('[onclick="payPaypal()"]');
-    if(paypalBtn) paypalBtn.disabled = true;
+  const selectedCurrency =
+    document.getElementById("currency").value;
 
-    // 🔥 امسح أي زر قديم
-    document.getElementById("paypal-button-container").innerHTML = "";
+  try {
+    await loadPayPalSdk(selectedCurrency);
+  } catch (error) {
+    console.error("PayPal SDK error:", error);
+    alert(translations[lang].serverError);
+    unlockUI();
+    return;
+  }
 
-    paypal.Buttons({
+  // اقفل الاختيارات
+  document.querySelectorAll(
+    'input[name="payType"]'
+  ).forEach(el => {
+    el.disabled = true;
+  });
 
-        createOrder: async function(){
+  // اقفل زر PayPal نفسه
+  const paypalBtn =
+    document.querySelector(
+      '[onclick="payPaypal()"]'
+    );
 
-            const res = await fetch(`${API_URL}/create-paypal-order`, {
-			method: "POST",
-			headers: {
-			"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-			from: document.getElementById("from").value,
-			to: document.getElementById("to").value,
-			carType: document.getElementById("carType").value,
-			tripType: tripType,
-			currency: document.getElementById("currency").value,
-			type: selected
-		})
-	});
+  if (paypalBtn) {
+    paypalBtn.disabled = true;
+  }
 
-            const data = await res.json();
+  // امسح أي زر قديم
+  document.getElementById(
+    "paypal-button-container"
+  ).innerHTML = "";
 
-            if(!data.id){
-                console.log(data);
-                alert(translations[lang].sessionError);
-
-                // 🔓 رجّع كل حاجة
-                unlockUI();
-                return;
-            }
-
-            return data.id;
-        },
-
-        onApprove: async function(data){
-
-            const res = await fetch(`${API_URL}/capture-paypal-order`, {
-			method: "POST",
-			headers: {
-			"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-			orderID: data.orderID,
-			name: document.getElementById("name").value,
-			phone: document.getElementById("phone").value,
-			email: "",
-			from: document.getElementById("from").value,
-			to: document.getElementById("to").value,
-			carType: document.getElementById("carType").value,
-			price: window.realPrice,
-			bags,
-			notes: "",
-			tripDate: document.getElementById("date").value || document.getElementById("date-desktop").value,
-			returnDate: document.getElementById("returnDate").value || document.getElementById("returnDate-desktop").value,
-			tripType,
-			currency: document.getElementById("currency").value,
-			type: selected
-    })
-});
-
-            const result = await res.json();
-
-            if(result.status === "COMPLETED"){
-			window.location.href = `${API_URL}/success?lang=${lang}`;
-		} else {
-                alert(translations[lang].error);
-                unlockUI();
-            }
-        },
-
-        onCancel: function(data){
-            console.log("❌ تم إلغاء الدفع", data);
-
-            alert(translations[lang].cancel);
-
-            // 🔓 رجّع كل حاجة
-            unlockUI();
-        },
-
-        onError: function(err){
-            console.log(err);
-            alert(translations[lang].error);
-
-            // 🔓 رجّع كل حاجة
-            unlockUI();
+  paypal.Buttons({
+    createOrder: async function() {
+      const res = await fetch(
+        `${API_URL}/create-paypal-order`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            from:
+              document.getElementById("from").value,
+            to:
+              document.getElementById("to").value,
+            carType:
+              document.getElementById("carType").value,
+            tripType,
+            currency: selectedCurrency,
+            type: selected
+          })
         }
+      );
 
-    }).render('#paypal-button-container');
+      const data = await res.json();
+
+      if (!data.id) {
+        console.log("PayPal create order error:", data);
+        alert(translations[lang].sessionError);
+        unlockUI();
+        return;
+      }
+
+      return data.id;
+    },
+
+    onApprove: async function(data) {
+      const res = await fetch(
+        `${API_URL}/capture-paypal-order`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            orderID: data.orderID,
+            name:
+              document.getElementById("name").value,
+            phone:
+              document.getElementById("phone").value,
+            email: "",
+            from:
+              document.getElementById("from").value,
+            to:
+              document.getElementById("to").value,
+            carType:
+              document.getElementById("carType").value,
+            price: window.realPrice,
+            bags,
+            notes: "",
+            tripDate:
+              document.getElementById("date").value ||
+              document.getElementById(
+                "date-desktop"
+              ).value,
+            returnDate:
+              document.getElementById(
+                "returnDate"
+              ).value ||
+              document.getElementById(
+                "returnDate-desktop"
+              ).value,
+            tripType,
+            currency: selectedCurrency,
+            type: selected
+          })
+        }
+      );
+
+      const result = await res.json();
+
+      if (result.status === "COMPLETED") {
+        window.location.href =
+          `${API_URL}/success?lang=${lang}`;
+      } else {
+        console.log(
+          "PayPal capture error:",
+          result
+        );
+        alert(translations[lang].error);
+        unlockUI();
+      }
+    },
+
+    onCancel: function(data) {
+      console.log("PayPal cancelled:", data);
+      alert(translations[lang].cancel);
+      unlockUI();
+    },
+
+    onError: function(error) {
+      console.error("PayPal error:", error);
+      alert(translations[lang].error);
+      unlockUI();
+    }
+  }).render("#paypal-button-container");
 }
 
-
+         
 // 🔓 فك القفل (ترجع كل حاجة زي ما كانت)
 
 async function payInstapay(){
@@ -2137,11 +2171,11 @@ function togglePaymentOptions(){
 		}
 }
 
-	let loadedPayPalCurrency = null;
+let loadedPayPalCurrency = null;
 
 function loadPayPalSdk(currency) {
   return new Promise((resolve, reject) => {
-    // PayPal عندك يحول EGP إلى USD
+    // PayPal عندك لا يستخدم EGP، لذلك EGP يتحول إلى USD
     const paypalCurrency =
       currency === "EUR" ? "EUR" : "USD";
 
@@ -2158,15 +2192,18 @@ function loadPayPalSdk(currency) {
 
     if (oldScript) {
       oldScript.remove();
-      delete window.paypal;
     }
+
+    // تنظيف النسخة القديمة
+    window.paypal = undefined;
 
     const script = document.createElement("script");
     script.id = "paypal-sdk";
+
     script.src =
-	  "https://www.paypal.com/sdk/js" +
-	  "?client-id=AboKpdw5yBx0BcbJtgeRFZr_070wcECHZgFtg3ebXmAfIkoUtU-OuF32rftLRzEM_sHWBSxzQpcibwkf&currency" +
-	  `&currency=${paypalCurrency}`;
+      "https://www.paypal.com/sdk/js" +
+      "?client-id=AboKpdw5yBx0BcbJtgeRFZr_070wcECHZgFtg3ebXmAfIkoUtU-OuF32rftLRzEM_sHWBSxzQpcibwkf" +
+      `&currency=${paypalCurrency}`;
 
     script.onload = () => {
       loadedPayPalCurrency = paypalCurrency;
