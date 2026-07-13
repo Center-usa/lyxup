@@ -79,6 +79,7 @@ body {
     padding: 16px 18px;
     border-bottom: 1px solid var(--border);
     align-items: center;
+    gap: 12px;
 }
 
 .logo {
@@ -94,6 +95,35 @@ body {
     line-height: 1;
     color: var(--text);
     padding: 2px 4px;
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.lang-link {
+    color: var(--text-soft);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    opacity: 0.9;
+}
+
+.lang-link.active {
+    color: var(--brand);
+    opacity: 1;
+}
+
+.lang-separator {
+    color: var(--border-soft);
+    font-size: 12px;
 }
 
 .hero {
@@ -692,6 +722,13 @@ html[dir="rtl"] .sidebar.active {
 
 <div class="header">
     <div id="menuBtn">☰</div>
+    <div class="lang-switcher" aria-label="Language switcher">
+        <a id="lang-ar" class="lang-link" href="/ar">AR</a>
+        <span class="lang-separator">|</span>
+        <a id="lang-en" class="lang-link" href="/en">EN</a>
+        <span class="lang-separator">|</span>
+        <a id="lang-es" class="lang-link" href="/es">ES</a>
+    </div>
     <div class="logo">LYXUP</div>
 </div>
 
@@ -2390,11 +2427,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	applyTranslations(lang);
 	// 🔥 زرار الهوم اللي تحت بس
 const bottomHomeBtn = document.querySelector(".bottom-bar div:first-child");
+const langAr = document.getElementById("lang-ar");
+const langEn = document.getElementById("lang-en");
+const langEs = document.getElementById("lang-es");
 
 if(bottomHomeBtn){
   bottomHomeBtn.onclick = () => {
     window.location.href = "/" + (lang === "ar" ? "" : lang);
   };
+}
+
+if(langAr && langEn && langEs){
+  langAr.href = "/";
+  langEn.href = "/en";
+  langEs.href = "/es";
+
+  langAr.classList.toggle("active", lang === "ar");
+  langEn.classList.toggle("active", lang === "en");
+  langEs.classList.toggle("active", lang === "es");
 }
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
