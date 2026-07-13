@@ -799,18 +799,46 @@ async function getDistanceInfo(from, to) {
 
 
 function getZone(geo) {
-
-    const components = geo.address_components;
+    const components = geo.address_components || [];
 
     const text = components
         .map(c => c.long_name.toLowerCase())
         .join(" ");
 
+    const cairoKeywords = [
+        "cairo", "new cairo", "giza", "6th of october", "6 october",
+        "october", "sheikh zayed", "zayed", "dokki", "mohandessin",
+        "mohandeseen", "faisal", "haram", "maadi", "heliopolis",
+        "masr el gedida", "nasr city", "mokattam", "muqattam", "zamalek",
+        "downtown cairo", "new nozha", "ain shams", "shubra", "helwan",
+        "obour", "el obour", "al obour", "shorouk", "el shorouk",
+        "al shorouk", "badr", "rehab", "el rehab", "al rehab",
+        "madinaty", "mostakbal city", "tagamoa", "tagamou", "tagamo3",
+        "fifth settlement", "first settlement", "settlement",
+        "new administrative capital", "administrative capital", "capital",
+        "smart village", "garden city", "hadayek october",
+        "october gardens", "sphinx", "grand egyptian museum", "gem",
+        "cairo international airport", "airport road"
+    ];
+
+    const cairoArabicKeywords = [
+        "القاهرة", "الجيزة", "القاهره", "الجيزه",
+        "القاهرة الجديدة", "القاهره الجديدة",
+        "التجمع", "التجمع الخامس", "التجمع الاول",
+        "مدينة نصر", "مصر الجديدة", "المعادي",
+        "المقطم", "الزمالك", "وسط البلد", "الدقي",
+        "المهندسين", "فيصل", "الهرم",
+        "السادس من أكتوبر", "6 أكتوبر", "اكتوبر",
+        "الشيخ زايد", "العبور", "الشروق", "بدر",
+        "الرحاب", "مدينتي", "مستقبل سيتي",
+        "العاصمة الإدارية", "العاصمة الادارية",
+        "سمارت فيليج", "حدائق أكتوبر", "حدائق اكتوبر",
+        "مطار القاهرة", "مطار القاهره"
+    ];
+
     if (
-        text.includes("cairo") ||
-        text.includes("القاهرة") ||
-        text.includes("giza") ||
-        text.includes("الجيزة")
+        cairoKeywords.some(keyword => text.includes(keyword)) ||
+        cairoArabicKeywords.some(keyword => text.includes(keyword))
     ) {
         return "cairo";
     }
