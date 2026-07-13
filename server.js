@@ -732,8 +732,8 @@ console.log("KEY:", process.env.GOOGLE_MAPS_API_KEY);
 const PRICING = {
 
   cairo: {
-    sedan: 27.5,
-    suv: 31.25,
+    sedan: 32.5,
+    suv: 36.25,
     h1: 41.25,
     hiace: 43.75,
     coaster: 62.5
