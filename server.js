@@ -747,6 +747,14 @@ const PRICING = {
     coaster: 34.25
   },
 
+  north_coast: {
+	sedan: 18,
+	suv: 22,
+	h1: 29,
+	hiace: 32,
+	coaster: 45
+},
+	
   travel: {
     sedan: 9.6,
     suv: 11,
@@ -805,6 +813,443 @@ function getZone(geo) {
         .map(c => c.long_name.toLowerCase())
         .join(" ");
 
+    // ==================================
+    // 🌊 NORTH COAST — الساحل الشمالي
+    // يجب فحصه قبل القاهرة والإسكندرية
+    // ==================================
+
+    const northCoastKeywords = [
+        // أسماء الساحل العامة
+        "north coast",
+        "north coast egypt",
+        "sahel",
+        "sahel shamaly",
+        "sahel el shamaly",
+        "sahel el shemaly",
+        "alexandria matrouh road",
+        "alex matrouh road",
+        "international coastal road",
+        
+
+        // العلمين
+        "el alamein",
+        "al alamein",
+        "alamein",
+        "new alamein",
+        "new alamein city",
+        "el alamein city",
+        "alamein city",
+
+        // سيدي عبد الرحمن
+        "sidi abdel rahman",
+        "sidi abd el rahman",
+        "sidi abd al rahman",
+        "sidi abdelrahman",
+        "sidi abdul rahman",
+        "sidi abdel الرحمن",
+
+        // رأس الحكمة
+        "ras el hekma",
+        "ras al hikma",
+        "ras el hikma",
+        "ras الحكمة",
+        "ras الحكma",
+        "ras hikma",
+        "ras hekma",
+
+        // الضبعة وفوكا
+        "el dabaa",
+        "al dabaa",
+        "dabaa",
+        "el daba'a",
+        "daba'a",
+        "fouka",
+        "fouka bay",
+        "foka bay",
+        "fuka bay",
+
+        // مارينا وبورتو مارينا
+        "marina north coast",
+        "marina el alamein",
+        "marina alamein",
+        "marina 1",
+        "marina 2",
+        "marina 3",
+        "marina 4",
+        "marina 5",
+        "marina 6",
+        "marina 7",
+        "porto marina",
+
+        // مراسي
+        "marassi",
+        "marassi north coast",
+        "marassi marina",
+        "marassi sidi abdel rahman",
+
+        // هاسيندا
+        "hacienda bay",
+        "hacienda white",
+        "hacienda west",
+        "hacienda red",
+        "hacienda north coast",
+
+        // أمواج
+        "amwaj",
+        "amwaj north coast",
+
+        // لافيستا
+        "la vista bay",
+        "la vista bay east",
+        "la vista bay north coast",
+        "la vista cascada",
+        "lavista bay",
+        "lavista cascada",
+
+        // تلال
+        "telal",
+        "telal north coast",
+        "telal sahel",
+
+        // ستيلا
+        "stella marina",
+        "stella heights",
+        "stella north coast",
+        "stella sidi abdel rahman",
+
+        // سي شيل
+        "seashell",
+        "sea shell",
+        "seashell playa",
+        "seashell north coast",
+
+        // الدبلوماسيين
+        "diplomats",
+        "diplomats village",
+        "diplomatic village",
+        "diplomaseen",
+        "diplomats 1",
+        "diplomats 2",
+        "diplomats 3",
+
+        // قرى ومشروعات أخرى
+        "mountain view north coast",
+        "mountain view ras el hikma",
+        "mountain view ras el hekma",
+        "mountain view diplo",
+
+        "swan lake north coast",
+        "swanlake north coast",
+        "swan lake sahel",
+
+        "bo islands",
+        "bo sands",
+        "bo island north coast",
+
+        "gaia north coast",
+        "gaia ras el hekma",
+
+        "jefaira",
+        "jefaira north coast",
+
+        "june sodic",
+        "june north coast",
+
+        "silversands",
+        "silver sands",
+        "silver sands north coast",
+
+        "salt north coast",
+        "salt ras el hekma",
+
+        
+        "solare north coast",
+        "direction white",
+        "direction white north coast",
+
+        "the waterway north coast",
+        "waterway north coast",
+
+        "blanca marassi",
+        "verdi marassi",
+        "isola marassi",
+
+        "bloomfields north coast",
+        "bloomfields sahel",
+
+        "international coastal road",
+        "caesar bay",
+        "caesar island",
+
+        "ghazala bay",
+        "ghazala valley",
+        "ghazala north coast",
+
+        "lotus north coast",
+        "lotus village",
+
+        "green beach",
+        "green beach north coast",
+
+        "marseilia beach",
+        "marseilia beach 1",
+        "marseilia beach 2",
+        "marseilia beach 3",
+        "marseilia beach 4",
+
+        "maraqia",
+        "marakia",
+        "maraqia north coast",
+
+        "dimora north coast",
+        "dimary",
+        "el maamoura north coast",
+
+        "badr village north coast",
+        "casabianca north coast",
+        "casa blanca north coast",
+
+        "nice north coast",
+        "nice 1",
+        "nice 2",
+        "nice 3",
+        "nice 4",
+
+        "sidi kreir",
+        "sidi kerir",
+        "sidi kirayr",
+
+        "kilo 21",
+        "kilo 34",
+        "kilo 40",
+        "kilo 57",
+        "kilo 70",
+        "kilo 82",
+        "kilo 89",
+        "kilo 91",
+        "kilo 105",
+        "kilo 120",
+        "kilo 126",
+        "kilo 134",
+        "kilo 140",
+        "kilo 165",
+        "kilo 178",
+        "kilo 200"
+    ];
+
+    const northCoastArabicKeywords = [
+        // أسماء الساحل العامة
+        "الساحل الشمالي",
+        "الساحل الشمالى",
+        "الساحل",
+        "طريق اسكندرية مطروح",
+        "طريق الإسكندرية مطروح",
+        "طريق الساحل",
+        "الطريق الساحلي",
+        "الطريق الساحلى",
+        "الطريق الدولي الساحلي",
+        "الطريق الدولى الساحلى",
+
+        // العلمين
+        "العلمين",
+        "مدينة العلمين",
+        "العلمين الجديدة",
+        "مدينة العلمين الجديدة",
+
+        // سيدي عبد الرحمن
+        "سيدي عبد الرحمن",
+        "سيدى عبد الرحمن",
+        "سيدي عبدالرحمن",
+        "سيدى عبدالرحمن",
+
+        // رأس الحكمة
+        "رأس الحكمة",
+        "راس الحكمة",
+        "رأس حكمه",
+        "راس حكمه",
+
+        // الضبعة وفوكا
+        "الضبعة",
+        "الضبعه",
+        "فوكا",
+        "فوكا باي",
+        "فوكا باى",
+
+        // مارينا
+        "مارينا الساحل",
+        "مارينا العلمين",
+        "مارينا 1",
+        "مارينا 2",
+        "مارينا 3",
+        "مارينا 4",
+        "مارينا 5",
+        "مارينا 6",
+        "مارينا 7",
+        "بورتو مارينا",
+
+        // مراسي
+        "مراسي",
+        "مراسى",
+        "مارينا مراسي",
+        "مارينا مراسى",
+
+        // هاسيندا
+        "هاسيندا باي",
+        "هاسيندا باى",
+        "هاسيندا وايت",
+        "هاسيندا ويست",
+        "هاسيندا ريد",
+        "هاسيندا الساحل",
+
+        // أمواج
+        "أمواج",
+        "امواج",
+        "أمواج الساحل",
+        "امواج الساحل",
+
+        // لافيستا
+        "لافيستا باي",
+        "لافيستا باى",
+        "لا فيستا باي",
+        "لا فيستا باى",
+        "لافيستا كاسكادا",
+        "لا فيستا كاسكادا",
+
+        // تلال
+        "تلال الساحل",
+        "تلال سيدي عبد الرحمن",
+        "تلال سيدى عبد الرحمن",
+
+        // ستيلا
+        "ستيلا مارينا",
+        "ستيلا هايتس",
+        "ستيلا الساحل",
+
+        // سي شيل
+        "سي شيل",
+        "سي شيل بلايا",
+        "سيشيل الساحل",
+        "سي شيل الساحل",
+
+        // الدبلوماسيين
+        "قرية الدبلوماسيين",
+        "الدبلوماسيين",
+        "الدبلوماسيين 1",
+        "الدبلوماسيين 2",
+        "الدبلوماسيين 3",
+
+        // مشروعات أخرى
+        "ماونتن فيو الساحل",
+        "ماونتن فيو رأس الحكمة",
+        "ماونتن فيو راس الحكمة",
+
+        "سوان ليك الساحل",
+        "سوان ليك",
+        "سوانليك",
+
+        "بو ايلاند",
+        "بو أيلاند",
+        "بو ايلاندز",
+        "بو ساندز",
+
+        "جايا الساحل",
+        "جايا رأس الحكمة",
+        "جايا راس الحكمة",
+
+        "جيفيرا",
+        "جيفيرا الساحل",
+
+        "جون سوديك",
+        "جون الساحل",
+
+        "سيلفر ساندز",
+        "سيلفر ساند",
+        "سيلفرساندز",
+
+        "سولت الساحل",
+        "سولت رأس الحكمة",
+        "سولت راس الحكمة",
+
+        "سولاري",
+        "سولارى",
+        "سولاري الساحل",
+
+        "دايركشن وايت",
+        "ديريكشن وايت",
+
+        "ذا واتر واي الساحل",
+        "ذا ووتر واي الساحل",
+        "واتر واي الساحل",
+
+        "بلانكا مراسي",
+        "بلانكا مراسى",
+        "فيردي مراسي",
+        "فيردى مراسى",
+        "ايزولا مراسي",
+        "إيزولا مراسي",
+
+        "بلوم فيلدز الساحل",
+        "بلومفيلدز الساحل",
+
+        "سيزر باي",
+        "سيزر باى",
+        "سيزر الساحل",
+        "خليج قيصر",
+
+        "غزالة باي",
+        "غزالة باى",
+        "غزالة فالي",
+        "غزالة فالى",
+        "غزالة الساحل",
+
+        "لوتس الساحل",
+        "قرية لوتس",
+
+        "جرين بيتش",
+        "جرين بيتش الساحل",
+
+        "مرسيليا بيتش",
+        "مرسيليا بيتش 1",
+        "مرسيليا بيتش 2",
+        "مرسيليا بيتش 3",
+        "مرسيليا بيتش 4",
+
+        "مراقيا",
+        "ماراقيا",
+        "مراقيا الساحل",
+
+        "ديمورا الساحل",
+
+        "بدر الساحل",
+        "قرية بدر الساحل",
+
+        "كازابيانكا الساحل",
+        "كازا بيانكا الساحل",
+
+        "نايس الساحل",
+        "نايس 1",
+        "نايس 2",
+        "نايس 3",
+        "نايس 4",
+
+        "سيدي كرير",
+        "سيدى كرير",
+        "سيدي كيرير",
+        "سيدى كيرير"
+    ];
+
+    // الساحل يتفحص أولًا
+    if (
+        northCoastKeywords.some(keyword => text.includes(keyword)) ||
+        northCoastArabicKeywords.some(keyword => text.includes(keyword))
+    ) {
+        return "north_coast";
+    }
+
+    // ==================================
+    // 🏙️ CAIRO
+    // ==================================
+
     const cairoKeywords = [
         "cairo", "new cairo", "giza", "6th of october", "6 october",
         "october", "sheikh zayed", "zayed", "dokki", "mohandessin",
@@ -815,10 +1260,10 @@ function getZone(geo) {
         "al shorouk", "badr", "rehab", "el rehab", "al rehab",
         "madinaty", "mostakbal city", "tagamoa", "tagamou", "tagamo3",
         "fifth settlement", "first settlement", "settlement",
-        "new administrative capital", "administrative capital", "capital",
+        "new administrative capital", "administrative capital",
         "smart village", "garden city", "hadayek october",
-        "october gardens", "sphinx", "grand egyptian museum", "gem",
-        "cairo international airport", "airport road"
+        "october gardens", "sphinx", "grand egyptian museum",
+        "cairo international airport"
     ];
 
     const cairoArabicKeywords = [
@@ -842,6 +1287,10 @@ function getZone(geo) {
     ) {
         return "cairo";
     }
+
+    // ==================================
+    // 🌊 ALEXANDRIA
+    // ==================================
 
     if (
         text.includes("alexandria") ||
@@ -931,15 +1380,29 @@ async function calculateRide({ from, to, carType, tripType, currency }) {
     const fromZone = getZone(distanceInfo.fromGeo);
     const toZone = getZone(distanceInfo.toGeo);
 
-    let zone;
+   let zone;
 
-    if (fromZone === "cairo" && toZone === "cairo") {
-        zone = "cairo";
-    } else if (fromZone === "alex" && toZone === "alex") {
-        zone = "alex";
-    } else {
-        zone = "travel";
-    }
+if (
+    fromZone === "north_coast" ||
+    toZone === "north_coast"
+	) {
+	    zone = "north_coast";
+	
+	} else if (
+	    fromZone === "cairo" &&
+	    toZone === "cairo"
+	) {
+	    zone = "cairo";
+	
+	} else if (
+	    fromZone === "alex" &&
+	    toZone === "alex"
+	) {
+	    zone = "alex";
+	
+	} else {
+	    zone = "travel";
+	}
 
     const rawPrice = calculateRawPrice(
         distanceInfo.distanceKm,
