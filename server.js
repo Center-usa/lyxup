@@ -748,11 +748,11 @@ const PRICING = {
   },
 
   north_coast: {
-	sedan: 18,
-	suv: 22,
-	h1: 29,
-	hiace: 32,
-	coaster: 45
+	sedan: 15.5,
+	suv: 20,
+	h1: 25,
+	hiace: 30,
+	coaster: 40
 },
 	
   travel: {
