@@ -734,9 +734,9 @@ const PRICING = {
   cairo: {
     sedan: 43.5,
     suv: 46.25,
-    h1: 49.25,
-    hiace: 55.75,
-    coaster: 70.5
+    h1: 70.25,
+    hiace: 80.75,
+    coaster: 100.5
   },
 
   alex: {
